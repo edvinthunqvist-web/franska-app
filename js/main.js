@@ -5,6 +5,7 @@ const root = document.getElementById('app');
 // Vilken sida som ska visas. Adressen ser ut som #/lektion/fr-u1-l1
 function route() {
   closeModal();
+  stopListening();
   const [path, queryString] = location.hash.slice(1).split('?');
   const parts = (path || '/').split('/').filter(Boolean);
   const query = new URLSearchParams(queryString || '');
@@ -14,6 +15,7 @@ function route() {
   // Ingen kurs än: visa kursvalet först
   if (!hasCourse && !['kurser', 'start'].includes(view)) { location.replace('#/kurser'); return; }
 
+  if (view !== 'spel' || !game?.active) stopGame();
   document.body.className = '';
   let html = '';
   switch (view) {
@@ -28,6 +30,10 @@ function route() {
       return;
     case 'klart': html = resultView(); document.body.className = 'bare focus'; break;
     case 'ova': html = practiceView(query); break;
+    case 'grammatik': html = parts[1] ? grammarTopicView(parts[1]) : grammarListView(); break;
+    case 'spel':
+      if (game?.active) { document.body.className = 'bare focus game-on'; return; }
+      html = gameStartView(); break;
     case 'ordlista': html = dictionaryView(); break;
     case 'skriv': html = writeView(parts[1]); break;
     case 'profil': html = profileView(); break;
@@ -83,12 +89,29 @@ document.addEventListener('click', (e) => {
       location.hash = '#/session';
       break;
     }
-    case 'again': {
-      const pool = practicePool(c);
-      startSession({ course: c, kind: 'practice', title: session.title, items: practiceSession(c, pool, practice.mode, practice.dir, practice.count) });
+    case 'again': startPractice(); break;
+
+    // Grammatik
+    case 'start-grammar': {
+      const topic = grammarFor(c).find((g) => g.slug === el.dataset.slug);
+      startSession({ course: c, kind: 'grammar', topicSlug: topic.slug, title: topic.title, items: grammarSession(topic) });
       location.hash = '#/session';
       break;
     }
+
+    // Spel
+    case 'game-mode': gameOpts.mode = el.dataset.v; rerender(); break;
+    case 'game-src': gameOpts.source = el.dataset.v; rerender(); break;
+    case 'game-start': case 'game-again': startGame(); break;
+    case 'game-pause': togglePause(); break;
+    case 'game-resume': togglePause(false); break;
+    case 'game-end': gameOver(); break;
+    case 'game-quit':
+      if (game && !game.over) gameOver();
+      else { stopGame(); route(); }
+      break;
+    case 'game-pick': gamePick(el.dataset.v, el); break;
+    case 'game-accent': insertAtCursor(document.getElementById('g-input'), el.dataset.char); break;
 
     // Öva
     case 'pr-weak': practice.weakOnly = el.dataset.v === '1'; rerender(); break;
@@ -146,6 +169,7 @@ document.addEventListener('click', (e) => {
     // Profil
     case 'set-goal': progress().plan.goal = Number(el.dataset.v); save(); rerender(); break;
     case 'toggle-tts': state.settings.tts = !state.settings.tts; save(); rerender(); break;
+    case 'toggle-mic': state.settings.mic = state.settings.mic === false; save(); rerender(); break;
     case 'test-voice': speak(c.id === 'fr' ? 'Bonjour ! Je m\'appelle Léa. Ça va ?' : '¡Hola! Me llamo Lucía. ¿Qué tal?', c.tts); break;
     case 'reset-course':
       showModal({
@@ -178,6 +202,7 @@ function insertAtCursor(field, text) {
 document.addEventListener('input', (e) => {
   if (location.hash.startsWith('#/session')) { onSessionInput(e); return; }
   const t = e.target;
+  if (t.id === 'g-input') { gameTyped(t); return; }
   if (t.id === 'dict-q') {
     dict.q = t.value;
     // Uppdatera bara listan så att sökfältet behåller fokus
@@ -232,6 +257,11 @@ document.addEventListener('submit', (e) => {
 
 document.addEventListener('keydown', (e) => {
   if (e.key === 'Escape' && document.querySelector('.modal')) { closeModal(); return; }
+  if (game?.active) {
+    if (e.key === 'Escape') togglePause();
+    if (e.key === 'Enter' && e.target.id === 'g-input') { e.preventDefault(); gameEnter(e.target); }
+    return;
+  }
   onSessionKey(e);
   // Enter i svarsfälten under Skriv skickar svaret
   if (e.key === 'Enter' && e.target.matches?.('.qa input[data-key]')) {
@@ -242,6 +272,11 @@ document.addEventListener('keydown', (e) => {
 
 // När rösterna har laddats ritas profilsidan om så att röstlistan syns
 if ('speechSynthesis' in window) window.speechSynthesis.addEventListener?.('voiceschanged', () => { if (location.hash.startsWith('#/profil')) rerender(); });
+
+// Kom ihåg vilken lucka du skrev i senast, så att accentknapparna hamnar rätt
+document.addEventListener('focusin', (e) => {
+  if (session && e.target.dataset?.gap !== undefined) session.ui.lastGap = Number(e.target.dataset.gap);
+});
 
 window.addEventListener('hashchange', route);
 migrateV1();

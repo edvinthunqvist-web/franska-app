@@ -76,6 +76,7 @@ function parsePairs(text) {
   if (!text) return [];
   return text.split('|').map((part) => {
     const i = part.indexOf('=');
+    if (i < 0) return [part.trim(), ''];
     return [part.slice(0, i).trim(), part.slice(i + 1).trim()];
   });
 }
@@ -113,6 +114,27 @@ function buildCourse(raw) {
 
 const COURSE_DATA = {};
 Object.values(window.COURSES).forEach((raw) => { COURSE_DATA[raw.id] = buildCourse(raw); });
+
+/* ---------- Grammatik ---------- */
+
+// Gör om en rubrik till en adress, t.ex. "Être och avoir" blir "etre-och-avoir"
+function slugify(text) {
+  return stripAccents(text).replace(/[^a-z0-9]+/g, '-').replace(/^-|-$/g, '');
+}
+
+const GRAMMAR_DATA = {};
+Object.entries(window.GRAMMAR || {}).forEach(([id, topics]) => {
+  GRAMMAR_DATA[id] = topics.map((g, idx) => ({
+    ...g,
+    idx,
+    slug: slugify(g.title),
+    sections: g.s.map((sec) => ({ h: sec.h, p: sec.p, table: parsePairs(sec.t) })),
+    examples: parsePairs(g.ex).map(([t, sv]) => ({ t, sv })),
+  }));
+});
+
+function grammarFor(course = activeCourse()) { return GRAMMAR_DATA[course.id] || []; }
+function grammarStat(courseId, slug) { return (progress(courseId).grammar || {})[slug] || null; }
 
 /* ---------- Sparning i localStorage ---------- */
 
@@ -383,6 +405,98 @@ function warnNoVoice(lang) {
   toast(`Din enhet har ingen ${name} röst, så uttalet blir fel. Se Profil för hur du lägger till en.`);
 }
 
+/* ---------- Taligenkänning (tala in) ---------- */
+
+// Chrome, Edge och Safari kan lyssna på mikrofonen och skriva ut vad du säger.
+// Firefox kan inte det än. Chrome skickar ljudet till Google för att tolka det.
+
+const SpeechRec = window.SpeechRecognition || window.webkitSpeechRecognition || null;
+let recognizer = null;
+
+function canListen() { return !!SpeechRec && state.settings.mic !== false; }
+
+// Lyssna en gång. onDone(alternativ) får en lista med vad webbläsaren tror att du sa.
+function listen(lang, { onInterim, onDone, onError }) {
+  stopListening();
+  try {
+    const r = new SpeechRec();
+    r.lang = lang;
+    r.interimResults = true;
+    r.maxAlternatives = 4;
+    r.continuous = false;
+    let finals = null;
+    r.onresult = (e) => {
+      const res = e.results[e.results.length - 1];
+      if (res.isFinal) finals = Array.from(res).map((a) => a.transcript);
+      else if (onInterim) onInterim(res[0].transcript);
+    };
+    r.onerror = (e) => { finals = null; recognizer = null; onError && onError(e.error); r.onend = null; };
+    r.onend = () => { recognizer = null; onDone && onDone(finals || []); };
+    r.start();
+    recognizer = r;
+  } catch (e) {
+    onError && onError('start');
+  }
+}
+
+function stopListening() {
+  if (recognizer) { try { recognizer.stop(); } catch (e) { /* redan stoppad */ } }
+}
+
+// Avstånd mellan två ord: hur många bokstäver som måste ändras
+function editDistance(a, b) {
+  const row = Array.from({ length: b.length + 1 }, (_, i) => i);
+  for (let i = 1; i <= a.length; i++) {
+    let prev = row[0];
+    row[0] = i;
+    for (let j = 1; j <= b.length; j++) {
+      const tmp = row[j];
+      row[j] = Math.min(row[j] + 1, row[j - 1] + 1, prev + (a[i - 1] === b[j - 1] ? 0 : 1));
+      prev = tmp;
+    }
+  }
+  return row[b.length];
+}
+
+function speechWords(text) {
+  return stripAccents(text).replace(/'/g, ' ').replace(/-/g, ' ').split(' ').filter(Boolean);
+}
+
+// Jämför det du sa med meningen. Ger vilka ord som hördes och en andel 0–1.
+function compareSpeech(target, heard) {
+  const want = speechWords(target);
+  const got = speechWords(heard);
+  const same = (a, b) => a === b || (a.length > 3 && editDistance(a, b) <= 1);
+  // Längsta gemensamma följd av ord
+  const dp = Array.from({ length: want.length + 1 }, () => new Array(got.length + 1).fill(0));
+  for (let i = want.length - 1; i >= 0; i--) {
+    for (let j = got.length - 1; j >= 0; j--) {
+      dp[i][j] = same(want[i], got[j]) ? dp[i + 1][j + 1] + 1 : Math.max(dp[i + 1][j], dp[i][j + 1]);
+    }
+  }
+  const hit = new Array(want.length).fill(false);
+  let i = 0; let j = 0;
+  while (i < want.length && j < got.length) {
+    if (same(want[i], got[j])) { hit[i] = true; i++; j++; }
+    else if (dp[i + 1][j] >= dp[i][j + 1]) i++;
+    else j++;
+  }
+  const n = hit.filter(Boolean).length;
+  const extra = Math.max(0, got.length - n);
+  const score = want.length ? Math.max(0, (n - extra * 0.25) / want.length) : 0;
+  return { score: Math.min(1, score), hit, words: want };
+}
+
+// Bästa tolkningen bland webbläsarens förslag
+function bestHeard(target, alternatives) {
+  let best = { score: -1, text: '' };
+  alternatives.forEach((text) => {
+    const r = compareSpeech(target, text);
+    if (r.score > best.score) best = { ...r, text };
+  });
+  return best;
+}
+
 /* ---------- Små meddelanden ---------- */
 
 function toast(text) {
@@ -427,6 +541,12 @@ const ICON_PATHS = {
   stamp: '<rect x="4" y="4" width="16" height="16" rx="1"/><path d="M8 4v-1M12 4v-1M16 4v-1M8 21v-1M12 21v-1M16 21v-1M4 8h-1M4 12h-1M4 16h-1M21 8h-1M21 12h-1M21 16h-1"/>',
   chevron: '<path d="M9 6l6 6-6 6"/>',
   down: '<path d="M6 9l6 6 6-6"/>',
+  mic: '<rect x="9" y="3" width="6" height="11" rx="3"/><path d="M5.5 11a6.5 6.5 0 0 0 13 0M12 17.5V21M8.5 21h7"/>',
+  game: '<rect x="2.5" y="7" width="19" height="11" rx="5.5"/><path d="M7.5 10.5v4M5.5 12.5h4"/><circle cx="15.5" cy="11.5" r=".6"/><circle cx="17.5" cy="13.5" r=".6"/>',
+  heart: '<path d="M12 20s-7.5-4.5-7.5-10A4.2 4.2 0 0 1 12 7.5 4.2 4.2 0 0 1 19.5 10c0 5.5-7.5 10-7.5 10z"/>',
+  pause: '<path d="M9 5v14M15 5v14"/>',
+  play: '<path d="M7 4.5l12 7.5-12 7.5z"/>',
+  drop: '<path d="M12 3.5c3 4 6 7.2 6 10.5a6 6 0 0 1-12 0c0-3.3 3-6.5 6-10.5z"/>',
   settings: '<circle cx="12" cy="12" r="3"/><path d="M12 2.5v3M12 18.5v3M4.2 4.2l2.1 2.1M17.7 17.7l2.1 2.1M2.5 12h3M18.5 12h3M4.2 19.8l2.1-2.1M17.7 6.3l2.1-2.1"/>',
 };
 

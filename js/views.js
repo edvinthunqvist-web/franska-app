@@ -4,9 +4,10 @@
 
 const NAV = [
   { hash: '#/kurs', label: 'Lär', icon: 'book' },
+  { hash: '#/grammatik', label: 'Grammatik', icon: 'grammar' },
   { hash: '#/ova', label: 'Öva', icon: 'cards' },
+  { hash: '#/spel', label: 'Spel', icon: 'game' },
   { hash: '#/ordlista', label: 'Ordlista', icon: 'list' },
-  { hash: '#/skriv', label: 'Skriv', icon: 'feather' },
   { hash: '#/profil', label: 'Profil', icon: 'user' },
 ];
 
@@ -300,6 +301,9 @@ function resultView() {
   const r = s.result;
   const c = s.course;
   const next = s.kind === 'lesson' ? nextLesson(c) : null;
+  const topics = s.kind === 'grammar' ? grammarFor(c) : [];
+  const topic = topics.find((g) => g.slug === s.topicSlug);
+  const nextTopic = topic ? topics[topic.idx + 1] : null;
   const goal = dailyGoal();
   const today = xpToday();
   const mins = Math.floor(r.secs / 60);
@@ -309,9 +313,9 @@ function resultView() {
   <div class="result">
     <div class="result-card">
       <span class="result-stamp">${icon('star')}</span>
-      <span class="eyebrow">${s.kind === 'lesson' ? 'Lektion klar' : 'Övning klar'}</span>
+      <span class="eyebrow">${s.kind === 'lesson' ? 'Lektion klar' : s.kind === 'grammar' ? 'Grammatik klar' : 'Övning klar'}</span>
       <h1>${msg}</h1>
-      <p class="lead" lang="${c.tts}">${esc(s.title)}</p>
+      <p class="lead" ${s.kind === 'lesson' ? `lang="${c.tts}"` : ''}>${esc(s.title)}</p>
       <div class="result-stats">
         <div><strong>+${r.xp}</strong><span>XP</span></div>
         <div><strong>${r.pct}%</strong><span>rätt direkt</span></div>
@@ -325,6 +329,8 @@ function resultView() {
       <div class="result-actions">
         ${s.kind === 'lesson'
           ? `<a class="btn ghost" href="#/kurs">Till kursvägen</a>${next ? `<a class="btn primary" href="#/lektion/${next.id}">Nästa lektion ${icon('arrow')}</a>` : ''}`
+          : s.kind === 'grammar'
+          ? `<a class="btn ghost" href="#/grammatik/${s.topicSlug}">Läs igen</a>${nextTopic ? `<a class="btn primary" href="#/grammatik/${nextTopic.slug}">Nästa moment ${icon('arrow')}</a>` : `<a class="btn primary" href="#/grammatik">Alla moment</a>`}`
           : `<a class="btn ghost" href="#/ova">Ny övning</a><button class="btn primary" data-act="again">Kör igen ${icon('repeat')}</button>`}
       </div>
     </div>
@@ -341,6 +347,7 @@ const MODES = [
   { id: 'medium', label: 'Para ihop', sub: 'Matcha ord och översättning', level: 'Medel', icon: 'link' },
   { id: 'hard', label: 'Skriv', sub: 'Skriv svaret själv', level: 'Svår', icon: 'pencil' },
   { id: 'mixed', label: 'Blandat', sub: 'Allt blandat med uppläsning', level: 'Mix', icon: 'repeat' },
+  { id: 'speak', label: 'Tala', sub: 'Säg meningar högt i mikrofonen', level: 'Uttal', icon: 'mic' },
 ];
 
 function practicePool(c) {
@@ -359,7 +366,9 @@ function practiceView(query) {
     const started = c.units.filter((u) => u.lessons.some((l) => lessonDone(c.id, l.id))).map((u) => u.idx);
     practice = { ...practice, courseId: c.id, units: started.length ? started : [0] };
   }
-  const pool = practicePool(c);
+  const speaking = practice.mode === 'speak';
+  const pool = speaking ? speakPool(c) : practicePool(c);
+  const unit = speaking ? 'meningar' : 'ord';
   const weak = weakWords(c).length;
   const customCount = progress(c.id).custom.length;
   const counts = [10, 20, 30];
@@ -404,31 +413,149 @@ function practiceView(query) {
       <aside class="col-side">
         <section class="panel">
           <h2 class="panel-title">${icon('target')} Svårighet</h2>
-          <div class="modes">${MODES.map((m) => `
-            <button class="mode ${practice.mode === m.id ? 'on' : ''}" data-act="pr-mode" data-v="${m.id}">
-              ${icon(m.icon)}<span><strong>${m.label}</strong><small>${m.sub}</small></span><em>${m.level}</em>
-            </button>`).join('')}</div>
+          <div class="modes">${MODES.map((m) => {
+            const off = m.id === 'speak' && !canListen();
+            return `<button class="mode ${practice.mode === m.id ? 'on' : ''}" data-act="pr-mode" data-v="${m.id}" ${off ? 'disabled' : ''}>
+              ${icon(m.icon)}<span><strong>${m.label}</strong><small>${off ? (SpeechRec ? 'Avstängt under Profil' : 'Fungerar i Chrome, Edge och Safari') : m.sub}</small></span><em>${m.level}</em>
+            </button>`;
+          }).join('')}</div>
+          ${speaking ? '<p class="muted small">Du får höra meningen, säger den högt och ser vilka ord som hördes rätt. Chrome skickar ljudet till Google för att tolka det.</p>' : `
           <h3 class="mini-title">Riktning</h3>
           <div class="seg full">
             <button class="${practice.dir === 't' ? 'on' : ''}" data-act="pr-dir" data-v="t">${esc(c.name)} → svenska</button>
             <button class="${practice.dir === 'sv' ? 'on' : ''}" data-act="pr-dir" data-v="sv">Svenska → ${esc(c.name.toLowerCase())}</button>
-          </div>
+          </div>`}
           <h3 class="mini-title">Antal frågor</h3>
           <div class="seg full">${counts.map((n) => `<button class="${practice.count === n ? 'on' : ''}" data-act="pr-count" data-v="${n}">${n}</button>`).join('')}</div>
-          <button class="btn primary wide start-btn" data-act="pr-start" ${pool.length >= 4 ? '' : 'disabled'}>Starta · ${pool.length} ord ${icon('arrow')}</button>
-          ${pool.length < 4 ? '<p class="muted small center">Välj minst fyra ord för att starta.</p>' : ''}
+          <button class="btn primary wide start-btn" data-act="pr-start" ${pool.length >= 4 ? '' : 'disabled'}>Starta · ${pool.length} ${unit} ${icon('arrow')}</button>
+          ${pool.length < 4 ? `<p class="muted small center">Välj minst fyra ${unit} för att starta.</p>` : ''}
         </section>
+        <a class="panel link-panel" href="#/skriv">
+          ${icon('feather')}
+          <div><h3>Skriv och svara</h3><p class="muted">Skriv texter och svara på frågor</p></div>
+          ${icon('chevron')}
+        </a>
+        <a class="panel link-panel" href="#/spel">
+          ${icon('game')}
+          <div><h3>Spela Ordregn</h3><p class="muted">Översätt orden innan de landar</p></div>
+          ${icon('chevron')}
+        </a>
       </aside>
     </div>`, '#/ova');
 }
 
 function startPractice() {
   const c = activeCourse();
+  if (practice.mode === 'speak') {
+    const sents = speakPool(c);
+    if (sents.length < 4 || !canListen()) return;
+    const chosen = shuffle(sents).slice(0, practice.count);
+    startSession({ course: c, kind: 'practice', title: `Tala · ${chosen.length} meningar`, items: chosen.map(speakItem) });
+    location.hash = '#/session';
+    return;
+  }
   const pool = practicePool(c);
   if (pool.length < 4) return;
   const mode = MODES.find((m) => m.id === practice.mode);
   startSession({ course: c, kind: 'practice', title: `${mode.label} · ${pool.length} ord`, items: practiceSession(c, pool, practice.mode, practice.dir, practice.count) });
   location.hash = '#/session';
+}
+
+/* ---------- Grammatik ---------- */
+
+const STEP_INFO = {
+  1: 'Grunderna: vara, ha, presens och enkla frågor',
+  2: 'Vardagen: fler verb, framtid och reflexiva verb',
+  3: 'Berätta om det som hänt',
+  4: 'Berätta mer nyanserat om dåtid och framtid',
+  5: 'Önskningar, villkor och längre meningar',
+};
+
+function grammarListView() {
+  const c = activeCourse();
+  const topics = grammarFor(c);
+  if (!topics.length) return shell('<div class="page-head"><h1>Grammatik kommer snart</h1></div>', '#/grammatik');
+  const done = topics.filter((g) => grammarStat(c.id, g.slug)?.done).length;
+  const nextUp = topics.find((g) => !grammarStat(c.id, g.slug)?.done);
+  const steps = [...new Set(topics.map((g) => g.step))];
+  return shell(`
+    <div class="page-head">
+      <span class="eyebrow">Grammatik · ${esc(c.name)} steg 1–${Math.max(...steps)}</span>
+      <h1>Grammatiken, steg för steg</h1>
+      <p class="lead">Allt från gymnasiets ${esc(c.name.toLowerCase())} 1 till ${esc(c.name.toLowerCase())} ${Math.max(...steps)}. Läs förklaringen, lyssna på exemplen och öva direkt. ${done} av ${topics.length} moment klara.</p>
+      <div class="progress"><div class="bar" style="width:${done / topics.length * 100}%"></div></div>
+    </div>
+    ${nextUp ? `
+    <a class="hero-card small" href="#/grammatik/${nextUp.slug}">
+      <div><span class="eyebrow">Nästa moment · Steg ${nextUp.step}</span><h2>${esc(nextUp.title)}</h2><p>${esc(nextUp.intro)}</p></div>
+      <span class="btn primary">Läs och öva ${icon('arrow')}</span>
+    </a>` : ''}
+    ${steps.map((step) => `
+    <section class="g-step">
+      <div class="g-step-head"><span class="lang-stamp small">${step}</span><div><h2>Steg ${step}</h2><p class="muted">${STEP_INFO[step] || ''}</p></div></div>
+      <div class="g-grid">${topics.filter((g) => g.step === step).map((g) => {
+        const st = grammarStat(c.id, g.slug);
+        return `<a class="g-card ${st?.done ? 'done' : ''}" href="#/grammatik/${g.slug}">
+          <span class="g-icon">${icon(st?.done ? 'check' : 'grammar')}</span>
+          <span class="g-text"><strong>${esc(g.title)}</strong><small>${esc(g.intro)}</small></span>
+          ${st?.done ? `<span class="stamp">${st.best}%</span>` : `<span class="g-count">${g.q.length} frågor</span>`}
+        </a>`;
+      }).join('')}</div>
+    </section>`).join('')}`, '#/grammatik');
+}
+
+function grammarTable(table, lang) {
+  return `<table class="gtable">${table.map(([a, b]) => b
+    ? `<tr><td lang="${lang}">${esc(a)}</td><td>${esc(b)}</td></tr>`
+    : `<tr><td lang="${lang}" colspan="2">${esc(a)}</td></tr>`).join('')}</table>`;
+}
+
+function grammarTopicView(slug) {
+  const c = activeCourse();
+  const topics = grammarFor(c);
+  const g = topics.find((t) => t.slug === slug);
+  if (!g) return notFound();
+  const st = grammarStat(c.id, g.slug);
+  const prev = topics[g.idx - 1];
+  const next = topics[g.idx + 1];
+  return shell(`
+    <div class="lesson-page grammar-page">
+      <a class="back-link" href="#/grammatik">${icon('back')} Alla moment</a>
+      <header class="lesson-head">
+        <span class="eyebrow">Steg ${g.step} · Moment ${g.idx + 1} av ${topics.length}</span>
+        <h1>${esc(g.title)}</h1>
+        <p class="lead">${esc(g.intro)}</p>
+        ${st?.done ? `<span class="stamp">Klar · ${st.best}%</span>` : ''}
+      </header>
+      <div class="lesson-grid">
+        ${g.sections.map((sec) => `
+        <section class="panel">
+          <h2 class="panel-title">${icon('grammar')} ${esc(sec.h)}</h2>
+          ${sec.p ? `<p>${esc(sec.p)}</p>` : ''}
+          ${sec.table.length ? grammarTable(sec.table, c.tts) : ''}
+        </section>`).join('')}
+        <section class="panel">
+          <h2 class="panel-title">${icon('book')} Exempel</h2>
+          <ul class="examples">${g.examples.map((x) => `
+            <li><span class="say"><span lang="${c.tts}">${esc(x.t)}</span>${speakBtn(x.t)}</span><span class="tr">${esc(x.sv)}</span></li>`).join('')}</ul>
+        </section>
+        ${g.m && g.m.length ? `
+        <section class="panel warn-panel">
+          <h2 class="panel-title">${icon('target')} Vanliga misstag</h2>
+          <ul class="mistakes">${g.m.map((x) => `<li>${esc(x)}</li>`).join('')}</ul>
+        </section>` : ''}
+      </div>
+      <nav class="g-pager">
+        ${prev ? `<a class="btn ghost small" href="#/grammatik/${prev.slug}">${icon('back')} ${esc(prev.title)}</a>` : '<span></span>'}
+        ${next ? `<a class="btn ghost small" href="#/grammatik/${next.slug}">${esc(next.title)} ${icon('arrow')}</a>` : ''}
+      </nav>
+      <div class="sticky-cta">
+        <div class="cta-inner">
+          <span class="muted">${g.q.length} övningar · fyll i och välj rätt form · ${st?.done ? 'repetera för extra XP' : '10+ XP'}</span>
+          <button class="btn primary" data-act="start-grammar" data-slug="${g.slug}">${st?.done ? 'Öva igen' : 'Öva på det här'} ${icon('arrow')}</button>
+        </div>
+      </div>
+    </div>`, '#/grammatik');
 }
 
 /* ---------- Ordlista ---------- */
@@ -618,6 +745,11 @@ function profileView() {
         <h3 class="mini-title">Uppläsning</h3>
         <button class="toggle ${state.settings.tts ? 'on' : ''}" data-act="toggle-tts" aria-pressed="${state.settings.tts}"><span class="knob"></span>${state.settings.tts ? 'På: orden läses upp' : 'Av'}</button>
         ${voiceSettings(c)}
+        <h3 class="mini-title">Tala in</h3>
+        ${SpeechRec
+          ? `<button class="toggle ${state.settings.mic !== false ? 'on' : ''}" data-act="toggle-mic" aria-pressed="${state.settings.mic !== false}"><span class="knob"></span>${state.settings.mic !== false ? 'På: uttalsövningar ingår' : 'Av'}</button>
+             <p class="muted small">Webbläsaren frågar om lov att använda mikrofonen första gången. I Chrome tolkas ljudet av Google.</p>`
+          : '<p class="muted small">Din webbläsare kan inte lyssna på tal. Använd Chrome, Edge eller Safari för uttalsövningar.</p>'}
         <h3 class="mini-title">Kursen</h3>
         <div class="row-btns">
           <a class="btn ghost small" href="#/kurser">${icon('globe')} Byt eller lägg till kurs</a>

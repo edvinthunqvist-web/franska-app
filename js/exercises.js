@@ -8,6 +8,8 @@
 //   build   – bygg en mening av ordbrickor
 //   cloze   – välj ordet som saknas i en mening
 //   card    – flashcard: vänd kortet och säg om du kunde
+//   gap     – grammatik: skriv ordet eller orden som saknas
+//   speak   – tala in: säg meningen högt i mikrofonen
 
 /* ---------- Skapa övningar ---------- */
 
@@ -104,6 +106,100 @@ function clozeItem(course, sentence) {
   };
 }
 
+/* ---------- Grammatikövningar ---------- */
+
+// "Yo ___ español. (hablar)" blir texten och ledtråden i parentesen
+function splitHint(q) {
+  const m = q.match(/^(.*?)\s*\(([^)]*)\)\s*$/);
+  return m ? { text: m[1], hint: m[2] } : { text: q, hint: '' };
+}
+
+// Delar upp ett facit på luckorna: "ne pas" med två luckor blir ["ne", "pas"]
+function gapPieces(alt, blanks) {
+  const words = alt.trim().split(/\s+/);
+  if (blanks === 1) return [alt.trim()];
+  return [...words.slice(0, blanks - 1), words.slice(blanks - 1).join(' ')];
+}
+
+// Stor bokstav om luckan står först i meningen
+function capIfStart(before, word) {
+  return /^[¿¡]?$/.test(before.trim()) ? word.charAt(0).toUpperCase() + word.slice(1) : word;
+}
+
+function fillGaps(parts, pieces) {
+  return parts.reduce((acc, part, i) => acc + part + (i < pieces.length ? (i === 0 ? capIfStart(part, pieces[i]) : pieces[i]) : ''), '')
+    .replace(/' /g, "'");
+}
+
+function gapItem(q) {
+  const [question, answer, sv] = q;
+  const { text, hint } = splitHint(question);
+  const parts = text.split('___');
+  const blanks = parts.length - 1;
+  const alts = answer.split(' / ').map((a) => gapPieces(a, blanks));
+  return { type: 'gap', parts, blanks, alts, hint, sv, say: fillGaps(parts, alts[0]) };
+}
+
+// Välj-variant av en grammatikfråga (bara med en lucka)
+function grammarCloze(q, others) {
+  const [question, answer, sv] = q;
+  const { text, hint } = splitHint(question);
+  const parts = text.split('___');
+  if (parts.length !== 2) return null;
+  const right = answer.split(' / ')[0].trim();
+  const used = new Set([stripAccents(right)]);
+  const wrong = [];
+  shuffle(others).forEach((o) => {
+    const a = o.split(' / ')[0].trim();
+    if (!used.has(stripAccents(a)) && wrong.length < 3) { used.add(stripAccents(a)); wrong.push(a); }
+  });
+  if (wrong.length < 3) return null;
+  const cap = (w) => capIfStart(parts[0], w);
+  return {
+    type: 'cloze', before: parts[0], after: parts[1], answer: cap(right), sv, hint,
+    say: fillGaps(parts, [right]), options: shuffle([right, ...wrong]).map(cap), optionsAreTarget: true,
+  };
+}
+
+// Rätta en lucka: accenter ger "nästan", apostrof får saknas
+function gapCheck(item, typed) {
+  const clean = (t) => normalize(t).replace(/'/g, '').replace(/\s+/g, ' ').trim();
+  const bare = (t) => stripAccents(t).replace(/'/g, '').replace(/\s+/g, ' ').trim();
+  let almost = false;
+  for (const pieces of item.alts) {
+    const exact = pieces.every((p, i) => clean(typed[i] || '') === clean(p));
+    if (exact) return { ok: true, almost: false };
+    if (pieces.every((p, i) => bare(typed[i] || '') === bare(p))) almost = true;
+  }
+  return { ok: almost, almost };
+}
+
+function grammarSession(topic) {
+  const answers = topic.q.filter((q) => q[0].split('___').length === 2).map((q) => q[1]);
+  return shuffle(topic.q).map((q, i) => {
+    if (i % 3 === 1) {
+      const c = grammarCloze(q, answers.filter((a) => a !== q[1]));
+      if (c) return c;
+    }
+    return gapItem(q);
+  });
+}
+
+/* ---------- Tala in ---------- */
+
+function speakItem(sentence) {
+  return { type: 'speak', say: sentence.t, sv: sentence.sv };
+}
+
+// Meningar att säga högt från de valda enheterna
+function speakPool(c) {
+  const units = practice.weakOnly
+    ? [...new Set(weakWords(c).map((w) => w.unitIdx))]
+    : (practice.units || []);
+  return c.lessons.filter((l) => units.includes(l.unitIdx)).flatMap((l) => l.sentences.concat(l.dialog.map((d) => ({ t: d.t, sv: d.sv }))))
+    .filter((s) => s.t.split(' ').length <= 12);
+}
+
 // En lektionsomgång: först lära känna orden, sedan använda dem i meningar
 function lessonSession(course, lesson) {
   const words = shuffle(lesson.words);
@@ -118,6 +214,7 @@ function lessonSession(course, lesson) {
   if (sents[1]) { const c = clozeItem(course, sents[1]); if (c) items.push(c); }
   words.slice(0, 2).forEach((w) => items.push(writeItem(w, 'sv')));
   if (sents[2]) items.push(buildItem(course, sents[2], true));
+  if (canListen() && (sents[3] || sents[0])) items.push(speakItem(sents[3] || sents[0]));
 
   // Repetition: ett par ord från tidigare lektioner
   const i = course.lessons.indexOf(lesson);
@@ -171,6 +268,8 @@ function startSession(opts) {
     points: 0,
     answeredWrong: 0,
     started: Date.now(),
+    skipped: 0,
+    noMic: false,
     retried: new Set(),
     ui: null,
   };
@@ -181,7 +280,9 @@ function current() { return session.items[session.i]; }
 
 function resetUi() {
   const item = current();
-  session.ui = { picked: null, typed: '', built: [], checked: false, result: null, flipped: false, match: null };
+  session.ui = { picked: null, typed: '', built: [], checked: false, result: null, flipped: false, match: null,
+    gaps: item && item.type === 'gap' ? new Array(item.blanks).fill('') : [], lastGap: 0,
+    mic: { state: 'idle', heard: '', interim: '', error: null, tries: 0, best: null, scored: false } };
   if (item && item.type === 'match') {
     session.ui.match = {
       left: shuffle(item.pairs.map((p) => p.id)),
@@ -288,9 +389,62 @@ function exerciseHtml(item) {
       <p class="ex-label">Välj ordet som saknas</p>
       <div class="prompt-card sentence">
         <span class="prompt-sentence" lang="${lang}">${esc(item.before)}${fill}${esc(item.after)}</span>
+        ${item.hint ? `<span class="gap-hint">${esc(item.hint)}</span>` : ''}
         <span class="hint">${esc(item.sv)}</span>
       </div>
       ${optionsHtml(item)}`;
+  }
+
+  if (item.type === 'gap') {
+    const r = ui.result;
+    const inputs = item.parts.map((part, i) => {
+      if (i === item.blanks) return esc(part);
+      const len = Math.max(...item.alts.map((a) => a[i].length));
+      const cls = ui.checked ? (r.ok ? 'right' : 'wrong') : '';
+      return `${esc(part)}<input class="gap-input ${cls}" id="gap${i}" data-gap="${i}" size="${Math.max(4, len + 1)}" autocomplete="off" autocapitalize="off" spellcheck="false"
+        value="${esc(ui.gaps[i])}" aria-label="Lucka ${i + 1}" ${ui.checked ? 'disabled' : ''}>`;
+    }).join('');
+    return `
+      <p class="ex-label">${item.blanks > 1 ? 'Fyll i orden som saknas' : 'Fyll i det som saknas'}</p>
+      <div class="prompt-card sentence gap-card">
+        <span class="prompt-sentence" lang="${lang}">${inputs}</span>
+        ${item.hint ? `<span class="gap-hint">${esc(item.hint)}</span>` : ''}
+        <span class="hint">${esc(item.sv)}</span>
+      </div>
+      ${accentBar(lang)}`;
+  }
+
+  if (item.type === 'speak') {
+    const m = ui.mic;
+    const words = item.say.split(' ');
+    let sentence = targetText(item.say, lang);
+    if (m.best && m.state === 'done') {
+      // Färga orden: grönt = hördes, rött = hördes inte
+      let k = 0;
+      sentence = `<span lang="${lang}">${words.map((w) => {
+        const n = speechWords(w).length;
+        const ok = n === 0 || m.best.hit.slice(k, k + n).every(Boolean);
+        k += n;
+        return `<span class="sw ${ok ? 'ok' : 'miss'}">${esc(w)}</span>`;
+      }).join(' ')}</span>`;
+    }
+    const status = {
+      idle: 'Lyssna först om du vill. Tryck sedan på mikrofonen och läs meningen högt.',
+      listening: m.interim ? `Jag hör: ${m.interim}` : 'Lyssnar… läs meningen nu.',
+      done: m.heard ? `Jag hörde: ”${m.heard}”` : 'Jag hörde inget.',
+      error: MIC_ERRORS[m.error] || 'Något gick fel med mikrofonen. Försök igen.',
+    }[m.state];
+    return `
+      <p class="ex-label">Säg meningen högt</p>
+      <div class="prompt-card sentence">
+        ${speakBtn(item.say)}
+        <span class="prompt-sentence">${sentence}</span>
+        <span class="hint">${esc(item.sv)}</span>
+      </div>
+      <div class="mic-area">
+        <button class="mic-btn ${m.state === 'listening' ? 'on' : ''}" data-act="mic" aria-label="${m.state === 'listening' ? 'Sluta lyssna' : 'Tala in'}" ${ui.checked && ui.result.ok ? 'disabled' : ''}>${icon('mic')}</button>
+        <p class="mic-status" aria-live="polite">${esc(status)}</p>
+      </div>`;
   }
 
   if (item.type === 'match') {
@@ -328,6 +482,15 @@ function exerciseHtml(item) {
   return '';
 }
 
+const MIC_ERRORS = {
+  'not-allowed': 'Mikrofonen är blockerad. Tillåt mikrofonen via ikonen i adressfältet och försök igen.',
+  'service-not-allowed': 'Webbläsaren tillåter inte taligenkänning här. Prova Chrome eller Safari.',
+  'no-speech': 'Jag hörde inget. Försök igen och prata lite högre.',
+  'audio-capture': 'Ingen mikrofon hittades.',
+  network: 'Taligenkänningen behöver internet. Kontrollera uppkopplingen.',
+  start: 'Mikrofonen kunde inte starta. Försök igen.',
+};
+
 // Knappar för franska och spanska tecken som är svåra att skriva på svenskt tangentbord
 function accentBar(lang) {
   const chars = lang.startsWith('fr') ? ['é', 'è', 'ê', 'à', 'ç', 'ô', 'î', 'ù', 'œ'] : ['á', 'é', 'í', 'ó', 'ú', 'ñ', 'ü', '¿', '¡'];
@@ -354,6 +517,25 @@ function footerHtml(item) {
       <button class="btn primary" data-act="next" autofocus>Fortsätt</button></div></div>`;
   }
 
+  if (item.type === 'speak') {
+    const m = ui.mic;
+    if (!ui.checked) {
+      return `<div class="session-foot"><div class="foot-inner">
+        <button class="btn ghost" data-act="no-mic">Kan inte prata nu</button>
+        <button class="btn primary" data-act="mic">${icon('mic')} ${m.state === 'listening' ? 'Lyssnar…' : m.tries ? 'Försök igen' : 'Tala'}</button></div></div>`;
+    }
+    const pct = Math.round(m.best.score * 100);
+    const hits = m.best.hit.filter(Boolean).length;
+    if (ui.result.ok) {
+      return `<div class="session-foot ok"><div class="foot-inner">
+        <div class="verdict">${icon('check')}<div><strong>${pct >= 95 ? 'Perfekt uttal!' : 'Bra uttalat!'}</strong><span>${hits} av ${m.best.words.length} ord hördes rätt</span></div></div>
+        <button class="btn primary" data-act="next">Fortsätt</button></div></div>`;
+    }
+    return `<div class="session-foot bad"><div class="foot-inner">
+      <div class="verdict">${icon('x')}<div><strong>${pct >= 50 ? 'Nästan där' : 'Försök igen'}</strong><span>${hits} av ${m.best.words.length} ord hördes. Lyssna och försök igen.</span></div></div>
+      <div class="foot-btns"><button class="btn ghost" data-act="next">Fortsätt</button><button class="btn primary" data-act="mic">${icon('mic')} Igen</button></div></div></div>`;
+  }
+
   if (!ui.checked) {
     const ready = canCheck(item);
     return `<div class="session-foot"><div class="foot-inner">
@@ -362,8 +544,8 @@ function footerHtml(item) {
   }
 
   const r = ui.result;
-  const showAnswer = item.type === 'write' && !item.promptIsTarget || item.type === 'build' && item.intoTarget || item.type === 'cloze';
-  const answerText = item.type === 'cloze' ? item.before + item.answer + item.after : item.answer;
+  const showAnswer = item.type === 'write' && !item.promptIsTarget || item.type === 'build' && item.intoTarget || item.type === 'cloze' || item.type === 'gap';
+  const answerText = item.type === 'cloze' || item.type === 'gap' ? item.say : item.answer;
   return `<div class="session-foot ${r.ok ? 'ok' : 'bad'}"><div class="foot-inner">
     <div class="verdict">${icon(r.ok ? 'check' : 'x')}<div>
       <strong>${r.ok ? (r.almost ? 'Nästan perfekt!' : pick(['Rätt!', 'Snyggt!', 'Bra jobbat!', 'Exakt!'])) : 'Inte riktigt'}</strong>
@@ -376,6 +558,8 @@ function canCheck(item) {
   const ui = session.ui;
   if (item.type === 'write') return ui.typed.trim().length > 0;
   if (item.type === 'build') return ui.built.length > 0;
+  if (item.type === 'gap') return ui.gaps.every((g) => g.trim().length > 0);
+  if (item.type === 'speak') return false;
   return ui.picked !== null;
 }
 
@@ -386,6 +570,7 @@ function check() {
   let result;
   if (item.type === 'write') result = checkAnswer(ui.typed, item.answer);
   else if (item.type === 'build') result = checkAnswer(ui.built.map((id) => item.tiles[id].text).join(' '), item.answer);
+  else if (item.type === 'gap') result = gapCheck(item, ui.gaps);
   else result = { ok: ui.picked === item.answer, almost: false };
   ui.checked = true;
   ui.result = result;
@@ -406,7 +591,7 @@ function scoreItem(item, ok) {
     if (!isRetry) { s.firstTry++; s.points++; }
   } else {
     s.answeredWrong++;
-    if (!isRetry && item.type !== 'card') {
+    if (!isRetry && item.type !== 'card' && item.type !== 'speak') {
       s.items.push(item);
       s.retried.add(s.items.length - 1);
     } else {
@@ -417,7 +602,19 @@ function scoreItem(item, ok) {
 }
 
 function nextItem() {
+  const item = current();
+  // En taluppgift som inte blev rätt räknas som klar, men inte som rätt
+  if (item && item.type === 'speak' && !session.ui.mic.scored) {
+    session.ui.mic.scored = true;
+    if (session.ui.mic.tries) { session.finished++; session.answeredWrong++; }
+    else { session.finished++; session.skipped++; }
+  }
+  stopListening();
   session.i++;
+  // Har du sagt att du inte kan prata hoppar vi över resten av taluppgifterna
+  while (session.noMic && session.i < session.items.length && current().type === 'speak') {
+    session.finished++; session.skipped++; session.i++;
+  }
   if (session.i >= session.items.length) return finishSession();
   resetUi();
   renderSession();
@@ -425,13 +622,20 @@ function nextItem() {
 
 function finishSession() {
   const s = session;
-  const scored = s.total;
+  const scored = s.total - s.skipped;
   const pct = Math.round((s.firstTry / Math.max(1, scored)) * 100);
-  let xp = s.kind === 'lesson' ? 10 + s.firstTry : s.points;
+  let xp = s.kind === 'practice' ? s.points : 10 + s.firstTry;
   if (s.kind === 'lesson') {
     const p = progress(s.course.id);
     const prev = p.lessons[s.lessonId] || {};
     p.lessons[s.lessonId] = { done: true, best: Math.max(prev.best || 0, pct), count: (prev.count || 0) + 1 };
+    if (prev.done) xp = Math.round(xp / 2) + 2;
+  }
+  if (s.kind === 'grammar') {
+    const p = progress(s.course.id);
+    p.grammar = p.grammar || {};
+    const prev = p.grammar[s.topicSlug] || {};
+    p.grammar[s.topicSlug] = { done: true, best: Math.max(prev.best || 0, pct), count: (prev.count || 0) + 1 };
     if (prev.done) xp = Math.round(xp / 2) + 2;
   }
   addXp(xp);
@@ -445,7 +649,8 @@ function finishSession() {
 function renderSession() {
   const root = document.getElementById('app');
   root.innerHTML = sessionHtml();
-  const input = document.getElementById('answer');
+  const gap = document.getElementById(`gap${session.ui.lastGap}`);
+  const input = document.getElementById('answer') || (gap && !gap.disabled ? gap : null);
   if (input && !session.ui.checked) {
     input.focus();
     input.setSelectionRange(input.value.length, input.value.length);
@@ -466,12 +671,26 @@ function onSessionClick(e) {
   if (act === 'speak') { speak(el.dataset.text, session.course.tts); return; }
   if (act === 'pick' && !ui.checked) { ui.picked = el.dataset.val; if (item.optionsAreTarget) speak(ui.picked, session.course.tts); }
   if (act === 'accent') {
-    const input = document.getElementById('answer');
-    const pos = input.selectionStart ?? ui.typed.length;
-    ui.typed = ui.typed.slice(0, pos) + el.dataset.char + ui.typed.slice(input.selectionEnd ?? pos);
+    const id = item.type === 'gap' ? `gap${ui.lastGap}` : 'answer';
+    const input = document.getElementById(id);
+    const value = item.type === 'gap' ? ui.gaps[ui.lastGap] : ui.typed;
+    const pos = input.selectionStart ?? value.length;
+    const next = value.slice(0, pos) + el.dataset.char + value.slice(input.selectionEnd ?? pos);
+    if (item.type === 'gap') ui.gaps[ui.lastGap] = next; else ui.typed = next;
     renderSession();
-    const again = document.getElementById('answer');
+    const again = document.getElementById(id);
+    again.focus();
     again.setSelectionRange(pos + 1, pos + 1);
+    return;
+  }
+  if (act === 'mic') { toggleMic(); return; }
+  if (act === 'no-mic') {
+    session.noMic = true;
+    stopListening();
+    ui.mic.scored = true;
+    session.finished++; session.skipped++;
+    toast('Okej! Taluppgifterna hoppas över resten av omgången.');
+    nextItem();
     return;
   }
   if (act === 'build' && !ui.checked) ui.built.push(Number(el.dataset.id));
@@ -483,6 +702,54 @@ function onSessionClick(e) {
   if (act === 'card-yes' || act === 'card-no') { scoreItem(item, act === 'card-yes'); nextItem(); return; }
   if (act === 'match') handleMatch(el.dataset.side, el.dataset.id);
   renderSession();
+}
+
+// Starta eller stoppa mikrofonen i en taluppgift
+function toggleMic() {
+  const ui = session.ui;
+  const item = current();
+  const m = ui.mic;
+  if (m.state === 'listening') { stopListening(); return; }
+  if (ui.checked && ui.result.ok) return;
+  if (!canListen()) { m.state = 'error'; m.error = 'service-not-allowed'; renderSession(); return; }
+  window.speechSynthesis?.cancel();
+  ui.checked = false;
+  ui.result = null;
+  m.state = 'listening'; m.interim = ''; m.error = null;
+  renderSession();
+  const mine = ui;
+  listen(session.course.tts, {
+    onInterim: (text) => {
+      if (session?.ui !== mine) return;
+      m.interim = text;
+      const el = document.querySelector('.mic-status');
+      if (el) el.textContent = `Jag hör: ${text}`;
+    },
+    onDone: (alts) => {
+      if (session?.ui !== mine) return;
+      if (!alts.length) { m.state = 'error'; m.error = m.error || 'no-speech'; renderSession(); return; }
+      m.tries++;
+      m.best = bestHeard(item.say, alts);
+      m.heard = m.best.text;
+      m.state = 'done';
+      const ok = m.best.score >= 0.75;
+      ui.checked = true;
+      ui.result = { ok, almost: false };
+      if (ok && !m.scored) {
+        m.scored = true;
+        const s = session;
+        s.finished++;
+        if (m.tries === 1) { s.firstTry++; s.points++; }
+        save();
+      }
+      renderSession();
+    },
+    onError: (err) => {
+      if (session?.ui !== mine) return;
+      if (err === 'aborted') { m.state = m.best ? 'done' : 'idle'; renderSession(); return; }
+      m.state = 'error'; m.error = err; renderSession();
+    },
+  });
 }
 
 function handleMatch(side, id) {
@@ -512,6 +779,12 @@ function handleMatch(side, id) {
 }
 
 function onSessionInput(e) {
+  if (e.target.dataset.gap !== undefined && session) {
+    session.ui.gaps[Number(e.target.dataset.gap)] = e.target.value;
+    session.ui.lastGap = Number(e.target.dataset.gap);
+    const btn = document.querySelector('[data-act="check"]');
+    if (btn) btn.disabled = !canCheck(current());
+  }
   if (e.target.id === 'answer' && session) {
     session.ui.typed = e.target.value;
     const btn = document.querySelector('[data-act="check"]');
@@ -526,6 +799,16 @@ function onSessionKey(e) {
   const ui = session.ui;
   if (e.key === 'Enter') {
     e.preventDefault();
+    // Med två luckor: Enter i första luckan hoppar till nästa
+    if (item.type === 'gap' && !ui.checked && e.target.dataset?.gap !== undefined) {
+      const i = Number(e.target.dataset.gap);
+      const empty = ui.gaps.findIndex((g, k) => k > i && !g.trim());
+      if (empty > 0) { document.getElementById(`gap${empty}`)?.focus(); return; }
+    }
+    if (item.type === 'speak') {
+      if (ui.checked && ui.result.ok) nextItem(); else toggleMic();
+      return;
+    }
     if (item.type === 'card') { if (!ui.flipped) ui.flipped = true; else { scoreItem(item, true); nextItem(); return; } }
     else if (item.type === 'match') { if (ui.match.done.size === item.pairs.length) { nextItem(); return; } }
     else if (!ui.checked) check();
@@ -547,7 +830,8 @@ function confirmQuit() {
     text: 'Det du har svarat hittills sparas, men lektionen räknas inte som klar.',
     ok: 'Avsluta', cancel: 'Fortsätt öva',
     onOk: () => {
-      const back = session.kind === 'lesson' ? '#/kurs' : '#/ova';
+      stopListening();
+      const back = session.kind === 'lesson' ? '#/kurs' : session.kind === 'grammar' ? `#/grammatik/${session.topicSlug}` : '#/ova';
       session = null;
       location.hash = back;
     },
