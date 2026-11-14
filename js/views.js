@@ -617,6 +617,7 @@ function profileView() {
         <div class="seg full">${GOALS.map((g) => `<button class="${dailyGoal() === g.xp ? 'on' : ''}" data-act="set-goal" data-v="${g.xp}">${g.xp} XP</button>`).join('')}</div>
         <h3 class="mini-title">Uppläsning</h3>
         <button class="toggle ${state.settings.tts ? 'on' : ''}" data-act="toggle-tts" aria-pressed="${state.settings.tts}"><span class="knob"></span>${state.settings.tts ? 'På: orden läses upp' : 'Av'}</button>
+        ${voiceSettings(c)}
         <h3 class="mini-title">Kursen</h3>
         <div class="row-btns">
           <a class="btn ghost small" href="#/kurser">${icon('globe')} Byt eller lägg till kurs</a>
@@ -634,6 +635,33 @@ function profileView() {
           ${id === state.active ? '<em class="tag on">Aktiv</em>' : `<button class="btn ghost small" data-act="switch" data-id="${id}">Byt</button>`}</div>`;
       }).join('')}</div>
     </section>`, '#/profil');
+}
+
+// Välj vilken röst som läser upp, och hjälp om det saknas en röst för språket
+function voiceSettings(c) {
+  if (!('speechSynthesis' in window)) return '<p class="muted small">Din webbläsare kan inte läsa upp text.</p>';
+  const list = voicesFor(c.tts);
+  const current = bestVoice(c.tts);
+  const name = c.id === 'fr' ? 'fransk' : 'spansk';
+  const lang = c.id === 'fr' ? 'Franska' : 'Spanska';
+  if (!voicesReady) return '<p class="muted small">Laddar röster…</p>';
+  if (!list.length) {
+    return `<div class="voice-help">
+      <p><strong>Ingen ${name} röst hittades på din enhet.</strong> Då läses orden upp med engelsk röst. Så här lägger du till en:</p>
+      <ul>
+        <li><strong>Mac:</strong> Systeminställningar → Hjälpmedel → Uppläst innehåll → Systemröst → Hantera röster → välj ${lang} och ladda ner en röst. Starta om webbläsaren efteråt.</li>
+        <li><strong>iPhone:</strong> Inställningar → Hjälpmedel → Uppläst innehåll → Röster → ${lang}.</li>
+        <li><strong>Windows:</strong> Inställningar → Tid och språk → Tal → Lägg till röster → ${lang}.</li>
+        <li><strong>Enklast:</strong> öppna appen i Google Chrome, som har inbyggda röster för många språk.</li>
+      </ul></div>`;
+  }
+  return `
+    <label class="voice-pick"><span>Röst för ${esc(c.name.toLowerCase())}</span>
+      <select id="voice-select" data-lang="${c.tts}">
+        ${list.map((v) => `<option value="${esc(v.voiceURI)}" ${current && current.voiceURI === v.voiceURI ? 'selected' : ''}>${esc(v.name)} (${esc(v.lang)})</option>`).join('')}
+      </select>
+    </label>
+    <button class="btn ghost small" data-act="test-voice">${icon('speaker')} Testa rösten</button>`;
 }
 
 function notFound() {

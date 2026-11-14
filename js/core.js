@@ -134,7 +134,7 @@ const LEVELS = [
 const REASONS = ['Resa', 'Skola', 'Jobb', 'Familj och vänner', 'För skojs skull', 'Träna hjärnan'];
 
 function emptyState() {
-  return { v: 2, active: null, courses: {}, xp: {}, settings: { tts: true } };
+  return { v: 2, active: null, courses: {}, xp: {}, settings: { tts: true, voices: {} } };
 }
 
 function loadState() {
@@ -143,6 +143,7 @@ function loadState() {
     if (raw) {
       const s = JSON.parse(raw);
       s.settings = s.settings || { tts: true };
+      s.settings.voices = s.settings.voices || {};
       s.xp = s.xp || {};
       s.courses = s.courses || {};
       return s;
@@ -288,18 +289,111 @@ function migrateV1() {
 
 /* ---------- Uppläsning ---------- */
 
-// Webbläsaren kan läsa upp text med inbyggda röster
+// Webbläsaren har inbyggda röster. Vi letar upp en röst för rätt språk,
+// annars läser datorn franska och spanska med engelsk röst.
+
+let voices = [];
+let voicesReady = false;
+const voiceWaiters = [];
+let warnedNoVoice = {};
+
+function loadVoices() {
+  if (!('speechSynthesis' in window)) return;
+  voices = window.speechSynthesis.getVoices();
+  if (voices.length) {
+    voicesReady = true;
+    voiceWaiters.splice(0).forEach((fn) => fn());
+  }
+}
+
+if ('speechSynthesis' in window) {
+  loadVoices();
+  window.speechSynthesis.addEventListener?.('voiceschanged', loadVoices);
+  // Vissa webbläsare laddar rösterna sent, så vi frågar igen en stund
+  let tries = 0;
+  const timer = setInterval(() => { loadVoices(); if (voicesReady || ++tries > 20) clearInterval(timer); }, 250);
+}
+
+function voiceLang(v) { return (v.lang || '').replace('_', '-').toLowerCase(); }
+
+// Alla röster som pratar ett visst språk, t.ex. 'fr-FR'
+function voicesFor(lang) {
+  const base = lang.slice(0, 2).toLowerCase();
+  return voices.filter((v) => voiceLang(v).startsWith(base));
+}
+
+// Kända bra röster på Mac, Windows, Chrome och Android
+const GOOD_VOICES = {
+  fr: ['amélie', 'amelie', 'thomas', 'audrey', 'aurélie', 'marie', 'google français', 'denise', 'henri', 'julie', 'paul'],
+  es: ['mónica', 'monica', 'jorge', 'marisol', 'google español', 'paulina', 'elvira', 'alvaro', 'helena', 'pablo', 'laura'],
+};
+
+function bestVoice(lang) {
+  const list = voicesFor(lang);
+  if (!list.length) return null;
+  const chosen = state.settings.voices && state.settings.voices[lang];
+  const saved = chosen && list.find((v) => v.voiceURI === chosen);
+  if (saved) return saved;
+  const base = lang.slice(0, 2).toLowerCase();
+  const score = (v) => {
+    const name = v.name.toLowerCase();
+    let s = 0;
+    if (voiceLang(v) === lang.toLowerCase()) s += 4;        // fr-FR före fr-CA, es-ES före es-MX
+    if ((GOOD_VOICES[base] || []).some((n) => name.includes(n))) s += 3;
+    if (/premium|enhanced|förbättrad|natural|neural|siri/.test(name)) s += 3;
+    if (/google/.test(name)) s += 2;
+    if (/eloquence|bad news|bells|boing|bubbles|cellos|jester|organ|trinoids|whisper|zarvox|grandma|grandpa|rocko|shelley|flo|eddy|reed|sandy/.test(name)) s -= 6;
+    return s;
+  };
+  return list.slice().sort((a, b) => score(b) - score(a))[0];
+}
+
 function speak(text, lang) {
-  if (!state.settings.tts || !('speechSynthesis' in window)) return;
+  if (!state.settings.tts || !('speechSynthesis' in window) || !text) return;
+  lang = lang || (activeCourse() && activeCourse().tts) || 'fr-FR';
+  if (!voicesReady) {
+    // Vänta på rösterna (högst en sekund) innan vi läser upp
+    let done = false;
+    voiceWaiters.push(() => { if (!done) { done = true; speak(text, lang); } });
+    setTimeout(() => { if (!done) { done = true; reallySpeak(text, lang); } }, 1000);
+    return;
+  }
+  reallySpeak(text, lang);
+}
+
+function reallySpeak(text, lang) {
   try {
-    window.speechSynthesis.cancel();
+    const synth = window.speechSynthesis;
+    synth.cancel();
     const u = new SpeechSynthesisUtterance(text);
-    u.lang = lang || (activeCourse() && activeCourse().tts) || 'fr-FR';
-    u.rate = 0.9;
-    const voice = window.speechSynthesis.getVoices().find((v) => v.lang && v.lang.replace('_', '-').startsWith(u.lang.slice(0, 2)));
+    u.lang = lang;
+    u.rate = 0.88;
+    const voice = bestVoice(lang);
     if (voice) u.voice = voice;
-    window.speechSynthesis.speak(u);
+    else warnNoVoice(lang);
+    // Liten paus efter cancel, annars tappar Chrome ibland uppläsningen
+    setTimeout(() => synth.speak(u), 60);
   } catch (e) { /* uppläsning stöds inte */ }
+}
+
+function warnNoVoice(lang) {
+  if (warnedNoVoice[lang] || !voicesReady) return;
+  warnedNoVoice[lang] = true;
+  const name = lang.startsWith('fr') ? 'fransk' : 'spansk';
+  toast(`Din enhet har ingen ${name} röst, så uttalet blir fel. Se Profil för hur du lägger till en.`);
+}
+
+/* ---------- Små meddelanden ---------- */
+
+function toast(text) {
+  document.querySelector('.toast')?.remove();
+  const el = document.createElement('div');
+  el.className = 'toast';
+  el.setAttribute('role', 'status');
+  el.textContent = text;
+  document.body.append(el);
+  setTimeout(() => el.classList.add('out'), 5200);
+  setTimeout(() => el.remove(), 5600);
 }
 
 /* ---------- Streckikoner ---------- */

@@ -146,6 +146,7 @@ document.addEventListener('click', (e) => {
     // Profil
     case 'set-goal': progress().plan.goal = Number(el.dataset.v); save(); rerender(); break;
     case 'toggle-tts': state.settings.tts = !state.settings.tts; save(); rerender(); break;
+    case 'test-voice': speak(c.id === 'fr' ? 'Bonjour ! Je m\'appelle Léa. Ça va ?' : '¡Hola! Me llamo Lucía. ¿Qué tal?', c.tts); break;
     case 'reset-course':
       showModal({
         title: `Börja om ${c.name.toLowerCase()}?`,
@@ -207,6 +208,11 @@ document.addEventListener('input', (e) => {
 document.addEventListener('change', (e) => {
   if (e.target.id === 'dict-unit') { dict.unit = e.target.value; rerender(); }
   if (e.target.id === 'w-unit') { writeState.unit = Number(e.target.value); rerender(); }
+  if (e.target.id === 'voice-select') {
+    state.settings.voices[e.target.dataset.lang] = e.target.value;
+    save();
+    speak(activeCourse().id === 'fr' ? 'Bonjour, ça va ?' : 'Hola, ¿qué tal?', e.target.dataset.lang);
+  }
 });
 
 document.addEventListener('submit', (e) => {
@@ -234,8 +240,8 @@ document.addEventListener('keydown', (e) => {
   }
 });
 
-// Röster laddas ibland efter sidan. Det här gör att rätt röst hittas.
-if ('speechSynthesis' in window) window.speechSynthesis.onvoiceschanged = () => {};
+// När rösterna har laddats ritas profilsidan om så att röstlistan syns
+if ('speechSynthesis' in window) window.speechSynthesis.addEventListener?.('voiceschanged', () => { if (location.hash.startsWith('#/profil')) rerender(); });
 
 window.addEventListener('hashchange', route);
 migrateV1();

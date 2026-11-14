@@ -34,3 +34,7 @@ Dubbelklicka på `index.html` så öppnas appen i webbläsaren. Inget behöver i
 
 - `designforslag/` – de 20 stilförslagen. Appen använder nummer 18, Vykort.
 - `lektioner/` – utförligt lektionsmaterial för franska A1 (fem lektioner som JSON), som underlag för framtida innehåll.
+
+## När du ändrar CSS eller JavaScript
+
+Webbläsare och GitHub Pages sparar gamla versioner av filerna en stund. Öka därför siffran i `?v=3` på alla rader i `index.html` (till `?v=4` osv) när du ändrar `style.css` eller något i `js/`. Då hämtar alla webbläsare de nya filerna direkt.
