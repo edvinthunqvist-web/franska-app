@@ -1,0 +1,185 @@
+/* Mon Français – vykortsstil */
+
+/* Färger och typsnitt samlade på ett ställe, så de är lätta att ändra */
+:root {
+  --paper: #d9cbb0;      /* bakgrunden */
+  --card: #f6eedb;       /* korten */
+  --card-edge: #fffaf0;  /* den vita vykortskanten */
+  --ink: #3a2e22;        /* text */
+  --brown: #8c6b43;      /* linjer */
+  --line: #d8c7a3;       /* tunna avdelare */
+  --red: #a8442f;        /* knappar och stämplar */
+  --header: #efe4cc;
+  --type: 'Special Elite', 'Courier New', monospace;
+  --serif: 'Libre Baskerville', Georgia, serif;
+}
+
+* { box-sizing: border-box; margin: 0; padding: 0; }
+
+body {
+  background: var(--paper);
+  color: var(--ink);
+  font-family: var(--serif);
+  font-size: 15px;
+  line-height: 1.45;
+  min-height: 100vh;
+}
+
+button, input { font: inherit; color: inherit; }
+button { cursor: pointer; }
+
+/* Text som bara skärmläsare ska se */
+.sr-only { position: absolute; width: 1px; height: 1px; overflow: hidden; clip: rect(0 0 0 0); }
+
+/* ---------- Toppen ---------- */
+.top {
+  display: flex;
+  align-items: center;
+  gap: 24px;
+  padding: 16px 32px;
+  background: var(--header);
+  border-bottom: 2px dashed var(--brown);
+}
+
+.logo { display: flex; align-items: center; gap: 10px; }
+.logo-mark {
+  font-family: var(--type);
+  color: var(--red);
+  border: 3px dotted var(--red);
+  padding: 4px 6px;
+  transform: rotate(-6deg);
+}
+.logo-text { font-family: var(--type); font-size: 22px; }
+
+.nav { display: flex; gap: 6px; }
+.nav-btn {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  padding: 8px 14px;
+  background: none;
+  border: 2px solid transparent;
+  font-family: var(--type);
+}
+.nav-btn.active {
+  border-color: var(--red);
+  color: var(--red);
+  border-radius: 50%;
+  transform: rotate(-4deg);
+}
+.nav-btn:focus-visible, .btn:focus-visible, .del:focus-visible { outline: 2px dashed var(--red); outline-offset: 3px; }
+
+/* Streckikonerna i menyn */
+.ico {
+  width: 20px;
+  height: 20px;
+  fill: none;
+  stroke: currentColor;
+  stroke-width: 1.6;
+  stroke-linecap: round;
+  stroke-linejoin: round;
+  flex: none;
+}
+
+/* ---------- Korten ---------- */
+.views { padding: 28px 32px 40px; max-width: 640px; }
+
+.panel {
+  background: var(--card);
+  border: 10px solid var(--card-edge);
+  outline: 1px solid #c4b08c;
+  box-shadow: 0 1px 3px #0003, 0 8px 20px #3a2e2222;
+  padding: 22px;
+  display: flex;
+  flex-direction: column;
+  gap: 14px;
+}
+
+.panel[hidden] { display: none; }
+
+.panel-head { display: flex; justify-content: space-between; align-items: baseline; gap: 10px; }
+.panel-head h1 { font-family: var(--type); font-size: 24px; font-weight: 400; }
+
+/* Den lutande "stämpeln" som visar antal ord */
+.stamp {
+  font-family: var(--type);
+  font-size: 13px;
+  color: var(--red);
+  border: 2px solid var(--red);
+  padding: 2px 8px;
+  transform: rotate(8deg);
+  white-space: nowrap;
+}
+
+/* ---------- Formuläret ---------- */
+.add { display: flex; flex-direction: column; gap: 8px; }
+.add input {
+  padding: 10px 12px;
+  background: transparent;
+  border: 0;
+  border-bottom: 1px solid var(--brown);
+  font-family: var(--type);
+}
+.add input:focus { outline: none; border-bottom: 2px solid var(--red); }
+
+.btn {
+  padding: 10px 16px;
+  border: 0;
+  background: var(--red);
+  color: var(--card-edge);
+  font-family: var(--type);
+}
+.btn:hover { filter: brightness(1.1); }
+
+.error { color: var(--red); font-family: var(--type); font-size: 14px; }
+
+/* ---------- Ordlistan ---------- */
+.wordlist { list-style: none; }
+.wordlist li {
+  display: grid;
+  grid-template-columns: 1fr 1fr auto;
+  gap: 8px;
+  align-items: center;
+  padding: 9px 4px;
+  border-bottom: 1px solid var(--line);
+}
+.wordlist .fr { font-weight: 700; font-style: italic; overflow-wrap: anywhere; }
+.wordlist .sv { overflow-wrap: anywhere; }
+
+.del {
+  background: none;
+  border: 0;
+  font-size: 20px;
+  width: 32px;
+  height: 32px;
+  line-height: 1;
+  opacity: .55;
+}
+.del:hover { opacity: 1; color: var(--red); }
+
+.empty, .soon { font-family: var(--type); color: var(--brown); }
+
+/* ---------- Mobil ---------- */
+@media (max-width: 760px) {
+  .top { padding: 12px 16px; }
+  .logo-text { font-size: 18px; }
+
+  /* Menyn flyttar ner till botten av skärmen */
+  .nav {
+    position: fixed;
+    bottom: 0;
+    left: 0;
+    right: 0;
+    z-index: 10;
+    justify-content: space-around;
+    padding: 6px 8px calc(6px + env(safe-area-inset-bottom));
+    background: var(--header);
+    border-top: 2px dashed var(--brown);
+  }
+  .nav-btn { flex-direction: column; gap: 2px; font-size: 11px; padding: 6px 10px; }
+  .nav-btn .ico { width: 22px; height: 22px; }
+  .nav-btn.active { border-radius: 12px; transform: none; }
+
+  .views { padding: 14px 16px 100px; }
+  .panel { border-width: 6px; padding: 16px; }
+}
