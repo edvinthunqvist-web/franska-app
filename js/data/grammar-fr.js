@@ -1,6 +1,8 @@
 // Grammatik för franska, ordnad efter gymnasiets steg 1–5 (ungefär A1 till B1).
 // Allt innehåll är egenskrivet.
 //
+// unit/after: var momentet ligger på kursvägen (enhet, efter lektion nummer).
+//
 // Format:
 //   s:  avsnitt { h: rubrik, p: förklaring, t: tabell "vänster=höger|..." }
 //   ex: exempel "franska=svenska|..."
@@ -11,7 +13,7 @@ window.GRAMMAR = window.GRAMMAR || {};
 window.GRAMMAR.fr = [
   /* ---------------- Steg 1 ---------------- */
   {
-    step: 1, title: 'Être och avoir', intro: 'De två viktigaste verben. Être betyder vara och avoir betyder ha. Båda är oregelbundna och används hela tiden.',
+    step: 1, title: 'Être och avoir', unit: 2, after: 1, intro: 'De två viktigaste verben. Être betyder vara och avoir betyder ha. Båda är oregelbundna och används hela tiden.',
     s: [
       { h: 'Être (vara)', t: 'je suis=jag är|tu es=du är|il / elle / on est=han / hon / man är|nous sommes=vi är|vous êtes=ni är|ils / elles sont=de är' },
       { h: 'Avoir (ha)', t: "j'ai=jag har|tu as=du har|il / elle / on a=han / hon / man har|nous avons=vi har|vous avez=ni har|ils / elles ont=de har" },
@@ -31,7 +33,7 @@ window.GRAMMAR.fr = [
     ],
   },
   {
-    step: 1, title: 'Genus och artiklar', intro: 'Alla substantiv är maskulina eller feminina. Artikeln visar vilket, så lär dig alltid ordet tillsammans med artikeln.',
+    step: 1, title: 'Genus och artiklar', unit: 4, after: 2, intro: 'Alla substantiv är maskulina eller feminina. Artikeln visar vilket, så lär dig alltid ordet tillsammans med artikeln.',
     s: [
       { h: 'Bestämd artikel (the)', t: "le livre=boken (mask.)|la table=bordet (fem.)|l'ami / l'école=före vokal eller stumt h|les livres=böckerna (plural)" },
       { h: 'Obestämd artikel (en, ett)', t: 'un livre=en bok (mask.)|une table=ett bord (fem.)|des livres=böcker (plural)' },
@@ -50,7 +52,7 @@ window.GRAMMAR.fr = [
     ],
   },
   {
-    step: 1, title: 'Presens av -er-verb', intro: 'Nästan 90 procent av alla franska verb slutar på -er och böjs likadant. Ta bort -er och lägg till ändelsen.',
+    step: 1, title: 'Presens av -er-verb', unit: 5, after: 2, intro: 'Nästan 90 procent av alla franska verb slutar på -er och böjs likadant. Ta bort -er och lägg till ändelsen.',
     s: [
       { h: 'Parler (prata)', t: 'je parle=jag pratar|tu parles=du pratar|il / elle parle=han / hon pratar|nous parlons=vi pratar|vous parlez=ni pratar|ils / elles parlent=de pratar' },
       { h: 'Uttal', p: 'Parle, parles och parlent uttalas exakt likadant. Bara nous- och vous-formerna hörs annorlunda.' },
@@ -70,7 +72,7 @@ window.GRAMMAR.fr = [
     ],
   },
   {
-    step: 1, title: 'Negation: ne … pas', intro: 'För att säga inte omger du verbet med ne och pas.',
+    step: 1, title: 'Negation: ne … pas', unit: 5, after: 3, intro: 'För att säga inte omger du verbet med ne och pas.',
     s: [
       { h: 'Grundregeln', t: "je parle=jag pratar|je ne parle pas=jag pratar inte|j'aime=jag tycker om|je n'aime pas=jag tycker inte om" },
       { h: 'Ne blir n\' före vokal', p: 'Ne tappar sitt e före vokal och stumt h: il n\'est pas, je n\'habite pas.' },
@@ -88,7 +90,7 @@ window.GRAMMAR.fr = [
     ],
   },
   {
-    step: 1, title: 'Frågor och frågeord', intro: 'Det finns tre sätt att ställa en ja/nej-fråga. De betyder samma sak men låter olika formellt.',
+    step: 1, title: 'Frågor och frågeord', unit: 1, after: 3, intro: 'Det finns tre sätt att ställa en ja/nej-fråga. De betyder samma sak men låter olika formellt.',
     s: [
       { h: 'Tre sätt', t: "Tu parles français ?=med frågande tonfall (vardagligt)|Est-ce que tu parles français ?=med est-ce que (neutralt)|Parles-tu français ?=med omvänd ordföljd (formellt)" },
       { h: 'Frågeord', t: 'qui ?=vem?|que / quoi ?=vad?|où ?=var? vart?|quand ?=när?|comment ?=hur?|pourquoi ?=varför?|combien ?=hur mycket / många?' },
@@ -107,7 +109,7 @@ window.GRAMMAR.fr = [
     ],
   },
   {
-    step: 1, title: 'Adjektiv', intro: 'Adjektiv böjs efter substantivet i genus och antal. De flesta står efter substantivet.',
+    step: 1, title: 'Adjektiv', unit: 6, after: 1, intro: 'Adjektiv böjs efter substantivet i genus och antal. De flesta står efter substantivet.',
     s: [
       { h: 'Böjning', t: 'petit=liten (mask. sing.)|petite=liten (fem. sing.)|petits=små (mask. plur.)|petites=små (fem. plur.)' },
       { h: 'Oregelbundna feminina', t: 'beau → belle=vacker|nouveau → nouvelle=ny|vieux → vieille=gammal|blanc → blanche=vit|gentil → gentille=snäll|heureux → heureuse=lycklig' },
@@ -128,7 +130,7 @@ window.GRAMMAR.fr = [
 
   /* ---------------- Steg 2 ---------------- */
   {
-    step: 2, title: 'Oregelbundna verb i presens', intro: 'De vanligaste verben är oregelbundna. Lär dig dem utantill, de används i nästan varje mening.',
+    step: 2, title: 'Oregelbundna verb i presens', unit: 7, after: 2, intro: 'De vanligaste verben är oregelbundna. Lär dig dem utantill, de används i nästan varje mening.',
     s: [
       { h: 'Aller (gå, åka)', t: 'je vais|tu vas|il va|nous allons|vous allez|ils vont' },
       { h: 'Faire (göra)', t: 'je fais|tu fais|il fait|nous faisons|vous faites|ils font' },
@@ -149,7 +151,7 @@ window.GRAMMAR.fr = [
     ],
   },
   {
-    step: 2, title: 'Possessiva pronomen', intro: 'Min, din, hans och så vidare. Formen beror på ordet som ägs, inte på ägaren.',
+    step: 2, title: 'Possessiva pronomen', unit: 4, after: 1, intro: 'Min, din, hans och så vidare. Formen beror på ordet som ägs, inte på ägaren.',
     s: [
       { h: 'Formerna', t: 'mon / ma / mes=min, mitt, mina|ton / ta / tes=din, ditt, dina|son / sa / ses=hans, hennes, sin|notre / nos=vår, våra|votre / vos=er, era|leur / leurs=deras' },
       { h: 'Före vokal', p: 'Före feminina ord som börjar på vokal används mon, ton, son för att det ska låta bättre: mon amie, son école.' },
@@ -167,7 +169,7 @@ window.GRAMMAR.fr = [
     ],
   },
   {
-    step: 2, title: 'Partitiv: du, de la, des', intro: 'När man pratar om en obestämd mängd av något, ofta mat, används partitiv artikel. Svenskan har ingen artikel alls här.',
+    step: 2, title: 'Partitiv: du, de la, des', unit: 11, after: 3, intro: 'När man pratar om en obestämd mängd av något, ofta mat, används partitiv artikel. Svenskan har ingen artikel alls här.',
     s: [
       { h: 'Formerna', t: "du pain=bröd (mask.)|de la confiture=sylt (fem.)|de l'eau=vatten (före vokal)|des légumes=grönsaker (plural)" },
       { h: 'Efter negation och mängdord blir det de', t: "je mange du pain=jag äter bröd|je ne mange pas de pain=jag äter inte bröd|beaucoup de pain=mycket bröd|un kilo de pommes=ett kilo äpplen" },
@@ -186,7 +188,7 @@ window.GRAMMAR.fr = [
     ],
   },
   {
-    step: 2, title: 'Nära framtid: aller + infinitiv', intro: 'Det enklaste sättet att prata om framtiden. Precis som svenskans ska göra.',
+    step: 2, title: 'Nära framtid: aller + infinitiv', unit: 12, after: 1, intro: 'Det enklaste sättet att prata om framtiden. Precis som svenskans ska göra.',
     s: [
       { h: 'Bildning', t: 'je vais manger=jag ska äta|tu vas partir=du ska åka|il va pleuvoir=det kommer att regna|nous allons voir=vi ska se|vous allez aimer=ni kommer att gilla|ils vont arriver=de ska komma' },
       { h: 'Negation', p: 'Ne … pas omger aller: je ne vais pas venir.' },
@@ -203,7 +205,7 @@ window.GRAMMAR.fr = [
     ],
   },
   {
-    step: 2, title: 'Reflexiva verb', intro: 'Verb där man gör något med sig själv. Reflexivpronomenet byts ut efter personen.',
+    step: 2, title: 'Reflexiva verb', unit: 9, after: 1, intro: 'Verb där man gör något med sig själv. Reflexivpronomenet byts ut efter personen.',
     s: [
       { h: 'Se lever (stiga upp)', t: 'je me lève=jag stiger upp|tu te lèves=du stiger upp|il / elle se lève=han / hon stiger upp|nous nous levons=vi stiger upp|vous vous levez=ni stiger upp|ils se lèvent=de stiger upp' },
       { h: 'Vanliga reflexiva verb', t: "se réveiller=vakna|s'habiller=klä på sig|se laver=tvätta sig|se coucher=lägga sig|s'appeler=heta|se dépêcher=skynda sig|s'amuser=ha roligt" },
@@ -221,7 +223,7 @@ window.GRAMMAR.fr = [
     ],
   },
   {
-    step: 2, title: 'Prepositioner: à, en, au, de', intro: 'Små ord som styr var och vart. À och de smälter ihop med le och les.',
+    step: 2, title: 'Prepositioner: à, en, au, de', unit: 2, after: 2, intro: 'Små ord som styr var och vart. À och de smälter ihop med le och les.',
     s: [
       { h: 'À och de smälter ihop', t: "à + le = au=au cinéma|à + les = aux=aux États-Unis|de + le = du=le livre du professeur|de + les = des=la voiture des parents|à la, à l', de la, de l'=ändras inte" },
       { h: 'Städer och länder', t: 'à Paris=i/till Paris (städer)|en France=i/till Frankrike (feminina länder)|au Canada=i/till Kanada (maskulina länder)|aux États-Unis=i/till USA (plural)' },
@@ -241,7 +243,7 @@ window.GRAMMAR.fr = [
 
   /* ---------------- Steg 3 ---------------- */
   {
-    step: 3, title: 'Passé composé med avoir', intro: 'Den vanligaste tempusformen för att berätta vad som hände. Bildas med avoir i presens + verbets particip.',
+    step: 3, title: 'Passé composé med avoir', unit: 12, after: 3, intro: 'Den vanligaste tempusformen för att berätta vad som hände. Bildas med avoir i presens + verbets particip.',
     s: [
       { h: 'Particip', t: 'parler → parlé=-er blir -é|finir → fini=-ir blir -i|vendre → vendu=-re blir -u' },
       { h: 'Exempel med manger', t: "j'ai mangé=jag åt / har ätit|tu as mangé=du åt|il a mangé=han åt|nous avons mangé=vi åt|vous avez mangé=ni åt|ils ont mangé=de åt" },
@@ -261,7 +263,7 @@ window.GRAMMAR.fr = [
     ],
   },
   {
-    step: 3, title: 'Passé composé med être', intro: 'Ett femtontal verb, mest rörelseverb, och alla reflexiva verb bildar passé composé med être. Då böjs participet efter subjektet.',
+    step: 3, title: 'Passé composé med être', unit: 13, after: 1, intro: 'Ett femtontal verb, mest rörelseverb, och alla reflexiva verb bildar passé composé med être. Då böjs participet efter subjektet.',
     s: [
       { h: 'Verb med être', t: 'aller → allé=gå|venir → venu=komma|arriver → arrivé=anlända|partir → parti=åka iväg|entrer → entré=gå in|sortir → sorti=gå ut|monter → monté=gå upp|descendre → descendu=gå ner|naître → né=födas|mourir → mort=dö|rester → resté=stanna|tomber → tombé=ramla|rentrer → rentré=komma hem' },
       { h: 'Participet böjs', t: 'il est allé=han gick|elle est allée=hon gick (+e)|ils sont allés=de gick (+s)|elles sont allées=de gick, bara kvinnor (+es)' },
@@ -280,7 +282,7 @@ window.GRAMMAR.fr = [
     ],
   },
   {
-    step: 3, title: 'Direkta objektspronomen', intro: 'Le, la, les ersätter ett direkt objekt så att du slipper upprepa det. De står före verbet.',
+    step: 3, title: 'Direkta objektspronomen', unit: 15, after: 1, intro: 'Le, la, les ersätter ett direkt objekt så att du slipper upprepa det. De står före verbet.',
     s: [
       { h: 'Formerna', t: 'me (m\')=mig|te (t\')=dig|le (l\')=honom, den, det|la (l\')=henne, den, det|nous=oss|vous=er|les=dem' },
       { h: 'Placering', t: 'Je vois Paul. → Je le vois.=Jag ser honom.|Je ne le vois pas.=Jag ser honom inte.|Je vais le voir.=Jag ska träffa honom.|Je l\'ai vu.=Jag såg honom.' },
@@ -297,7 +299,7 @@ window.GRAMMAR.fr = [
     ],
   },
   {
-    step: 3, title: 'Imperativ', intro: 'Uppmaningar och instruktioner. Använd tu-, nous- eller vous-formen av presens utan subjekt.',
+    step: 3, title: 'Imperativ', unit: 7, after: 2, intro: 'Uppmaningar och instruktioner. Använd tu-, nous- eller vous-formen av presens utan subjekt.',
     s: [
       { h: 'Bildning', t: 'Parle !=Prata! (tu, -er-verb tappar s)|Parlons !=Låt oss prata!|Parlez !=Prata! (ni / artigt)|Finis ! / Prends !=andra verb behåller formen' },
       { h: 'Oregelbundna', t: 'être → sois, soyons, soyez=var!|avoir → aie, ayons, ayez=ha!|aller → va, allons, allez=gå!' },
@@ -315,7 +317,7 @@ window.GRAMMAR.fr = [
     ],
   },
   {
-    step: 3, title: 'Komparation', intro: 'Jämför saker med plus (mer), moins (mindre) och aussi (lika).',
+    step: 3, title: 'Komparation', unit: 10, after: 2, intro: 'Jämför saker med plus (mer), moins (mindre) och aussi (lika).',
     s: [
       { h: 'Komparativ', t: 'plus grand que=större än|moins grand que=mindre stor än|aussi grand que=lika stor som' },
       { h: 'Superlativ', t: 'le plus grand=den största|la plus belle=den vackraste|les moins chers=de billigaste' },
@@ -333,7 +335,7 @@ window.GRAMMAR.fr = [
     ],
   },
   {
-    step: 3, title: 'Demonstrativa och quel', intro: 'Ce, cette, ces betyder den här. Quel, quelle betyder vilken.',
+    step: 3, title: 'Demonstrativa och quel', unit: 11, after: 1, intro: 'Ce, cette, ces betyder den här. Quel, quelle betyder vilken.',
     s: [
       { h: 'Den här', t: 'ce livre=den här boken (mask.)|cet ami=den här vännen (mask. före vokal)|cette maison=det här huset (fem.)|ces livres=de här böckerna' },
       { h: 'Vilken', t: 'quel livre ?=vilken bok? (mask.)|quelle heure ?=vilken tid? (fem.)|quels livres ?=vilka böcker? (mask. pl.)|quelles chaussures ?=vilka skor? (fem. pl.)' },
@@ -352,7 +354,7 @@ window.GRAMMAR.fr = [
 
   /* ---------------- Steg 4 ---------------- */
   {
-    step: 4, title: 'Imparfait', intro: 'Imparfait beskriver hur något var i det förflutna: vanor, bakgrund och sådant som pågick.',
+    step: 4, title: 'Imparfait', unit: 13, after: 2, intro: 'Imparfait beskriver hur något var i det förflutna: vanor, bakgrund och sådant som pågick.',
     s: [
       { h: 'Bildning', p: 'Ta nous-formen i presens, ta bort -ons och lägg till ändelserna. Nous parlons → parl-.', t: 'je parlais=jag pratade|tu parlais=du pratade|il parlait=han pratade|nous parlions=vi pratade|vous parliez=ni pratade|ils parlaient=de pratade' },
       { h: 'Enda undantaget', t: "j'étais=jag var|tu étais=du var|il était=han var|nous étions=vi var|vous étiez=ni var|ils étaient=de var" },
@@ -371,7 +373,7 @@ window.GRAMMAR.fr = [
     ],
   },
   {
-    step: 4, title: 'Imparfait eller passé composé?', intro: 'Båda beskriver det förflutna. Passé composé för händelser, imparfait för bakgrund och vanor.',
+    step: 4, title: 'Imparfait eller passé composé?', unit: 13, after: 3, intro: 'Båda beskriver det förflutna. Passé composé för händelser, imparfait för bakgrund och vanor.',
     s: [
       { h: 'Tumregel', t: 'passé composé=en händelse, något som hände en gång|imparfait=bakgrund, beskrivning, vana, något som pågick' },
       { h: 'Ofta tillsammans', p: 'Imparfait målar upp scenen, passé composé berättar vad som hände: Je dormais quand le téléphone a sonné. (Jag sov när telefonen ringde.)' },
@@ -389,7 +391,7 @@ window.GRAMMAR.fr = [
     ],
   },
   {
-    step: 4, title: 'Futur simple', intro: 'Futur simple är den "riktiga" framtidsformen, vanlig i skrift och för planer längre fram.',
+    step: 4, title: 'Futur simple', unit: 14, after: 2, intro: 'Futur simple är den "riktiga" framtidsformen, vanlig i skrift och för planer längre fram.',
     s: [
       { h: 'Bildning', p: 'Ta infinitiven och lägg till ändelserna. Verb på -re tappar e: prendre → prendr-.', t: 'je parlerai=jag kommer att prata|tu parleras=du kommer att prata|il parlera=han kommer att prata|nous parlerons=vi kommer att prata|vous parlerez=ni kommer att prata|ils parleront=de kommer att prata' },
       { h: 'Oregelbundna stammar', t: 'être → ser-=je serai|avoir → aur-=j\'aurai|aller → ir-=j\'irai|faire → fer-=je ferai|pouvoir → pourr-=je pourrai|vouloir → voudr-=je voudrai|venir → viendr-=je viendrai|voir → verr-=je verrai|devoir → devr-=je devrai' },
@@ -407,7 +409,7 @@ window.GRAMMAR.fr = [
     ],
   },
   {
-    step: 4, title: 'Lui, leur, y och en', intro: 'Indirekta objekt (till någon) och de små orden y och en som ersätter platser och mängder.',
+    step: 4, title: 'Lui, leur, y och en', unit: 15, after: 2, intro: 'Indirekta objekt (till någon) och de små orden y och en som ersätter platser och mängder.',
     s: [
       { h: 'Indirekt objekt: till någon', t: 'lui=till honom / henne|leur=till dem|Je parle à Paul. → Je lui parle.=Jag pratar med honom.|Je téléphone à mes parents. → Je leur téléphone.=Jag ringer dem.' },
       { h: 'Y: dit, där', t: "Tu vas à Paris ? – Oui, j'y vais.=Ja, jag åker dit.|Il habite en Espagne ? – Oui, il y habite.=Ja, han bor där." },
@@ -425,7 +427,7 @@ window.GRAMMAR.fr = [
     ],
   },
   {
-    step: 4, title: 'Relativpronomen qui, que, où', intro: 'Binder ihop två meningar, som svenskans som och där.',
+    step: 4, title: 'Relativpronomen qui, que, où', unit: 15, after: 3, intro: 'Binder ihop två meningar, som svenskans som och där.',
     s: [
       { h: 'Qui: subjekt', p: 'Qui följs av ett verb.', t: "L'homme qui parle est mon père.=Mannen som pratar är min pappa." },
       { h: 'Que: objekt', p: 'Que följs av ett subjekt (en person eller sak). Que blir qu\' före vokal.', t: "Le livre que je lis est bon.=Boken som jag läser är bra.|Le film qu'il a vu.=Filmen som han såg." },
@@ -443,7 +445,7 @@ window.GRAMMAR.fr = [
     ],
   },
   {
-    step: 4, title: 'Fler negationer', intro: 'Ne … pas har syskon som fungerar på samma sätt.',
+    step: 4, title: 'Fler negationer', unit: 9, after: 3, intro: 'Ne … pas har syskon som fungerar på samma sätt.',
     s: [
       { h: 'Negationer', t: 'ne … jamais=aldrig|ne … plus=inte längre, inte mer|ne … rien=ingenting|ne … personne=ingen|ne … que=bara|ne … pas encore=inte än' },
       { h: 'I passé composé', t: "je n'ai jamais vu=jag har aldrig sett|je n'ai rien fait=jag har inte gjort något|je n'ai vu personne=jag såg ingen (personne efter participet)" },
@@ -462,7 +464,7 @@ window.GRAMMAR.fr = [
 
   /* ---------------- Steg 5 ---------------- */
   {
-    step: 5, title: 'Conditionnel présent', intro: 'Svenskans skulle. Används för önskemål, artiga frågor, råd och det som skulle hända.',
+    step: 5, title: 'Conditionnel présent', unit: 16, after: 1, intro: 'Svenskans skulle. Används för önskemål, artiga frågor, råd och det som skulle hända.',
     s: [
       { h: 'Bildning', p: 'Samma stam som futur simple + imparfaits ändelser.', t: 'je voudrais=jag skulle vilja|tu pourrais=du skulle kunna|il serait=han skulle vara|nous aimerions=vi skulle vilja|vous devriez=ni borde|ils auraient=de skulle ha' },
       { h: 'Användning', t: 'Je voudrais un café.=artig beställning|Tu pourrais m\'aider ?=artig fråga|Tu devrais dormir.=råd (du borde)|Ce serait super !=det skulle vara jättebra' },
@@ -479,7 +481,7 @@ window.GRAMMAR.fr = [
     ],
   },
   {
-    step: 5, title: 'Si-satser', intro: 'Om-meningar. Tempus i si-satsen styr tempus i huvudsatsen.',
+    step: 5, title: 'Si-satser', unit: 16, after: 3, intro: 'Om-meningar. Tempus i si-satsen styr tempus i huvudsatsen.',
     s: [
       { h: 'Två vanliga mönster', t: "si + présent → futur=Si tu viens, je serai content.|si + imparfait → conditionnel=Si j'avais de l'argent, je voyagerais." },
       { h: 'Betydelse', p: 'Det första mönstret handlar om något som kan hända. Det andra om något tänkt eller orealistiskt (om jag hade…).' },
@@ -496,7 +498,7 @@ window.GRAMMAR.fr = [
     ],
   },
   {
-    step: 5, title: 'Subjonctif présent', intro: 'Ett modus som används efter uttryck för vilja, känsla, nödvändighet och tvivel. Det kommer nästan alltid efter que.',
+    step: 5, title: 'Subjonctif présent', unit: 17, after: 2, intro: 'Ett modus som används efter uttryck för vilja, känsla, nödvändighet och tvivel. Det kommer nästan alltid efter que.',
     s: [
       { h: 'Bildning', p: 'Ta ils-formen i presens, ta bort -ent och lägg till ändelserna. Ils parlent → parl-.', t: 'que je parle|que tu parles|qu\'il parle|que nous parlions|que vous parliez|qu\'ils parlent' },
       { h: 'Oregelbundna', t: "être=que je sois, que nous soyons|avoir=que j'aie, que nous ayons|faire=que je fasse|aller=que j'aille, que nous allions|pouvoir=que je puisse|savoir=que je sache|vouloir=que je veuille" },
@@ -515,7 +517,7 @@ window.GRAMMAR.fr = [
     ],
   },
   {
-    step: 5, title: 'Plus-que-parfait', intro: 'Svenskans hade gjort. Något som hände före en annan händelse i det förflutna.',
+    step: 5, title: 'Plus-que-parfait', unit: 18, after: 1, intro: 'Svenskans hade gjort. Något som hände före en annan händelse i det förflutna.',
     s: [
       { h: 'Bildning', p: 'Avoir eller être i imparfait + particip. Samma verb som i passé composé använder être.', t: "j'avais mangé=jag hade ätit|tu avais fini=du hade slutat|il était parti=han hade åkt|nous étions arrivés=vi hade kommit|ils avaient vu=de hade sett" },
     ],
@@ -530,7 +532,7 @@ window.GRAMMAR.fr = [
     ],
   },
   {
-    step: 5, title: 'Ce qui, ce que och dont', intro: 'Fler relativpronomen för att uttrycka dig mer nyanserat.',
+    step: 5, title: 'Ce qui, ce que och dont', unit: 17, after: 3, intro: 'Fler relativpronomen för att uttrycka dig mer nyanserat.',
     s: [
       { h: 'Ce qui och ce que: det som', t: "Ce qui est important, c'est la santé.=Det som är viktigt är hälsan. (subjekt)|Ce que je veux, c'est dormir.=Det som jag vill är att sova. (objekt)|Dis-moi ce que tu penses.=Säg vad du tycker." },
       { h: 'Dont: om vilken, vars', p: 'Dont ersätter de + något, ofta med verb som parler de, avoir besoin de.', t: "Le livre dont je parle.=Boken som jag pratar om.|L'ami dont le père est médecin.=Vännen vars pappa är läkare.|C'est ce dont j'ai besoin.=Det är det jag behöver." },
@@ -547,7 +549,7 @@ window.GRAMMAR.fr = [
     ],
   },
   {
-    step: 5, title: 'Gérondif', intro: 'En + participe présent. Visar att två saker händer samtidigt eller hur något görs.',
+    step: 5, title: 'Gérondif', unit: 18, after: 3, intro: 'En + participe présent. Visar att två saker händer samtidigt eller hur något görs.',
     s: [
       { h: 'Bildning', p: 'Ta nous-formen i presens, byt -ons mot -ant och sätt en före.', t: 'nous parlons → en parlant=medan man pratar|nous faisons → en faisant=genom att göra|nous lisons → en lisant=medan man läser' },
       { h: 'Undantag', t: 'être → en étant|avoir → en ayant|savoir → en sachant' },

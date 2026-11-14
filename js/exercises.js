@@ -200,6 +200,24 @@ function speakPool(c) {
     .filter((s) => s.t.split(' ').length <= 12);
 }
 
+// Tre grammatikfrågor till en lektion: två från de senaste momenten och en repetition
+function grammarForLesson(course, lesson) {
+  const reached = (GRAMMAR_DATA[course.id] || [])
+    .filter((g) => g.unitIdx < lesson.unitIdx || (g.unitIdx === lesson.unitIdx && g.after <= lesson.idx))
+    .sort((a, b) => a.unitIdx - b.unitIdx || a.after - b.after);
+  if (!reached.length) return [];
+  const chosen = reached.slice(-2);
+  const older = reached.slice(0, -2);
+  if (older.length) chosen.push(pick(older));
+  return chosen.map((g, i) => {
+    const q = pick(g.q);
+    const others = g.q.filter((x) => x !== q && x[0].split('___').length === 2).map((x) => x[1]);
+    const item = (i === 1 && grammarCloze(q, others)) || gapItem(q);
+    item.topic = g.title;
+    return item;
+  });
+}
+
 // En lektionsomgång: först lära känna orden, sedan använda dem i meningar
 function lessonSession(course, lesson) {
   const words = shuffle(lesson.words);
@@ -215,6 +233,9 @@ function lessonSession(course, lesson) {
   words.slice(0, 2).forEach((w) => items.push(writeItem(w, 'sv')));
   if (sents[2]) items.push(buildItem(course, sents[2], true));
   if (canListen() && (sents[3] || sents[0])) items.push(speakItem(sents[3] || sents[0]));
+
+  // Grammatik: frågor från momenten du har nått på kursvägen
+  grammarForLesson(course, lesson).forEach((it) => items.push(it));
 
   // Repetition: ett par ord från tidigare lektioner
   const i = course.lessons.indexOf(lesson);
@@ -305,7 +326,7 @@ function sessionHtml() {
       <span class="session-count">${Math.min(s.finished + 1, s.total)}/${s.total}</span>
     </div>
     <div class="session-body">
-      <div class="ex">${exerciseHtml(item)}</div>
+      <div class="ex">${item.topic ? `<span class="ex-topic">${icon('grammar')} Grammatik: ${esc(item.topic)}</span>` : ''}${exerciseHtml(item)}</div>
     </div>
     ${footerHtml(item)}
   </div>`;

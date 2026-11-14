@@ -134,6 +134,29 @@ Object.entries(window.GRAMMAR || {}).forEach(([id, topics]) => {
 });
 
 function grammarFor(course = activeCourse()) { return GRAMMAR_DATA[course.id] || []; }
+
+// Kursvägen: lektioner och grammatikmoment i en och samma ordning.
+// Varje moment har unit (enhet) och after (efter vilken lektion) i grammatikfilen.
+Object.values(COURSE_DATA).forEach((course) => {
+  const topics = GRAMMAR_DATA[course.id] || [];
+  topics.forEach((g) => { g.unitIdx = (g.unit || 99) - 1; });
+  course.steps = [];
+  course.units.forEach((u) => {
+    u.steps = [];
+    u.grammar = topics.filter((g) => g.unitIdx === u.idx).sort((a, b) => a.after - b.after);
+    const add = (step) => {
+      Object.assign(step, { unitIdx: u.idx, idx: course.steps.length });
+      course.steps.push(step);
+      u.steps.push(step);
+    };
+    u.lessons.forEach((l, li) => {
+      add({ kind: 'lesson', id: l.id, lesson: l });
+      u.grammar.filter((g) => g.after === li + 1).forEach((g) => add({ kind: 'grammar', id: `g-${g.slug}`, topic: g }));
+    });
+    u.grammar.filter((g) => g.after > u.lessons.length).forEach((g) => add({ kind: 'grammar', id: `g-${g.slug}`, topic: g }));
+  });
+  course.stepById = Object.fromEntries(course.steps.map((st) => [st.id, st]));
+});
 function grammarStat(courseId, slug) { return (progress(courseId).grammar || {})[slug] || null; }
 
 /* ---------- Sparning i localStorage ---------- */
@@ -262,32 +285,42 @@ function weakWords(course = activeCourse()) {
 
 function lessonDone(courseId, lessonId) { return !!progress(courseId).lessons[lessonId]?.done; }
 
-// En lektion är öppen om den ligger i en enhet du hoppade till, eller om lektionen före är klar
-function lessonUnlocked(course, lesson) {
-  const p = progress(course.id);
-  const start = p.plan ? p.plan.startUnit : 0;
-  if (lesson.unitIdx <= start) return true;
-  const i = course.lessons.indexOf(lesson);
-  return i === 0 || lessonDone(course.id, course.lessons[i - 1].id);
+// Ett steg på kursvägen är en lektion eller ett grammatikmoment
+function stepDone(course, step) {
+  return step.kind === 'lesson' ? lessonDone(course.id, step.id) : !!grammarStat(course.id, step.topic.slug)?.done;
 }
 
-// Nästa lektion att göra: den första öppna som inte är klar
-function nextLesson(course = activeCourse()) {
+// Ett steg är öppet om det ligger i en enhet du hoppade till, eller om steget före är klart
+function stepUnlocked(course, step) {
   const p = progress(course.id);
   const start = p.plan ? p.plan.startUnit : 0;
-  return course.lessons.find((l) => l.unitIdx >= start && !lessonDone(course.id, l.id) && lessonUnlocked(course, l))
-    || course.lessons.find((l) => !lessonDone(course.id, l.id) && lessonUnlocked(course, l))
-    || null;
+  if (step.unitIdx <= start || stepDone(course, step)) return true;
+  return step.idx === 0 || stepDone(course, course.steps[step.idx - 1]);
+}
+
+function lessonUnlocked(course, lesson) { return stepUnlocked(course, course.stepById[lesson.id]); }
+
+// Nästa steg att göra: det första öppna som inte är klart
+function nextStep(course = activeCourse()) {
+  const p = progress(course.id);
+  const start = p.plan ? p.plan.startUnit : 0;
+  const open = (st) => !stepDone(course, st) && stepUnlocked(course, st);
+  return course.steps.find((st) => st.unitIdx >= start && open(st)) || course.steps.find(open) || null;
+}
+
+function stepHref(step) {
+  return step.kind === 'lesson' ? `#/lektion/${step.id}` : `#/grammatik/${step.topic.slug}`;
 }
 
 function unitProgress(course, unit) {
-  const done = unit.lessons.filter((l) => lessonDone(course.id, l.id)).length;
-  return { done, total: unit.lessons.length };
+  const done = unit.steps.filter((st) => stepDone(course, st)).length;
+  return { done, total: unit.steps.length };
 }
 
 function courseProgress(course) {
-  const done = course.lessons.filter((l) => lessonDone(course.id, l.id)).length;
-  return { done, total: course.lessons.length };
+  const done = course.steps.filter((st) => stepDone(course, st)).length;
+  const lessons = course.lessons.filter((l) => lessonDone(course.id, l.id)).length;
+  return { done, total: course.steps.length, lessons };
 }
 
 /* ---------- Gamla ord från version 1 ---------- */

@@ -10,12 +10,12 @@ Dubbelklicka på `index.html` så öppnas appen i webbläsaren. Inget behöver i
 
 - **Kurser:** välj franska eller spanska och lägg till fler när du vill. Varje kurs sparas för sig.
 - **Egen plan:** några frågor i början (nivå, varför, dagligt mål) avgör var du börjar och hur mycket du övar.
-- **Kursväg:** 12 enheter per språk från nybörjare till A2, med 36 lektioner och drygt 330 ord.
+- **Kursväg:** en enda väg från nybörjare till B1 (gymnasiets steg 5): 18 enheter i franska och 17 i spanska. Lektioner och grammatikmoment ligger i ordning, och nästa steg låses upp när det förra är klart.
 - **Lektioner:** dialog, nya ord, grammatik, exempelmeningar och uttalstips, med uppläsning.
 - **Grammatik:** 30 moment i franska och 23 i spanska, ordnade efter gymnasiets steg 1–5. Varje moment har förklaring, böjningstabeller, exempel med uppläsning, vanliga misstag och en övning där du fyller i luckor.
 - **Tala in:** uttalsövningar där du säger en mening högt och ser vilka ord som hördes rätt. Ingår i lektionerna och som eget läge under Öva. Fungerar i Chrome, Edge och Safari (inte Firefox).
 - **Spelet Ordregn:** svenska ord regnar ner och du översätter dem innan de landar. Skriv eller välj bland fyra, nivåer som går fortare och rekord per kurs.
-- **Övningar:** flerval, lyssna, skriva, para ihop, bygga meningar och fylla i luckor. Fel svar kommer tillbaka i slutet.
+- **Övningar:** flerval, lyssna, skriva, para ihop, bygga meningar, fylla i luckor, tala in och grammatikfrågor från momenten du har nått. Fel svar kommer tillbaka i slutet.
 - **Öva:** välj enheter (eller bara svaga ord), svårighet och riktning. Flashcards, flerval, para ihop, skriv eller blandat.
 - **Ordlista:** alla ord med sökning, filter, styrka per ord och egna ord.
 - **Skriv:** korta skrivuppgifter och frågor att svara på.
@@ -27,8 +27,9 @@ Dubbelklicka på `index.html` så öppnas appen i webbläsaren. Inget behöver i
 |-----|-------------|
 | `index.html` | Laddar typsnitt, stilar och skript |
 | `style.css` | Hela utseendet (vykortsstilen). Färgerna står överst |
-| `js/data/fr.js`, `js/data/es.js` | Kursinnehållet: enheter, lektioner, ord, meningar, grammatik |
-| `js/data/grammar-fr.js`, `js/data/grammar-es.js` | Grammatikmomenten steg 1–5 med övningar |
+| `js/data/fr.js`, `js/data/es.js` | Kursinnehållet enhet 1–12 (A1–A2): lektioner, ord, meningar |
+| `js/data/fr-b1.js`, `js/data/es-b1.js` | Enhet 13 och framåt (B1), som hör ihop med grammatiken i steg 3–5 |
+| `js/data/grammar-fr.js`, `js/data/grammar-es.js` | Grammatikmomenten steg 1–5 med övningar. `unit` och `after` styr var de ligger på kursvägen |
 | `js/core.js` | Hjälpfunktioner, sparning, XP, ordens styrka, uppläsning och ikoner |
 | `js/exercises.js` | Skapar och visar övningarna (även grammatik och tala in) |
 | `js/game.js` | Spelet Ordregn |
@@ -42,4 +43,4 @@ Dubbelklicka på `index.html` så öppnas appen i webbläsaren. Inget behöver i
 
 ## När du ändrar CSS eller JavaScript
 
-Webbläsare och GitHub Pages sparar gamla versioner av filerna en stund. Öka därför siffran i `?v=4` på alla rader i `index.html` (till `?v=5` osv) när du ändrar `style.css` eller något i `js/`. Då hämtar alla webbläsare de nya filerna direkt.
+Webbläsare och GitHub Pages sparar gamla versioner av filerna en stund. Öka därför siffran i `?v=5` på alla rader i `index.html` (till `?v=6` osv) när du ändrar `style.css` eller något i `js/`. Då hämtar alla webbläsare de nya filerna direkt.

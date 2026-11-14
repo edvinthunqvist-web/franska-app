@@ -1,11 +1,12 @@
 // Grammatik för spanska, ordnad efter gymnasiets steg 1–5 (ungefär A1 till B1).
 // Allt innehåll är egenskrivet. Samma format som grammar-fr.js.
+// unit/after: var momentet ligger på kursvägen (enhet, efter lektion nummer).
 
 window.GRAMMAR = window.GRAMMAR || {};
 window.GRAMMAR.es = [
   /* ---------------- Steg 1 ---------------- */
   {
-    step: 1, title: 'Ser och estar', intro: 'Spanskan har två verb för vara. Ser används för vad något är (egenskaper, yrke, ursprung). Estar används för var något är och hur det mår just nu.',
+    step: 1, title: 'Ser och estar', unit: 2, after: 1, intro: 'Spanskan har två verb för vara. Ser används för vad något är (egenskaper, yrke, ursprung). Estar används för var något är och hur det mår just nu.',
     s: [
       { h: 'Ser (vara, egenskap)', t: 'yo soy=jag är|tú eres=du är|él / ella / usted es=han / hon / ni är|nosotros somos=vi är|vosotros sois=ni är|ellos / ellas son=de är' },
       { h: 'Estar (vara, tillstånd och plats)', t: 'yo estoy=jag är|tú estás=du är|él / ella está=han / hon är|nosotros estamos=vi är|vosotros estáis=ni är|ellos / ellas están=de är' },
@@ -24,7 +25,7 @@ window.GRAMMAR.es = [
     ],
   },
   {
-    step: 1, title: 'Genus och artiklar', intro: 'Alla substantiv är maskulina eller feminina. Ord på -o är oftast maskulina och ord på -a oftast feminina.',
+    step: 1, title: 'Genus och artiklar', unit: 4, after: 2, intro: 'Alla substantiv är maskulina eller feminina. Ord på -o är oftast maskulina och ord på -a oftast feminina.',
     s: [
       { h: 'Bestämd artikel', t: 'el libro=boken (mask.)|la casa=huset (fem.)|los libros=böckerna|las casas=husen' },
       { h: 'Obestämd artikel', t: 'un libro=en bok|una casa=ett hus|unos libros=några böcker|unas casas=några hus' },
@@ -43,7 +44,7 @@ window.GRAMMAR.es = [
     ],
   },
   {
-    step: 1, title: 'Presens av regelbundna verb', intro: 'Spanska verb slutar på -ar, -er eller -ir. Ta bort ändelsen och lägg till en ny efter vem som gör något.',
+    step: 1, title: 'Presens av regelbundna verb', unit: 2, after: 3, intro: 'Spanska verb slutar på -ar, -er eller -ir. Ta bort ändelsen och lägg till en ny efter vem som gör något.',
     s: [
       { h: 'Hablar (prata)', t: 'hablo=jag pratar|hablas=du pratar|habla=han / hon pratar|hablamos=vi pratar|habláis=ni pratar|hablan=de pratar' },
       { h: 'Comer (äta)', t: 'como=jag äter|comes=du äter|come=han / hon äter|comemos=vi äter|coméis=ni äter|comen=de äter' },
@@ -63,7 +64,7 @@ window.GRAMMAR.es = [
     ],
   },
   {
-    step: 1, title: 'Negation och frågor', intro: 'Negation är enkelt: sätt no före verbet. Frågor får upp-och-ned-frågetecken i början.',
+    step: 1, title: 'Negation och frågor', unit: 1, after: 2, intro: 'Negation är enkelt: sätt no före verbet. Frågor får upp-och-ned-frågetecken i början.',
     s: [
       { h: 'Negation', t: 'No hablo francés.=Jag pratar inte franska.|No tengo tiempo.=Jag har inte tid.|No me gusta.=Jag tycker inte om det.' },
       { h: 'Frågeord', p: 'Frågeord har alltid accent.', t: '¿qué?=vad?|¿quién?=vem?|¿dónde?=var?|¿cuándo?=när?|¿cómo?=hur?|¿por qué?=varför?|¿cuánto?=hur mycket?|¿cuál?=vilken?' },
@@ -81,7 +82,7 @@ window.GRAMMAR.es = [
     ],
   },
   {
-    step: 1, title: 'Adjektiv', intro: 'Adjektiv står oftast efter substantivet och böjs efter genus och antal.',
+    step: 1, title: 'Adjektiv', unit: 6, after: 1, intro: 'Adjektiv står oftast efter substantivet och böjs efter genus och antal.',
     s: [
       { h: 'Böjning', t: 'un chico alto=en lång pojke|una chica alta=en lång flicka|unos chicos altos=långa pojkar|unas chicas altas=långa flickor' },
       { h: 'Adjektiv på -e eller konsonant', p: 'De ändras inte efter genus, bara i plural.', t: 'un coche grande / una casa grande=en stor bil / ett stort hus|un libro fácil / libros fáciles=en lätt bok / lätta böcker' },
@@ -100,7 +101,7 @@ window.GRAMMAR.es = [
 
   /* ---------------- Steg 2 ---------------- */
   {
-    step: 2, title: 'Oregelbundna verb i presens', intro: 'Många vanliga verb ändrar stammen. Ändringen sker i alla former utom nosotros och vosotros, därför kallas de ibland skoverb.',
+    step: 2, title: 'Oregelbundna verb i presens', unit: 7, after: 2, intro: 'Många vanliga verb ändrar stammen. Ändringen sker i alla former utom nosotros och vosotros, därför kallas de ibland skoverb.',
     s: [
       { h: 'Tener (ha)', t: 'tengo|tienes|tiene|tenemos|tenéis|tienen' },
       { h: 'Ir (gå, åka)', t: 'voy|vas|va|vamos|vais|van' },
@@ -121,7 +122,7 @@ window.GRAMMAR.es = [
     ],
   },
   {
-    step: 2, title: 'Gustar och liknande verb', intro: 'Gustar betyder egentligen behaga. Det man gillar är subjekt, och personen som gillar visas med ett pronomen före.',
+    step: 2, title: 'Gustar och liknande verb', unit: 5, after: 3, intro: 'Gustar betyder egentligen behaga. Det man gillar är subjekt, och personen som gillar visas med ett pronomen före.',
     s: [
       { h: 'Pronomen', t: 'me gusta=jag gillar|te gusta=du gillar|le gusta=han / hon gillar|nos gusta=vi gillar|os gusta=ni gillar|les gusta=de gillar' },
       { h: 'Gusta eller gustan', p: 'Gusta när det man gillar är en sak eller ett verb. Gustan när det är flera saker.', t: 'Me gusta el chocolate.=Jag gillar choklad.|Me gusta bailar.=Jag gillar att dansa.|Me gustan los gatos.=Jag gillar katter.' },
@@ -139,7 +140,7 @@ window.GRAMMAR.es = [
     ],
   },
   {
-    step: 2, title: 'Reflexiva verb', intro: 'Reflexiva verb har ett pronomen som syftar tillbaka på den som gör något, som i jag tvättar mig.',
+    step: 2, title: 'Reflexiva verb', unit: 9, after: 1, intro: 'Reflexiva verb har ett pronomen som syftar tillbaka på den som gör något, som i jag tvättar mig.',
     s: [
       { h: 'Llamarse (heta)', t: 'me llamo=jag heter|te llamas=du heter|se llama=han / hon heter|nos llamamos=vi heter|os llamáis=ni heter|se llaman=de heter' },
       { h: 'Vanliga reflexiva verb', t: 'levantarse=stiga upp|ducharse=duscha|vestirse=klä på sig|acostarse=lägga sig|despertarse=vakna|divertirse=ha roligt' },
@@ -156,7 +157,7 @@ window.GRAMMAR.es = [
     ],
   },
   {
-    step: 2, title: 'Ir a + infinitiv (nära framtid)', intro: 'Det enklaste sättet att prata om framtiden: böj ir, lägg till a och verbet i grundform.',
+    step: 2, title: 'Ir a + infinitiv (nära framtid)', unit: 12, after: 1, intro: 'Det enklaste sättet att prata om framtiden: böj ir, lägg till a och verbet i grundform.',
     s: [
       { h: 'Så bildas det', t: 'voy a comer=jag ska äta|vas a salir=du ska gå ut|va a llover=det ska regna|vamos a ver=vi får se|vais a viajar=ni ska resa|van a jugar=de ska spela' },
       { h: 'Användning', p: 'Används för planer och sådant som snart händer, precis som svenskans ska.' },
@@ -172,7 +173,7 @@ window.GRAMMAR.es = [
     ],
   },
   {
-    step: 2, title: 'Possessiva pronomen', intro: 'Min, din, hans och så vidare. De korta formerna står före substantivet och böjs i antal.',
+    step: 2, title: 'Possessiva pronomen', unit: 4, after: 1, intro: 'Min, din, hans och så vidare. De korta formerna står före substantivet och böjs i antal.',
     s: [
       { h: 'Former', t: 'mi / mis=min / mina|tu / tus=din / dina|su / sus=hans, hennes, deras, er|nuestro / nuestra=vår (böjs även i genus)|vuestro / vuestra=er (böjs även i genus)' },
       { h: 'Su är tvetydigt', p: 'Su kan betyda hans, hennes, deras eller er (usted). Sammanhanget avgör. Vid behov: el libro de él.' },
@@ -189,7 +190,7 @@ window.GRAMMAR.es = [
 
   /* ---------------- Steg 3 ---------------- */
   {
-    step: 3, title: 'Pretérito perfecto', intro: 'Perfekt, som svenskans har gjort. Bildas med haber och ett particip. Används om sådant som hänt idag, i veckan eller någonsin.',
+    step: 3, title: 'Pretérito perfecto', unit: 14, after: 1, intro: 'Perfekt, som svenskans har gjort. Bildas med haber och ett particip. Används om sådant som hänt idag, i veckan eller någonsin.',
     s: [
       { h: 'Haber + particip', t: 'he comido=jag har ätit|has comido=du har ätit|ha comido=han / hon har ätit|hemos comido=vi har ätit|habéis comido=ni har ätit|han comido=de har ätit' },
       { h: 'Particip', p: '-ar blir -ado och -er/-ir blir -ido.', t: 'hablar=hablado|comer=comido|vivir=vivido' },
@@ -207,7 +208,7 @@ window.GRAMMAR.es = [
     ],
   },
   {
-    step: 3, title: 'Pretérito indefinido, regelbundna', intro: 'Den vanligaste dåtiden för avslutade händelser: igår, förra året, en gång.',
+    step: 3, title: 'Pretérito indefinido, regelbundna', unit: 12, after: 3, intro: 'Den vanligaste dåtiden för avslutade händelser: igår, förra året, en gång.',
     s: [
       { h: '-ar: hablar', t: 'hablé=jag pratade|hablaste=du pratade|habló=han / hon pratade|hablamos=vi pratade|hablasteis=ni pratade|hablaron=de pratade' },
       { h: '-er och -ir: comer, vivir', t: 'comí / viví=jag åt / bodde|comiste / viviste=du åt / bodde|comió / vivió=han åt / bodde|comimos / vivimos=vi åt / bodde|comisteis / vivisteis=ni åt / bodde|comieron / vivieron=de åt / bodde' },
@@ -225,7 +226,7 @@ window.GRAMMAR.es = [
     ],
   },
   {
-    step: 3, title: 'Pretérito indefinido, oregelbundna', intro: 'De vanligaste verben är oregelbundna i dåtid. De har ingen accent på ändelsen.',
+    step: 3, title: 'Pretérito indefinido, oregelbundna', unit: 13, after: 1, intro: 'De vanligaste verben är oregelbundna i dåtid. De har ingen accent på ändelsen.',
     s: [
       { h: 'Ir och ser (samma former)', t: 'fui=jag gick / var|fuiste=du gick / var|fue=han gick / var|fuimos=vi gick / var|fuisteis=ni gick / var|fueron=de gick / var' },
       { h: 'Vanliga oregelbundna', t: 'tener=tuve, tuvo|estar=estuve, estuvo|hacer=hice, hizo|poder=pude, pudo|poner=puse, puso|querer=quise, quiso|venir=vine, vino|decir=dije, dijo|dar=di, dio' },
@@ -242,7 +243,7 @@ window.GRAMMAR.es = [
     ],
   },
   {
-    step: 3, title: 'Objektspronomen', intro: 'Pronomen som ersätter objektet: honom, henne, det, mig. De står före det böjda verbet.',
+    step: 3, title: 'Objektspronomen', unit: 15, after: 1, intro: 'Pronomen som ersätter objektet: honom, henne, det, mig. De står före det böjda verbet.',
     s: [
       { h: 'Direkt objekt (vem/vad)', t: 'me=mig|te=dig|lo / la=honom, den, det / henne, den|nos=oss|os=er|los / las=dem' },
       { h: 'Indirekt objekt (till vem)', t: 'me=till mig|te=till dig|le=till honom / henne|nos=till oss|os=till er|les=till dem' },
@@ -260,7 +261,7 @@ window.GRAMMAR.es = [
     ],
   },
   {
-    step: 3, title: 'Jämförelser', intro: 'Mer än, mindre än, lika som, och den mest.',
+    step: 3, title: 'Jämförelser', unit: 10, after: 2, intro: 'Mer än, mindre än, lika som, och den mest.',
     s: [
       { h: 'Jämförelse', t: 'más ... que=mer ... än|menos ... que=mindre ... än|tan ... como=lika ... som|tanto como=lika mycket som' },
       { h: 'Superlativ', t: 'el más alto=den längsta|la más bonita=den vackraste|-ísimo: guapísimo=jättesnygg' },
@@ -279,7 +280,7 @@ window.GRAMMAR.es = [
 
   /* ---------------- Steg 4 ---------------- */
   {
-    step: 4, title: 'Imperfecto', intro: 'Dåtid för bakgrund, vanor och hur något var: brukade, höll på med.',
+    step: 4, title: 'Imperfecto', unit: 13, after: 2, intro: 'Dåtid för bakgrund, vanor och hur något var: brukade, höll på med.',
     s: [
       { h: '-ar: hablar', t: 'hablaba|hablabas|hablaba|hablábamos|hablabais|hablaban' },
       { h: '-er och -ir: comer, vivir', t: 'comía / vivía|comías / vivías|comía / vivía|comíamos / vivíamos|comíais / vivíais|comían / vivían' },
@@ -296,7 +297,7 @@ window.GRAMMAR.es = [
     ],
   },
   {
-    step: 4, title: 'Indefinido eller imperfecto', intro: 'Indefinido berättar vad som hände. Imperfecto målar upp bakgrunden.',
+    step: 4, title: 'Indefinido eller imperfecto', unit: 13, after: 3, intro: 'Indefinido berättar vad som hände. Imperfecto målar upp bakgrunden.',
     s: [
       { h: 'Indefinido', p: 'Avslutade händelser med tydlig början eller slut. Signalord: ayer, el año pasado, de repente, una vez.' },
       { h: 'Imperfecto', p: 'Beskrivningar, väder, ålder, känslor, vanor och något som pågick. Signalord: siempre, cada día, antes, mientras.' },
@@ -314,7 +315,7 @@ window.GRAMMAR.es = [
     ],
   },
   {
-    step: 4, title: 'Futuro simple', intro: 'Ren framtid. Lägg ändelsen direkt på hela infinitiven. Samma ändelser för alla verb.',
+    step: 4, title: 'Futuro simple', unit: 14, after: 2, intro: 'Ren framtid. Lägg ändelsen direkt på hela infinitiven. Samma ändelser för alla verb.',
     s: [
       { h: 'Hablar', t: 'hablaré|hablarás|hablará|hablaremos|hablaréis|hablarán' },
       { h: 'Oregelbunden stam', t: 'tener=tendré|hacer=haré|poder=podré|salir=saldré|venir=vendré|decir=diré|saber=sabré|poner=pondré' },
@@ -331,7 +332,7 @@ window.GRAMMAR.es = [
     ],
   },
   {
-    step: 4, title: 'Imperativ', intro: 'Uppmaningar. Tú-formen är oftast samma som han-formen i presens.',
+    step: 4, title: 'Imperativ', unit: 11, after: 2, intro: 'Uppmaningar. Tú-formen är oftast samma som han-formen i presens.',
     s: [
       { h: 'Tú, jakande', t: '¡Habla!=Prata!|¡Come!=Ät!|¡Escribe!=Skriv!' },
       { h: 'Oregelbundna tú-former', t: 'tener=ten|hacer=haz|poner=pon|salir=sal|venir=ven|decir=di|ir=ve|ser=sé' },
@@ -349,7 +350,7 @@ window.GRAMMAR.es = [
     ],
   },
   {
-    step: 4, title: 'Por och para', intro: 'Båda kan bli för på svenska. Para handlar om mål och syfte, por om orsak och väg.',
+    step: 4, title: 'Por och para', unit: 15, after: 3, intro: 'Båda kan bli för på svenska. Para handlar om mål och syfte, por om orsak och väg.',
     s: [
       { h: 'Para', t: 'syfte=Estudio para aprender.|mottagare=Es para ti.|riktning=Salgo para Madrid.|deadline=Para el lunes.' },
       { h: 'Por', t: 'orsak=Gracias por todo.|genom, längs=Paseo por el parque.|tid på dygnet=Por la mañana.|pris, utbyte=Lo compré por diez euros.|medel=Hablar por teléfono.' },
@@ -367,7 +368,7 @@ window.GRAMMAR.es = [
 
   /* ---------------- Steg 5 ---------------- */
   {
-    step: 5, title: 'Condicional', intro: 'Skulle. Bildas som futuro (hela infinitiven plus ändelse) men med imperfecto-ändelser.',
+    step: 5, title: 'Condicional', unit: 16, after: 1, intro: 'Skulle. Bildas som futuro (hela infinitiven plus ändelse) men med imperfecto-ändelser.',
     s: [
       { h: 'Hablar', t: 'hablaría|hablarías|hablaría|hablaríamos|hablaríais|hablarían' },
       { h: 'Samma oregelbundna stam som futuro', t: 'tener=tendría|hacer=haría|poder=podría|querer=querría|decir=diría|salir=saldría' },
@@ -384,7 +385,7 @@ window.GRAMMAR.es = [
     ],
   },
   {
-    step: 5, title: 'Subjuntivo presente', intro: 'Ett verbmodus för önskningar, känslor, tvivel och krav. Det kommer efter que när huvudsatsen uttrycker något sådant.',
+    step: 5, title: 'Subjuntivo presente', unit: 17, after: 2, intro: 'Ett verbmodus för önskningar, känslor, tvivel och krav. Det kommer efter que när huvudsatsen uttrycker något sådant.',
     s: [
       { h: 'Så bildas det', p: 'Ta jag-formen i presens, ta bort -o och byt vokal: -ar får e-ändelser och -er/-ir får a-ändelser.', t: 'hablar (hablo)=hable, hables, hable, hablemos, habléis, hablen|comer (como)=coma, comas, coma, comamos, comáis, coman|tener (tengo)=tenga, tengas, tenga...|hacer (hago)=haga, hagas, haga...' },
       { h: 'Oregelbundna', t: 'ser=sea|ir=vaya|estar=esté|saber=sepa|haber=haya|dar=dé' },
@@ -402,7 +403,7 @@ window.GRAMMAR.es = [
     ],
   },
   {
-    step: 5, title: 'Si-satser', intro: 'Om-meningar. Vilken tid som används beror på hur troligt något är.',
+    step: 5, title: 'Si-satser', unit: 16, after: 3, intro: 'Om-meningar. Vilken tid som används beror på hur troligt något är.',
     s: [
       { h: 'Troligt', t: 'Si + presens, presens / futuro=Si llueve, me quedo en casa. (Om det regnar stannar jag hemma.)' },
       { h: 'Tänkt eller osannolikt', p: 'Si + subjuntivo imperfecto, sedan condicional. Imperfecto av subjuntivo bildas från de-formen i indefinido: tuvieron → tuviera.', t: 'tener=tuviera|ser / ir=fuera|poder=pudiera|hablar=hablara|vivir=viviera' },
