@@ -2,7 +2,8 @@
 <html lang="sv">
 <head>
   <meta charset="utf-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+  <meta name="theme-color" content="#efe4cc">
   <title>Mon Français</title>
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
@@ -10,59 +11,15 @@
   <link rel="stylesheet" href="style.css">
 </head>
 <body>
-  <header class="top">
-    <div class="logo"><span class="logo-mark">Fr</span><span class="logo-text">Mon Français</span></div>
+  <div id="app"></div>
 
-    <!-- Menyn. data-view säger vilken vy knappen visar. -->
-    <nav class="nav">
-      <button class="nav-btn active" data-view="ordlista">
-        <svg class="ico" viewBox="0 0 24 24" aria-hidden="true"><path d="M3 5.5C5.5 4.5 8.5 4.5 12 6.5v13c-3.5-2-6.5-2-9-1z"/><path d="M21 5.5c-2.5-1-5.5-1-9 1v13c3.5-2 6.5-2 9-1z"/></svg>
-        <span>Ordlista</span>
-      </button>
-      <button class="nav-btn" data-view="forhor">
-        <svg class="ico" viewBox="0 0 24 24" aria-hidden="true"><path d="M15.5 4.5l4 4L8 20H4v-4z"/><path d="M13.5 6.5l4 4"/></svg>
-        <span>Förhör</span>
-      </button>
-      <button class="nav-btn" data-view="lektioner">
-        <svg class="ico" viewBox="0 0 24 24" aria-hidden="true"><path d="M2 9l10-5 10 5-10 5z"/><path d="M6 11v5c3 2.5 9 2.5 12 0v-5"/><path d="M22 9v6"/></svg>
-        <span>Lektioner</span>
-      </button>
-    </nav>
-  </header>
-
-  <main class="views">
-    <!-- Vy 1: Ordlistan -->
-    <section class="panel" id="view-ordlista">
-      <div class="panel-head">
-        <h1>Mina ord</h1>
-        <span class="stamp" id="word-count">0 ord</span>
-      </div>
-
-      <form class="add" id="add-form">
-        <label class="sr-only" for="input-fr">Franska</label>
-        <input id="input-fr" placeholder="Franska (t.ex. le pain)" autocomplete="off">
-        <label class="sr-only" for="input-sv">Svenska</label>
-        <input id="input-sv" placeholder="Svenska (t.ex. brödet)" autocomplete="off">
-        <button class="btn" type="submit">Lägg till</button>
-        <p class="error" id="form-error" hidden>Fyll i både franska och svenska.</p>
-      </form>
-
-      <ul class="wordlist" id="word-list"></ul>
-      <p class="empty" id="empty-message" hidden>Inga ord än. Lägg till ditt första ovanför.</p>
-    </section>
-
-    <!-- Vy 2 och 3 byggs i nästa steg -->
-    <section class="panel" id="view-forhor" hidden>
-      <div class="panel-head"><h1>Förhör</h1></div>
-      <p class="soon">Kommer snart.</p>
-    </section>
-
-    <section class="panel" id="view-lektioner" hidden>
-      <div class="panel-head"><h1>Lektioner</h1></div>
-      <p class="soon">Kommer snart.</p>
-    </section>
-  </main>
-
-  <script src="app.js"></script>
+  <!-- Kursinnehållet -->
+  <script src="js/data/fr.js"></script>
+  <script src="js/data/es.js"></script>
+  <!-- Appen -->
+  <script src="js/core.js"></script>
+  <script src="js/exercises.js"></script>
+  <script src="js/views.js"></script>
+  <script src="js/main.js"></script>
 </body>
 </html>
