@@ -47,8 +47,8 @@ function coursePickerView() {
       <span class="lang-name">${esc(c.name)}</span>
       <span class="lang-native" lang="${c.tts}">${esc(c.native)}</span>
       ${owned
-        ? `<span class="lang-meta">${pr.done} av ${pr.total} lektioner</span><span class="progress"><span class="bar" style="width:${Math.round(pr.done / pr.total * 100)}%"></span></span>`
-        : `<span class="lang-meta">${c.units.length} enheter · ${c.lessons.length} lektioner · ${c.words.length} ord</span>`}
+        ? `<span class="lang-meta">${pr.done} av ${pr.total} steg klara</span><span class="progress"><span class="bar" style="width:${Math.round(pr.done / pr.total * 100)}%"></span></span>`
+        : `<span class="lang-meta">${c.units.length} enheter · ${c.lessons.length} lektioner · ${grammarFor(c).length} grammatikmoment · ${c.words.length} ord</span>`}
       <span class="lang-cta">${owned ? (c.id === state.active ? 'Fortsätt' : 'Byt till') : 'Starta kurs'} ${icon('arrow')}</span>
     </button>`;
   };
@@ -107,7 +107,7 @@ function onboardingView(courseId) {
   if (o.step === 3) {
     const lvl = LEVELS[o.level ?? 0];
     const goal = GOALS[o.goal];
-    const remaining = c.lessons.filter((l) => l.unitIdx >= lvl.startUnit).length;
+    const remaining = c.steps.filter((st) => st.unitIdx >= lvl.startUnit).length;
     const perDay = Math.max(1, Math.round(goal.xp / 20));
     const weeks = Math.max(1, Math.ceil(remaining / perDay / 7));
     const startUnit = c.units[lvl.startUnit];
@@ -117,7 +117,7 @@ function onboardingView(courseId) {
       <div class="plan-card">
         <div class="plan-row">${icon('target')}<div><strong>Start: Enhet ${lvl.startUnit + 1}, ${esc(startUnit.title)}</strong><small>${lvl.startUnit ? 'Tidigare enheter är öppna om du vill repetera.' : 'Vi börjar från grunden.'}</small></div></div>
         <div class="plan-row">${icon('bolt')}<div><strong>${goal.xp} XP om dagen</strong><small>Ungefär ${perDay} ${perDay === 1 ? 'lektion' : 'lektioner'} eller ${goal.min} minuter.</small></div></div>
-        <div class="plan-row">${icon('stamp')}<div><strong>Hela kursen på cirka ${weeks} ${weeks === 1 ? 'vecka' : 'veckor'}</strong><small>${remaining} lektioner kvar, från nybörjare till nivå A2.</small></div></div>
+        <div class="plan-row">${icon('stamp')}<div><strong>Hela kursen på cirka ${weeks} ${weeks === 1 ? 'vecka' : 'veckor'}</strong><small>${remaining} lektioner och grammatikmoment, från nybörjare till nivå B1 (gymnasiets steg 5).</small></div></div>
         ${o.reasons.length ? `<div class="plan-row">${icon('star')}<div><strong>Fokus: ${esc(o.reasons.join(', ').toLowerCase())}</strong><small>Enheterna om resor, mat och vardag hjälper dig mest.</small></div></div>` : ''}
       </div>`;
   }
@@ -142,15 +142,15 @@ function finishOnboarding() {
   state.active = o.courseId;
   save();
   onboard = null;
-  const first = nextLesson(COURSE_DATA[o.courseId]);
-  location.hash = first ? `#/lektion/${first.id}` : '#/kurs';
+  const first = nextStep(COURSE_DATA[o.courseId]);
+  location.hash = first ? stepHref(first) : '#/kurs';
 }
 
 /* ---------- Kursvägen ---------- */
 
 function pathView() {
   const c = activeCourse();
-  const next = nextLesson(c);
+  const next = nextStep(c);
   const pr = courseProgress(c);
   const weak = weakWords(c);
   const today = xpToday();
@@ -160,7 +160,7 @@ function pathView() {
 
   const units = c.units.map((u) => {
     const up = unitProgress(c, u);
-    const open = u.lessons.some((l) => lessonUnlocked(c, l));
+    const open = u.steps.some((st) => stepUnlocked(c, st));
     return `
     <section class="unit ${open ? '' : 'locked'}" id="${u.id}">
       <div class="unit-head">
@@ -171,16 +171,19 @@ function pathView() {
         <span class="stamp">${up.done}/${up.total}</span>
       </div>
       <ol class="trail">
-        ${u.lessons.map((l, i) => {
-          const done = lessonDone(c.id, l.id);
-          const unlocked = lessonUnlocked(c, l);
-          const isNext = next && next.id === l.id;
+        ${u.steps.map((st, i) => {
+          const done = stepDone(c, st);
+          const unlocked = stepUnlocked(c, st);
+          const isNext = next && next.id === st.id;
           const cls = done ? 'done' : isNext ? 'next' : unlocked ? 'open' : 'locked';
-          return `<li class="stop ${cls} pos-${i % 3}">
-            ${unlocked ? `<a class="stop-btn" href="#/lektion/${l.id}" aria-label="Lektion ${i + 1}: ${esc(l.title)}">` : `<span class="stop-btn" aria-label="Låst lektion">`}
-              ${icon(done ? 'check' : unlocked ? 'book' : 'lock')}
+          const g = st.kind === 'grammar';
+          const title = g ? st.topic.title : st.lesson.title;
+          const sub = g ? `Grammatik · ${st.topic.intro}` : st.lesson.intro;
+          return `<li class="stop ${cls} ${g ? 'gstop' : ''} pos-${i % 3}">
+            ${unlocked ? `<a class="stop-btn" href="${stepHref(st)}" aria-label="${g ? 'Grammatik' : 'Lektion'}: ${esc(title)}">` : `<span class="stop-btn" aria-label="Låst">`}
+              ${icon(done ? 'check' : !unlocked ? 'lock' : g ? 'grammar' : 'book')}
             ${unlocked ? '</a>' : '</span>'}
-            <span class="stop-label"><strong lang="${c.tts}">${esc(l.title)}</strong><small>${esc(l.intro)}</small></span>
+            <span class="stop-label"><strong ${g ? '' : `lang="${c.tts}"`}>${esc(title)}</strong><small>${esc(sub)}</small></span>
             ${isNext ? '<span class="start-tag">Starta här</span>' : ''}
           </li>`;
         }).join('')}
@@ -194,15 +197,15 @@ function pathView() {
 
   return shell(`
         ${next ? `
-    <a class="hero-card" href="#/lektion/${next.id}">
+    <a class="hero-card" href="${stepHref(next)}">
       <div>
-        <span class="eyebrow">Fortsätt där du var · Enhet ${next.unitIdx + 1}</span>
-        <h1 lang="${c.tts}">${esc(next.title)}</h1>
-        <p>${esc(next.intro)}</p>
+        <span class="eyebrow">Fortsätt där du var · Enhet ${next.unitIdx + 1}${next.kind === 'grammar' ? ' · Grammatik' : ''}</span>
+        <h1 ${next.kind === 'lesson' ? `lang="${c.tts}"` : ''}>${esc(next.kind === 'lesson' ? next.lesson.title : next.topic.title)}</h1>
+        <p>${esc(next.kind === 'lesson' ? next.lesson.intro : next.topic.intro)}</p>
       </div>
-      <span class="btn primary">Starta lektion ${icon('arrow')}</span>
+      <span class="btn primary">${next.kind === 'lesson' ? 'Starta lektion' : 'Läs och öva'} ${icon('arrow')}</span>
     </a>` : `
-    <div class="hero-card done-card"><div><span class="eyebrow">Kursen är klar</span><h1>Félicitations !</h1><p>Du har klarat alla lektioner. Fortsätt repetera under Öva.</p></div><a class="btn primary" href="#/ova">Öva ${icon('arrow')}</a></div>`}
+    <div class="hero-card done-card"><div><span class="eyebrow">Kursen är klar</span><h1>Félicitations !</h1><p>Du har klarat hela kursvägen. Fortsätt repetera under Öva.</p></div><a class="btn primary" href="#/ova">Öva ${icon('arrow')}</a></div>`}
     <div class="layout-2">
       <div class="col-main">
         <div class="units">${units}</div>
@@ -214,7 +217,7 @@ function pathView() {
         </div>
         <div class="panel stats-panel">
           <div class="stat"><strong>${streak()}</strong><span>dagar i rad</span></div>
-          <div class="stat"><strong>${pr.done}/${pr.total}</strong><span>lektioner</span></div>
+          <div class="stat"><strong>${pr.done}/${pr.total}</strong><span>steg klara</span></div>
           <div class="stat"><strong>${learned}</strong><span>ord du kan</span></div>
         </div>
         <a class="panel link-panel" href="#/ova?svaga=1">
@@ -276,6 +279,16 @@ function lessonView(id) {
           <table class="gtable">${l.grammar.table.map(([a, b]) => `<tr><td lang="${c.tts}">${esc(a)}</td><td>${esc(b)}</td></tr>`).join('')}</table>
         </section>` : ''}
 
+        ${u.grammar.length ? `
+        <section class="panel">
+          <h2 class="panel-title">${icon('grammar')} Grammatik i den här enheten</h2>
+          <p class="muted small">Momenten ligger på kursvägen och övningarna dyker också upp i lektionerna.</p>
+          <div class="g-links">${u.grammar.map((g) => {
+            const st = grammarStat(c.id, g.slug);
+            return `<a class="g-link ${st?.done ? 'done' : ''}" href="#/grammatik/${g.slug}">${icon(st?.done ? 'check' : 'grammar')}<span><strong>${esc(g.title)}</strong><small>Efter lektion ${Math.min(g.after, u.lessons.length)}${st?.done ? ` · klar ${st.best}%` : ''}</small></span>${icon('chevron')}</a>`;
+          }).join('')}</div>
+        </section>` : ''}
+
         <section class="panel">
           <h2 class="panel-title">${icon('book')} Exempelmeningar</h2>
           <ul class="examples">${l.sentences.map((s) => `
@@ -300,7 +313,7 @@ function resultView() {
   const s = session;
   const r = s.result;
   const c = s.course;
-  const next = s.kind === 'lesson' ? nextLesson(c) : null;
+  const next = s.kind !== 'practice' ? nextStep(c) : null;
   const topics = s.kind === 'grammar' ? grammarFor(c) : [];
   const topic = topics.find((g) => g.slug === s.topicSlug);
   const nextTopic = topic ? topics[topic.idx + 1] : null;
@@ -328,9 +341,9 @@ function resultView() {
       </div>
       <div class="result-actions">
         ${s.kind === 'lesson'
-          ? `<a class="btn ghost" href="#/kurs">Till kursvägen</a>${next ? `<a class="btn primary" href="#/lektion/${next.id}">Nästa lektion ${icon('arrow')}</a>` : ''}`
+          ? `<a class="btn ghost" href="#/kurs">Till kursvägen</a>${next ? `<a class="btn primary" href="${stepHref(next)}">${next.kind === 'grammar' ? 'Nästa: grammatik' : 'Nästa lektion'} ${icon('arrow')}</a>` : ''}`
           : s.kind === 'grammar'
-          ? `<a class="btn ghost" href="#/grammatik/${s.topicSlug}">Läs igen</a>${nextTopic ? `<a class="btn primary" href="#/grammatik/${nextTopic.slug}">Nästa moment ${icon('arrow')}</a>` : `<a class="btn primary" href="#/grammatik">Alla moment</a>`}`
+          ? `<a class="btn ghost" href="#/grammatik/${s.topicSlug}">Läs igen</a>${next ? `<a class="btn primary" href="${stepHref(next)}">Fortsätt kursvägen ${icon('arrow')}</a>` : nextTopic ? `<a class="btn primary" href="#/grammatik/${nextTopic.slug}">Nästa moment ${icon('arrow')}</a>` : `<a class="btn primary" href="#/grammatik">Alla moment</a>`}`
           : `<a class="btn ghost" href="#/ova">Ny övning</a><button class="btn primary" data-act="again">Kör igen ${icon('repeat')}</button>`}
       </div>
     </div>
@@ -498,7 +511,7 @@ function grammarListView() {
         return `<a class="g-card ${st?.done ? 'done' : ''}" href="#/grammatik/${g.slug}">
           <span class="g-icon">${icon(st?.done ? 'check' : 'grammar')}</span>
           <span class="g-text"><strong>${esc(g.title)}</strong><small>${esc(g.intro)}</small></span>
-          ${st?.done ? `<span class="stamp">${st.best}%</span>` : `<span class="g-count">${g.q.length} frågor</span>`}
+          ${st?.done ? `<span class="stamp">${st.best}%</span>` : `<span class="g-count">Enhet ${g.unitIdx + 1}</span>`}
         </a>`;
       }).join('')}</div>
     </section>`).join('')}`, '#/grammatik');
@@ -522,7 +535,7 @@ function grammarTopicView(slug) {
     <div class="lesson-page grammar-page">
       <a class="back-link" href="#/grammatik">${icon('back')} Alla moment</a>
       <header class="lesson-head">
-        <span class="eyebrow">Steg ${g.step} · Moment ${g.idx + 1} av ${topics.length}</span>
+        <span class="eyebrow">Steg ${g.step} · Moment ${g.idx + 1} av ${topics.length}${c.units[g.unitIdx] ? ` · Enhet ${g.unitIdx + 1} på kursvägen` : ''}</span>
         <h1>${esc(g.title)}</h1>
         <p class="lead">${esc(g.intro)}</p>
         ${st?.done ? `<span class="stamp">Klar · ${st.best}%</span>` : ''}
@@ -727,7 +740,7 @@ function profileView() {
     <div class="stat-row">
       <div class="panel big-stat">${icon('flame')}<strong>${streak()}</strong><span>dagar i rad</span></div>
       <div class="panel big-stat">${icon('bolt')}<strong>${xpTotal()}</strong><span>XP totalt</span></div>
-      <div class="panel big-stat">${icon('book')}<strong>${courseProgress(c).done}</strong><span>lektioner klara</span></div>
+      <div class="panel big-stat">${icon('book')}<strong>${courseProgress(c).done}/${courseProgress(c).total}</strong><span>steg på kursvägen</span></div>
       <div class="panel big-stat">${icon('star')}<strong>${learned}</strong><span>ord du kan av ${seen} sedda</span></div>
     </div>
     <div class="layout-2 even">

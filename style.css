@@ -788,3 +788,22 @@ summary { cursor: pointer; font-family: var(--type); }
   .rain-demo { height: 160px; }
   .nav-btn { font-size: 10px; padding: 6px 2px; }
 }
+
+/* ---------- Grammatik på kursvägen ---------- */
+.stop.gstop .stop-btn { border-radius: 10px; transform: rotate(3deg); width: 54px; height: 54px; margin: 0 5px; }
+.stop.gstop.open .stop-btn { color: var(--red); border-color: var(--red); border-style: dashed; }
+.stop.gstop.next .stop-btn { border-radius: 10px; }
+.stop.gstop .stop-label small { font-style: italic; display: -webkit-box; -webkit-line-clamp: 2; -webkit-box-orient: vertical; overflow: hidden; }
+.ex-topic { align-self: center; display: inline-flex; align-items: center; gap: 6px; font-family: var(--type); font-size: 12px; letter-spacing: .04em; color: var(--red); border: 1.5px dashed var(--red); border-radius: 20px; padding: 3px 12px; }
+.ex-topic .ico { width: 15px; height: 15px; }
+.g-links { display: flex; flex-direction: column; gap: 8px; margin-top: 10px; }
+.g-link { display: flex; align-items: center; gap: 12px; padding: 10px 12px; background: var(--card-edge); border: 1.5px solid var(--line); border-radius: var(--radius); transition: border-color .12s; }
+.g-link:hover { border-color: var(--brown); }
+.g-link > .ico:first-child { color: var(--red); }
+.g-link.done > .ico:first-child { color: var(--green); }
+.g-link span { flex: 1; display: flex; flex-direction: column; }
+.g-link strong { font-family: var(--type); font-weight: 400; }
+.g-link small { color: var(--ink-soft); font-size: 12px; }
+@media (max-width: 760px) {
+  .stop.gstop .stop-btn { width: 48px; height: 48px; margin: 0 4px; }
+}
