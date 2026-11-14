@@ -1,21 +1,36 @@
 # Mon Français
 
-En webbapp för att lära sig franska, byggd med bara HTML, CSS och JavaScript (inget ramverk). Orden sparas i webbläsarens localStorage.
+En språkapp för att lära sig franska och spanska, byggd med bara HTML, CSS och JavaScript (inget ramverk). Allt sparas i webbläsarens localStorage, så ingen inloggning behövs.
 
 ## Så öppnar du appen
 
 Dubbelklicka på `index.html` så öppnas appen i webbläsaren. Inget behöver installeras.
 
-## Vad som finns här just nu
+## Vad appen kan
 
-- `index.html`, `style.css`, `app.js` – själva appen. Just nu fungerar ordlistan (lägga till, visa och ta bort ord).
+- **Kurser:** välj franska eller spanska och lägg till fler när du vill. Varje kurs sparas för sig.
+- **Egen plan:** några frågor i början (nivå, varför, dagligt mål) avgör var du börjar och hur mycket du övar.
+- **Kursväg:** 12 enheter per språk från nybörjare till A2, med 36 lektioner och drygt 330 ord.
+- **Lektioner:** dialog, nya ord, grammatik, exempelmeningar och uttalstips, med uppläsning.
+- **Övningar:** flerval, lyssna, skriva, para ihop, bygga meningar och fylla i luckor. Fel svar kommer tillbaka i slutet.
+- **Öva:** välj enheter (eller bara svaga ord), svårighet och riktning. Flashcards, flerval, para ihop, skriv eller blandat.
+- **Ordlista:** alla ord med sökning, filter, styrka per ord och egna ord.
+- **Skriv:** korta skrivuppgifter och frågor att svara på.
+- **Profil:** XP, dagar i rad, veckodiagram, dagligt mål och inställningar.
 
-- `designforslag/` – 20 stilförslag för appen. Öppna `designforslag/index.html` i webbläsaren för att se alla sida vid sida (dator och mobil). Inga förslag har logik än, de är bara till för att välja stil.
-- `lektioner/` – lektionsmaterial för franska A1 (fem lektioner som JSON). Se `lektioner/README.md` för hur materialet är upplagt.
+## Hur koden är uppdelad
 
-## Version 1 (planerad)
+| Fil | Vad den gör |
+|-----|-------------|
+| `index.html` | Laddar typsnitt, stilar och skript |
+| `style.css` | Hela utseendet (vykortsstilen). Färgerna står överst |
+| `js/data/fr.js`, `js/data/es.js` | Kursinnehållet: enheter, lektioner, ord, meningar, grammatik |
+| `js/core.js` | Hjälpfunktioner, sparning, XP, ordens styrka, uppläsning och ikoner |
+| `js/exercises.js` | Skapar och visar övningarna |
+| `js/views.js` | Alla sidor (kursval, kursväg, lektion, öva, ordlista, skriv, profil) |
+| `js/main.js` | Väljer sida utifrån adressen och tar hand om klick |
 
-- Lägga till, visa och ta bort ord
-- Förhör: franska ord visas, du skriver svenskan
-- 20 nybörjarord från start
-- Lektionsvy som visar materialet i `lektioner/`
+## Övrigt
+
+- `designforslag/` – de 20 stilförslagen. Appen använder nummer 18, Vykort.
+- `lektioner/` – utförligt lektionsmaterial för franska A1 (fem lektioner som JSON), som underlag för framtida innehåll.
