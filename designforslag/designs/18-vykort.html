@@ -66,7 +66,7 @@ body{background:#d9cbb0;color:#3a2e22;font-family:'Libre Baskerville',serif;font
 .logo-mark{border:3px dotted #a8442f;color:#a8442f;padding:4px 6px;font-family:'Special Elite';transform:rotate(-6deg)}
 .logo-text{font-family:'Special Elite';font-size:22px}
 .nav a{font-family:'Special Elite'}.nav a.active{border:2px solid #a8442f;color:#a8442f;border-radius:50%;transform:rotate(-4deg)}
-.streak{font-family:'Special Elite';color:#a8442f}
+.streak{font-family:'Special Elite';color:#a8442f;display:flex;align-items:center;gap:6px}.ico{display:block;flex:none}.streak .ico{width:18px;height:18px}
 .panel{background:#f6eedb;box-shadow:0 1px 3px #0003,0 8px 20px #3a2e2222;border:10px solid #fffaf0;outline:1px solid #c4b08c}
 .panel.quiz{transform:rotate(.6deg)}.panel.lesson{transform:rotate(-.4deg)}
 .panel-head h2{font-family:'Special Elite';font-size:22px}
@@ -76,7 +76,7 @@ body{background:#d9cbb0;color:#3a2e22;font-family:'Libre Baskerville',serif;font
 .wordlist li{border-bottom:1px solid #d8c7a3}.wordlist b{font-style:italic}
 .progress{background:#e3d5b6}.bar{background:#8c6b43}
 .card{border:2px dashed #8c6b43;background:#fffaf0;position:relative}
-.card:after{content:'✉';position:absolute;top:8px;right:10px;width:38px;height:44px;border:2px dotted #a8442f;color:#a8442f;display:grid;place-items:center;font-size:18px}
+.card:after{content:'✉\FE0E';font-family:'Special Elite',serif;position:absolute;top:8px;right:10px;width:38px;height:44px;border:2px dotted #a8442f;color:#a8442f;display:grid;place-items:center;font-size:18px}
 .fr-word{font-family:'Libre Baskerville';font-style:italic}
 .feedback.ok{color:#4f6b2d;font-family:'Special Elite'}
 .line{font-family:'Special Elite';border-bottom:1px solid #d8c7a3}
@@ -89,11 +89,11 @@ body{background:#d9cbb0;color:#3a2e22;font-family:'Libre Baskerville',serif;font
   <header class="top">
     <div class="logo"><span class="logo-mark">Fr</span><span class="logo-text">Mon Français</span></div>
     <nav class="nav">
-      <a class="active" href="#"><i>📖</i><span>Ordlista</span></a>
-      <a href="#"><i>✏️</i><span>Förhör</span></a>
-      <a href="#"><i>🎓</i><span>Lektioner</span></a>
+      <a class="active" href="#"><i><svg class="ico" viewBox="0 0 24 24" width="20" height="20" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M3 5.5C5.5 4.5 8.5 4.5 12 6.5v13c-3.5-2-6.5-2-9-1z"/><path d="M21 5.5c-2.5-1-5.5-1-9 1v13c3.5-2 6.5-2 9-1z"/></svg></i><span>Ordlista</span></a>
+      <a href="#"><i><svg class="ico" viewBox="0 0 24 24" width="20" height="20" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M15.5 4.5l4 4L8 20H4v-4z"/><path d="M13.5 6.5l4 4"/></svg></i><span>Förhör</span></a>
+      <a href="#"><i><svg class="ico" viewBox="0 0 24 24" width="20" height="20" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M2 9l10-5 10 5-10 5z"/><path d="M6 11v5c3 2.5 9 2.5 12 0v-5"/><path d="M22 9v6"/></svg></i><span>Lektioner</span></a>
     </nav>
-    <div class="streak">🔥 5 dagar i rad</div>
+    <div class="streak"><svg class="ico" viewBox="0 0 24 24" width="20" height="20" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M12 21c-4 0-6.5-2.6-6.5-6 0-3.5 3-5.5 3.5-9 2.5 1.5 4 4 4 6 1-.8 1.6-2 1.8-3.2 2 1.6 3.7 3.8 3.7 6.2 0 3.4-2.5 6-6.5 6z"/></svg> 5 dagar i rad</div>
   </header>
 
   <main class="views">
