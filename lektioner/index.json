@@ -1,0 +1,12 @@
+{
+  "kurs": "Franska för nybörjare",
+  "niva": "A1",
+  "version": 1,
+  "lektioner": [
+    { "id": "a1-01", "nummer": 1, "titel": "Bonjour !", "titel_sv": "Hälsa och presentera sig", "fil": "lektion-01.json" },
+    { "id": "a1-02", "nummer": 2, "titel": "Tu es d'où ?", "titel_sv": "Nationalitet och verbet être", "fil": "lektion-02.json" },
+    { "id": "a1-03", "nummer": 3, "titel": "Tu as quel âge ?", "titel_sv": "Siffror 0–20, avoir och ne ... pas", "fil": "lektion-03.json" },
+    { "id": "a1-04", "nummer": 4, "titel": "Ma famille", "titel_sv": "Familj, artiklar och mon/ma/mes", "fil": "lektion-04.json" },
+    { "id": "a1-05", "nummer": 5, "titel": "Au café", "titel_sv": "Beställa och -er-verb", "fil": "lektion-05.json" }
+  ]
+}

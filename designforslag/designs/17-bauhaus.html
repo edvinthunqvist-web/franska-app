@@ -1,0 +1,148 @@
+<!doctype html>
+<html lang="sv"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Bauhaus – Mon Français</title>
+<link rel="preconnect" href="https://fonts.googleapis.com"><link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Jost:wght@400;600;800&display=swap" rel="stylesheet">
+<style>
+*{box-sizing:border-box;margin:0;padding:0}
+html,body{min-height:100%}
+body{font-size:15px;line-height:1.45}
+button,input{font:inherit;color:inherit}
+button{cursor:pointer}
+a{color:inherit;text-decoration:none}
+i{font-style:normal}
+.app{min-height:100vh;display:flex;flex-direction:column}
+.top{display:flex;align-items:center;gap:24px;padding:16px 32px}
+.logo{display:flex;align-items:center;gap:10px;font-weight:700;font-size:20px}
+.nav{display:flex;gap:6px;flex:1}
+.nav a{display:flex;align-items:center;gap:6px;padding:8px 14px}
+.streak{font-size:14px;white-space:nowrap}
+.views{display:grid;grid-template-columns:1fr 1fr 1.25fr;gap:24px;padding:24px 32px 40px;flex:1;align-items:start}
+.panel{padding:22px;display:flex;flex-direction:column;gap:14px;min-width:0}
+.panel-head{display:flex;justify-content:space-between;align-items:baseline;gap:10px}
+.panel-head h2{font-size:20px}
+.count{font-size:13px;opacity:.75;white-space:nowrap}
+.add{display:flex;flex-direction:column;gap:8px}
+.add input,.answer{padding:10px 12px;width:100%}
+.btn{padding:10px 16px;border:0;font-weight:600}
+.wide{width:100%}
+.wordlist{list-style:none;display:flex;flex-direction:column}
+.wordlist li{display:grid;grid-template-columns:1fr 1fr auto;gap:8px;align-items:center;padding:9px 4px}
+.del{background:none;border:0;font-size:18px;width:28px;height:28px;line-height:1;opacity:.55}
+.progress{height:8px;overflow:hidden}
+.bar{height:100%}
+.card{text-align:center;padding:30px 16px;display:flex;flex-direction:column;gap:6px}
+.fr-word{font-size:34px;font-weight:700}
+.hint{opacity:.7}
+.feedback{padding:10px 12px;font-weight:600}
+.dialog{display:flex;flex-direction:column;gap:8px}
+.line{padding:8px 12px;max-width:90%}
+.line b{display:block;font-size:12px;opacity:.7}
+.line.b{align-self:flex-end}
+.grammar{padding:14px}
+.grammar h3{font-size:14px;margin-bottom:8px}
+.grammar table{width:100%;border-collapse:collapse;font-size:14px}
+.grammar td{padding:4px 0}
+.grammar td:first-child{font-weight:700;width:50%}
+.exercise p{margin-bottom:8px;font-weight:600}
+.choices{display:flex;gap:8px;flex-wrap:wrap}
+.chip{padding:8px 16px;border:0}
+@media (max-width:760px){
+  .top{padding:12px 16px;gap:10px;flex-wrap:wrap}
+  .logo{font-size:17px}
+  .streak{margin-left:auto;font-size:12px}
+  .nav{order:3;width:100%;flex:none;position:fixed;bottom:0;left:0;right:0;z-index:10;justify-content:space-around;padding:6px 8px calc(6px + env(safe-area-inset-bottom))}
+  .nav a{flex-direction:column;gap:2px;font-size:11px;padding:6px 10px}
+  .nav a i{font-size:18px}
+  .views{grid-template-columns:1fr;padding:12px 16px 90px;gap:16px}
+  .panel{padding:16px}
+  .fr-word{font-size:30px}
+}
+
+/* ---- Bauhaus ---- */
+
+body{background:#f0ebe1;color:#1b1b1b;font-family:Jost,sans-serif}
+.top{background:#1b1b1b;color:#f0ebe1}
+.logo-mark{width:34px;height:34px;background:conic-gradient(#e63946 0 25%,#f4c430 0 50%,#1d4ed8 0 75%,#f0ebe1 0);border-radius:50%;color:transparent}
+.logo-text{font-weight:800;text-transform:lowercase;font-size:24px}
+.nav a{font-weight:600;text-transform:lowercase}.nav a.active{background:#f4c430;color:#1b1b1b}
+.panel{background:#fff;position:relative;overflow:hidden}
+.panel:after{content:'';position:absolute;width:90px;height:90px;right:-30px;top:-30px;border-radius:50%;background:#e63946}
+.panel.quiz:after{border-radius:0;background:#1d4ed8;transform:rotate(20deg)}
+.panel.lesson:after{width:0;height:0;border-radius:0;background:none;border-left:60px solid transparent;border-right:60px solid transparent;border-bottom:100px solid #f4c430;right:-40px;top:-40px}
+.panel-head{position:relative;z-index:1;padding-right:56px}
+.panel-head h2{font-weight:800;font-size:28px;text-transform:lowercase}
+.add input,.answer{border:0;background:#f0ebe1}
+.btn.primary{background:#1d4ed8;color:#fff;border-radius:99px}
+.wordlist li{border-bottom:3px solid #f0ebe1}.wordlist li:nth-child(3n+1) b{color:#e63946}.wordlist li:nth-child(3n+2) b{color:#1d4ed8}.wordlist li:nth-child(3n) b{color:#c79a00}
+.progress{background:#f0ebe1;height:12px}.bar{background:#e63946}
+.card{background:#f4c430;border-radius:0 0 0 80px}.fr-word{font-weight:800;font-size:40px}
+.feedback.ok{background:#1b1b1b;color:#f4c430}
+.line.a{background:#f0ebe1}.line.b{background:#1d4ed8;color:#fff;border-radius:20px 0 20px 20px}
+.grammar{border-left:12px solid #e63946;background:#f0ebe1}
+.chip{background:#f0ebe1;border-radius:50%;width:56px;height:56px;padding:0}.chip.right{background:#e63946;color:#fff}
+@media (max-width:760px){.nav{background:#1b1b1b}}
+</style></head>
+<body>
+<div class="app">
+  <header class="top">
+    <div class="logo"><span class="logo-mark">Fr</span><span class="logo-text">Mon Français</span></div>
+    <nav class="nav">
+      <a class="active" href="#"><i>📖</i><span>Ordlista</span></a>
+      <a href="#"><i>✏️</i><span>Förhör</span></a>
+      <a href="#"><i>🎓</i><span>Lektioner</span></a>
+    </nav>
+    <div class="streak">🔥 5 dagar i rad</div>
+  </header>
+
+  <main class="views">
+    <section class="panel words">
+      <div class="panel-head"><h2>Mina ord</h2><span class="count">20 ord</span></div>
+      <form class="add" onsubmit="return false">
+        <input placeholder="Franska (t.ex. le pain)">
+        <input placeholder="Svenska (t.ex. brödet)">
+        <button class="btn primary">Lägg till</button>
+      </form>
+      <ul class="wordlist">
+        <li><b>bonjour</b><span>hej / god dag</span><button class="del" title="Ta bort">×</button></li>
+        <li><b>merci</b><span>tack</span><button class="del">×</button></li>
+        <li><b>le chat</b><span>katten</span><button class="del">×</button></li>
+        <li><b>la maison</b><span>huset</span><button class="del">×</button></li>
+        <li><b>manger</b><span>att äta</span><button class="del">×</button></li>
+        <li><b>l'eau</b><span>vattnet</span><button class="del">×</button></li>
+      </ul>
+    </section>
+
+    <section class="panel quiz">
+      <div class="panel-head"><h2>Förhör</h2><span class="count">7 / 20</span></div>
+      <div class="progress"><div class="bar" style="width:35%"></div></div>
+      <div class="card">
+        <small class="hint">Vad betyder</small>
+        <div class="fr-word">la pomme</div>
+        <small class="hint">på svenska?</small>
+      </div>
+      <input class="answer" value="äpplet">
+      <button class="btn primary wide">Kontrollera</button>
+      <div class="feedback ok">✓ Rätt! <em>la pomme</em> = äpplet</div>
+    </section>
+
+    <section class="panel lesson">
+      <div class="panel-head"><h2>Leçon 3 · Se présenter</h2><span class="count">Nivå A1</span></div>
+      <div class="dialog">
+        <p class="line a"><b>Léa</b> Bonjour ! Je m'appelle Léa. Et toi ?</p>
+        <p class="line b"><b>Edvin</b> Salut ! Moi, c'est Edvin. Enchanté.</p>
+        <p class="line a"><b>Léa</b> Tu viens d'où ?</p>
+        <p class="line b"><b>Edvin</b> Je viens de Suède.</p>
+      </div>
+      <div class="grammar">
+        <h3>Grammatik: verbet <em>être</em> (att vara)</h3>
+        <table><tr><td>je suis</td><td>jag är</td></tr><tr><td>tu es</td><td>du är</td></tr><tr><td>il / elle est</td><td>han / hon är</td></tr></table>
+      </div>
+      <div class="exercise">
+        <p>Fyll i: Je ___ suédois.</p>
+        <div class="choices"><button class="chip right">suis</button><button class="chip">es</button><button class="chip">est</button></div>
+      </div>
+    </section>
+  </main>
+</div>
+</body></html>

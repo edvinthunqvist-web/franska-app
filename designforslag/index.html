@@ -1,0 +1,198 @@
+<!doctype html>
+<html lang="sv"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Mon Français stilprov</title>
+<meta name="claude:viewport-fit-sides" content="cover">
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,600&family=Inter:wght@400;600&display=swap">
+<style>
+/* Layout: kontaktark, varje förslag visar dator + mobil bredvid varandra */
+:root{--bg:#eef0f4;--fg:#1a1d26;--muted:#5d6475;--card:#fff;--line:#d9dde6;--accent:#2b4cc4;
+--display:'Fraunces',Georgia,serif;--body:'Inter',system-ui,sans-serif}
+@media (prefers-color-scheme:dark){:root:not([data-theme="light"]){--bg:#12141b;--fg:#e8eaf2;--muted:#9aa1b4;--card:#1b1e28;--line:#2c3040;--accent:#8ea6ff;color-scheme:dark}}
+:root[data-theme="dark"]{--bg:#12141b;--fg:#e8eaf2;--muted:#9aa1b4;--card:#1b1e28;--line:#2c3040;--accent:#8ea6ff;color-scheme:dark}
+body{background:var(--bg);color:var(--fg);font-family:var(--body);font-size:15px;line-height:1.5}
+.wrap{max-width:1240px;margin:0 auto;padding-block:32px 64px;padding-left:max(16px,env(safe-area-inset-left,0px));padding-right:max(16px,env(safe-area-inset-right,0px))}
+header h1{font-family:var(--display);font-size:clamp(28px,5vw,44px);line-height:1.1;text-wrap:balance}
+header p{color:var(--muted);max-width:62ch;margin-top:8px}
+.grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(min(100%,560px),1fr));gap:24px;margin-top:28px}
+.card{background:var(--card);border:1px solid var(--line);border-radius:10px;overflow:hidden;display:flex;flex-direction:column}
+.shots{display:grid;grid-template-columns:1fr 26%;gap:10px;padding:12px;background:var(--line)}
+.shot{display:block;border-radius:6px;overflow:hidden;background:var(--bg)}
+.shot img{display:block;width:100%;height:100%;object-fit:cover;object-position:top}
+.desk{aspect-ratio:1440/900}.mob{aspect-ratio:390/844;max-height:100%}
+.shots{align-items:start}
+.meta{display:flex;gap:14px;align-items:flex-start;padding:14px 16px 16px}
+.meta>div{flex:1;min-width:0}
+.num{font-family:var(--display);font-size:22px;color:var(--accent);font-variant-numeric:tabular-nums;line-height:1.2}
+h2{font-size:17px;font-weight:600}
+.meta p{color:var(--muted);font-size:14px}
+.open{color:var(--accent);font-weight:600;font-size:14px;white-space:nowrap;text-decoration:none}
+.open:hover,.open:focus-visible{text-decoration:underline}
+a:focus-visible{outline:2px solid var(--accent);outline-offset:2px}
+@media (max-width:520px){.meta{flex-wrap:wrap}.open{width:100%;padding-left:36px}}
+</style>
+</head><body>
+<div class="wrap">
+<header><h1>20 stilar för Mon Français</h1>
+<p>Varje förslag visar samma tre vyer: ordlistan, förhöret och en lektion. Vänster bild är datorn, höger bild är mobilen. Klicka på en bild eller på "Öppna live" för att prova sidan, och gör webbläsarfönstret smalt för att se mobilversionen.</p></header>
+<div class="grid">
+<article class="card" id="d01">
+ <div class="shots">
+  <a class="shot desk" href="designs/01-minimal-paris.html" target="_blank"><img loading="lazy" src="skarmdumpar/01-minimal-paris-dator.png" alt="Minimal Paris på dator"></a>
+  <a class="shot mob" href="designs/01-minimal-paris.html" target="_blank"><img loading="lazy" src="skarmdumpar/01-minimal-paris-mobil.png" alt="Minimal Paris på mobil"></a>
+ </div>
+ <div class="meta"><span class="num">01</span><div><h2>Minimal Paris</h2><p>Luftigt och lugnt. Vitt, tunna linjer, elegant serif för de franska orden.</p></div>
+ <a class="open" href="designs/01-minimal-paris.html" target="_blank">Öppna live ↗</a></div>
+</article>
+<article class="card" id="d02">
+ <div class="shots">
+  <a class="shot desk" href="designs/02-tricolore.html" target="_blank"><img loading="lazy" src="skarmdumpar/02-tricolore-dator.png" alt="Tricolore på dator"></a>
+  <a class="shot mob" href="designs/02-tricolore.html" target="_blank"><img loading="lazy" src="skarmdumpar/02-tricolore-mobil.png" alt="Tricolore på mobil"></a>
+ </div>
+ <div class="meta"><span class="num">02</span><div><h2>Tricolore</h2><p>Fransk flagga som tema. Platta, kraftiga färger i blått, vitt och rött.</p></div>
+ <a class="open" href="designs/02-tricolore.html" target="_blank">Öppna live ↗</a></div>
+</article>
+<article class="card" id="d03">
+ <div class="shots">
+  <a class="shot desk" href="designs/03-neon-natt.html" target="_blank"><img loading="lazy" src="skarmdumpar/03-neon-natt-dator.png" alt="Neonnatt på dator"></a>
+  <a class="shot mob" href="designs/03-neon-natt.html" target="_blank"><img loading="lazy" src="skarmdumpar/03-neon-natt-mobil.png" alt="Neonnatt på mobil"></a>
+ </div>
+ <div class="meta"><span class="num">03</span><div><h2>Neonnatt</h2><p>Mörkt läge med lysande neonaccenter. Bra för plugg sent på kvällen.</p></div>
+ <a class="open" href="designs/03-neon-natt.html" target="_blank">Öppna live ↗</a></div>
+</article>
+<article class="card" id="d04">
+ <div class="shots">
+  <a class="shot desk" href="designs/04-cafe.html" target="_blank"><img loading="lazy" src="skarmdumpar/04-cafe-dator.png" alt="Café de Flore på dator"></a>
+  <a class="shot mob" href="designs/04-cafe.html" target="_blank"><img loading="lazy" src="skarmdumpar/04-cafe-mobil.png" alt="Café de Flore på mobil"></a>
+ </div>
+ <div class="meta"><span class="num">04</span><div><h2>Café de Flore</h2><p>Varmt och mysigt som ett parisiskt kafé. Krämvitt, kaffebrunt och en meny-känsla.</p></div>
+ <a class="open" href="designs/04-cafe.html" target="_blank">Öppna live ↗</a></div>
+</article>
+<article class="card" id="d05">
+ <div class="shots">
+  <a class="shot desk" href="designs/05-cahier.html" target="_blank"><img loading="lazy" src="skarmdumpar/05-cahier-dator.png" alt="Le Cahier på dator"></a>
+  <a class="shot mob" href="designs/05-cahier.html" target="_blank"><img loading="lazy" src="skarmdumpar/05-cahier-mobil.png" alt="Le Cahier på mobil"></a>
+ </div>
+ <div class="meta"><span class="num">05</span><div><h2>Le Cahier</h2><p>Som ett franskt skolhäfte med rutat papper, handskrift och röda marginaler.</p></div>
+ <a class="open" href="designs/05-cahier.html" target="_blank">Öppna live ↗</a></div>
+</article>
+<article class="card" id="d06">
+ <div class="shots">
+  <a class="shot desk" href="designs/06-brutal.html" target="_blank"><img loading="lazy" src="skarmdumpar/06-brutal-dator.png" alt="Brutalist på dator"></a>
+  <a class="shot mob" href="designs/06-brutal.html" target="_blank"><img loading="lazy" src="skarmdumpar/06-brutal-mobil.png" alt="Brutalist på mobil"></a>
+ </div>
+ <div class="meta"><span class="num">06</span><div><h2>Brutalist</h2><p>Rått och direkt. Tjocka svarta kanter, monospace och skrikgult. Inget fluff.</p></div>
+ <a class="open" href="designs/06-brutal.html" target="_blank">Öppna live ↗</a></div>
+</article>
+<article class="card" id="d07">
+ <div class="shots">
+  <a class="shot desk" href="designs/07-glas.html" target="_blank"><img loading="lazy" src="skarmdumpar/07-glas-dator.png" alt="Frostat glas på dator"></a>
+  <a class="shot mob" href="designs/07-glas.html" target="_blank"><img loading="lazy" src="skarmdumpar/07-glas-mobil.png" alt="Frostat glas på mobil"></a>
+ </div>
+ <div class="meta"><span class="num">07</span><div><h2>Frostat glas</h2><p>Mjuk färggradient bakom genomskinliga glaskort. Modernt och luftigt.</p></div>
+ <a class="open" href="designs/07-glas.html" target="_blank">Öppna live ↗</a></div>
+</article>
+<article class="card" id="d08">
+ <div class="shots">
+  <a class="shot desk" href="designs/08-lekfull.html" target="_blank"><img loading="lazy" src="skarmdumpar/08-lekfull-dator.png" alt="Lekfull på dator"></a>
+  <a class="shot mob" href="designs/08-lekfull.html" target="_blank"><img loading="lazy" src="skarmdumpar/08-lekfull-mobil.png" alt="Lekfull på mobil"></a>
+ </div>
+ <div class="meta"><span class="num">08</span><div><h2>Lekfull</h2><p>Spelkänsla med runda former, tjocka knappar och glada färger. Belönar varje rätt svar.</p></div>
+ <a class="open" href="designs/08-lekfull.html" target="_blank">Öppna live ↗</a></div>
+</article>
+<article class="card" id="d09">
+ <div class="shots">
+  <a class="shot desk" href="designs/09-art-deco.html" target="_blank"><img loading="lazy" src="skarmdumpar/09-art-deco-dator.png" alt="Art Déco på dator"></a>
+  <a class="shot mob" href="designs/09-art-deco.html" target="_blank"><img loading="lazy" src="skarmdumpar/09-art-deco-mobil.png" alt="Art Déco på mobil"></a>
+ </div>
+ <div class="meta"><span class="num">09</span><div><h2>Art Déco</h2><p>1920-talets Paris. Guld på marinblått, geometriska ramar och stilfull typografi.</p></div>
+ <a class="open" href="designs/09-art-deco.html" target="_blank">Öppna live ↗</a></div>
+</article>
+<article class="card" id="d10">
+ <div class="shots">
+  <a class="shot desk" href="designs/10-macaron.html" target="_blank"><img loading="lazy" src="skarmdumpar/10-macaron-dator.png" alt="Macaron på dator"></a>
+  <a class="shot mob" href="designs/10-macaron.html" target="_blank"><img loading="lazy" src="skarmdumpar/10-macaron-mobil.png" alt="Macaron på mobil"></a>
+ </div>
+ <div class="meta"><span class="num">10</span><div><h2>Macaron</h2><p>Pastellfärger som en fransk konditorivitrin. Mjukt, runt och sött.</p></div>
+ <a class="open" href="designs/10-macaron.html" target="_blank">Öppna live ↗</a></div>
+</article>
+<article class="card" id="d11">
+ <div class="shots">
+  <a class="shot desk" href="designs/11-journal.html" target="_blank"><img loading="lazy" src="skarmdumpar/11-journal-dator.png" alt="Le Journal på dator"></a>
+  <a class="shot mob" href="designs/11-journal.html" target="_blank"><img loading="lazy" src="skarmdumpar/11-journal-mobil.png" alt="Le Journal på mobil"></a>
+ </div>
+ <div class="meta"><span class="num">11</span><div><h2>Le Journal</h2><p>Tidningslayout med spalter, rubriker och tunna linjer. Som att läsa Le Monde.</p></div>
+ <a class="open" href="designs/11-journal.html" target="_blank">Öppna live ↗</a></div>
+</article>
+<article class="card" id="d12">
+ <div class="shots">
+  <a class="shot desk" href="designs/12-terminal.html" target="_blank"><img loading="lazy" src="skarmdumpar/12-terminal-dator.png" alt="Terminal på dator"></a>
+  <a class="shot mob" href="designs/12-terminal.html" target="_blank"><img loading="lazy" src="skarmdumpar/12-terminal-mobil.png" alt="Terminal på mobil"></a>
+ </div>
+ <div class="meta"><span class="num">12</span><div><h2>Terminal</h2><p>Gammal datorskärm: grön text på svart. För den som gillar kod-känslan.</p></div>
+ <a class="open" href="designs/12-terminal.html" target="_blank">Öppna live ↗</a></div>
+</article>
+<article class="card" id="d13">
+ <div class="shots">
+  <a class="shot desk" href="designs/13-swiss.html" target="_blank"><img loading="lazy" src="skarmdumpar/13-swiss-dator.png" alt="Swiss Grid på dator"></a>
+  <a class="shot mob" href="designs/13-swiss.html" target="_blank"><img loading="lazy" src="skarmdumpar/13-swiss-mobil.png" alt="Swiss Grid på mobil"></a>
+ </div>
+ <div class="meta"><span class="num">13</span><div><h2>Swiss Grid</h2><p>Stram schweizisk grafisk stil. Stora siffror, tydligt rutnät, svart och en röd accent.</p></div>
+ <a class="open" href="designs/13-swiss.html" target="_blank">Öppna live ↗</a></div>
+</article>
+<article class="card" id="d14">
+ <div class="shots">
+  <a class="shot desk" href="designs/14-riviera.html" target="_blank"><img loading="lazy" src="skarmdumpar/14-riviera-dator.png" alt="Riviera på dator"></a>
+  <a class="shot mob" href="designs/14-riviera.html" target="_blank"><img loading="lazy" src="skarmdumpar/14-riviera-mobil.png" alt="Riviera på mobil"></a>
+ </div>
+ <div class="meta"><span class="num">14</span><div><h2>Riviera</h2><p>Sommar på Côte d&#x27;Azur. Havsblått, sand och sol, med randiga detaljer.</p></div>
+ <a class="open" href="designs/14-riviera.html" target="_blank">Öppna live ↗</a></div>
+</article>
+<article class="card" id="d15">
+ <div class="shots">
+  <a class="shot desk" href="designs/15-metro.html" target="_blank"><img loading="lazy" src="skarmdumpar/15-metro-dator.png" alt="Métro på dator"></a>
+  <a class="shot mob" href="designs/15-metro.html" target="_blank"><img loading="lazy" src="skarmdumpar/15-metro-mobil.png" alt="Métro på mobil"></a>
+ </div>
+ <div class="meta"><span class="num">15</span><div><h2>Métro</h2><p>Inspirerad av Paris tunnelbaneskyltar. Linjer och hållplatser visar hur långt du kommit.</p></div>
+ <a class="open" href="designs/15-metro.html" target="_blank">Öppna live ↗</a></div>
+</article>
+<article class="card" id="d16">
+ <div class="shots">
+  <a class="shot desk" href="designs/16-neumorf.html" target="_blank"><img loading="lazy" src="skarmdumpar/16-neumorf-dator.png" alt="Mjuk relief på dator"></a>
+  <a class="shot mob" href="designs/16-neumorf.html" target="_blank"><img loading="lazy" src="skarmdumpar/16-neumorf-mobil.png" alt="Mjuk relief på mobil"></a>
+ </div>
+ <div class="meta"><span class="num">16</span><div><h2>Mjuk relief</h2><p>Neumorfism: allt ser ut att vara pressat ur samma mjuka, ljusgrå yta.</p></div>
+ <a class="open" href="designs/16-neumorf.html" target="_blank">Öppna live ↗</a></div>
+</article>
+<article class="card" id="d17">
+ <div class="shots">
+  <a class="shot desk" href="designs/17-bauhaus.html" target="_blank"><img loading="lazy" src="skarmdumpar/17-bauhaus-dator.png" alt="Bauhaus på dator"></a>
+  <a class="shot mob" href="designs/17-bauhaus.html" target="_blank"><img loading="lazy" src="skarmdumpar/17-bauhaus-mobil.png" alt="Bauhaus på mobil"></a>
+ </div>
+ <div class="meta"><span class="num">17</span><div><h2>Bauhaus</h2><p>Konstskolan Bauhaus: cirklar, kvadrater och trianglar i röd, gul och blå.</p></div>
+ <a class="open" href="designs/17-bauhaus.html" target="_blank">Öppna live ↗</a></div>
+</article>
+<article class="card" id="d18">
+ <div class="shots">
+  <a class="shot desk" href="designs/18-vykort.html" target="_blank"><img loading="lazy" src="skarmdumpar/18-vykort-dator.png" alt="Vykort på dator"></a>
+  <a class="shot mob" href="designs/18-vykort.html" target="_blank"><img loading="lazy" src="skarmdumpar/18-vykort-mobil.png" alt="Vykort på mobil"></a>
+ </div>
+ <div class="meta"><span class="num">18</span><div><h2>Vykort</h2><p>Gammalt vykort från Frankrike. Sepiatoner, frimärken och stämplar.</p></div>
+ <a class="open" href="designs/18-vykort.html" target="_blank">Öppna live ↗</a></div>
+</article>
+<article class="card" id="d19">
+ <div class="shots">
+  <a class="shot desk" href="designs/19-provence.html" target="_blank"><img loading="lazy" src="skarmdumpar/19-provence-dator.png" alt="Provence på dator"></a>
+  <a class="shot mob" href="designs/19-provence.html" target="_blank"><img loading="lazy" src="skarmdumpar/19-provence-mobil.png" alt="Provence på mobil"></a>
+ </div>
+ <div class="meta"><span class="num">19</span><div><h2>Provence</h2><p>Lavendelfält och lugn. Mjuk lila, olivgrönt och mycket luft. Stressfritt plugg.</p></div>
+ <a class="open" href="designs/19-provence.html" target="_blank">Öppna live ↗</a></div>
+</article>
+<article class="card" id="d20">
+ <div class="shots">
+  <a class="shot desk" href="designs/20-bd.html" target="_blank"><img loading="lazy" src="skarmdumpar/20-bd-dator.png" alt="Bande dessinée på dator"></a>
+  <a class="shot mob" href="designs/20-bd.html" target="_blank"><img loading="lazy" src="skarmdumpar/20-bd-mobil.png" alt="Bande dessinée på mobil"></a>
+ </div>
+ <div class="meta"><span class="num">20</span><div><h2>Bande dessinée</h2><p>Fransk serietidning. Pratbubblor, tjocka konturer och rasterprickar.</p></div>
+ <a class="open" href="designs/20-bd.html" target="_blank">Öppna live ↗</a></div>
+</article></div>
+</div></body></html>

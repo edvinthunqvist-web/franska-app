@@ -1,0 +1,172 @@
+{
+  "id": "a1-02",
+  "nummer": 2,
+  "niva": "A1",
+  "titel": "Tu es d'où ?",
+  "titel_sv": "Var kommer du ifrån? Nationalitet och verbet être",
+  "mal": [
+    "Jag kan säga vilken nationalitet jag har och var jag kommer ifrån.",
+    "Jag kan fråga någon var den kommer ifrån.",
+    "Jag kan böja verbet être (vara) i presens.",
+    "Jag vet att adjektiv ändrar form efter om det handlar om en man eller en kvinna."
+  ],
+  "dialog": {
+    "situation": "Det är rast på språkkursen. Emma och Lucas pratar med Giulia, en annan elev.",
+    "repliker": [
+      { "talare": "Lucas", "fr": "Emma, tu es d'où ?", "sv": "Emma, var kommer du ifrån?" },
+      { "talare": "Emma", "fr": "Je suis suédoise. Je suis de Stockholm.", "sv": "Jag är svensk. Jag kommer från Stockholm." },
+      { "talare": "Lucas", "fr": "Ah, tu es suédoise ! Moi, je suis français. Je suis de Lyon.", "sv": "Jaså, du är svensk! Jag är fransman. Jag kommer från Lyon." },
+      { "talare": "Giulia", "fr": "Bonjour ! Je m'appelle Giulia. Je suis italienne.", "sv": "Hej! Jag heter Giulia. Jag är italienska." },
+      { "talare": "Emma", "fr": "Enchantée ! Tu es de Rome ?", "sv": "Trevligt att träffas! Kommer du från Rom?" },
+      { "talare": "Giulia", "fr": "Non, je suis de Milan.", "sv": "Nej, jag kommer från Milano." },
+      { "talare": "Emma", "fr": "Et le garçon là-bas, il est anglais ?", "sv": "Och killen där borta, är han engelsman?" },
+      { "talare": "Giulia", "fr": "Non, c'est Paul. Il est canadien, de Montréal.", "sv": "Nej, det är Paul. Han är kanadensare, från Montréal." },
+      { "talare": "Emma", "fr": "Et Madame Martin, elle est française ?", "sv": "Och Madame Martin, är hon fransyska?" },
+      { "talare": "Lucas", "fr": "Non, elle est belge. Elle est de Bruxelles.", "sv": "Nej, hon är belgiska. Hon kommer från Bryssel." },
+      { "talare": "Giulia", "fr": "Et vous, vous êtes étudiants ?", "sv": "Och ni, är ni studenter?" },
+      { "talare": "Lucas", "fr": "Oui, nous sommes étudiants ici, à Lyon.", "sv": "Ja, vi är studenter här i Lyon." }
+    ]
+  },
+  "forstaelse": [
+    { "fraga": "Varifrån kommer Giulia?", "alternativ": ["Rom", "Milano", "Bryssel"], "svar": 1 },
+    { "fraga": "Vilken nationalitet har Paul?", "alternativ": ["Engelsk", "Fransk", "Kanadensisk"], "svar": 2 },
+    { "fraga": "Varför heter det \"suédoise\" och inte \"suédois\" om Emma?", "alternativ": ["För att Emma är en kvinna", "För att det är plural", "För att det är en fråga"], "svar": 0 }
+  ],
+  "ordforrad": [
+    { "fr": "être", "sv": "att vara", "ordklass": "verb", "exempel": "Je suis suédois." },
+    { "fr": "d'où ?", "sv": "varifrån?", "ordklass": "frågeord", "exempel": "Tu es d'où ?" },
+    { "fr": "de", "sv": "från, av", "ordklass": "preposition", "exempel": "Je suis de Göteborg." },
+    { "fr": "suédois / suédoise", "sv": "svensk", "ordklass": "adjektiv", "exempel": "Elle est suédoise." },
+    { "fr": "français / française", "sv": "fransk", "ordklass": "adjektiv", "exempel": "Il est français." },
+    { "fr": "anglais / anglaise", "sv": "engelsk", "ordklass": "adjektiv", "exempel": "Tu es anglaise ?" },
+    { "fr": "allemand / allemande", "sv": "tysk", "ordklass": "adjektiv", "exempel": "Il est allemand." },
+    { "fr": "espagnol / espagnole", "sv": "spansk", "ordklass": "adjektiv", "exempel": "Elle est espagnole." },
+    { "fr": "italien / italienne", "sv": "italiensk", "ordklass": "adjektiv", "exempel": "Giulia est italienne." },
+    { "fr": "canadien / canadienne", "sv": "kanadensisk", "ordklass": "adjektiv", "exempel": "Paul est canadien." },
+    { "fr": "belge", "sv": "belgisk", "ordklass": "adjektiv", "exempel": "Madame Martin est belge.", "not": "Samma form för man och kvinna eftersom ordet redan slutar på -e." },
+    { "fr": "suisse", "sv": "schweizisk", "ordklass": "adjektiv", "exempel": "Il est suisse." },
+    { "fr": "la Suède", "sv": "Sverige", "ordklass": "substantiv", "genus": "f", "exempel": "La Suède est belle." },
+    { "fr": "la France", "sv": "Frankrike", "ordklass": "substantiv", "genus": "f", "exempel": "Lyon est en France." },
+    { "fr": "un étudiant / une étudiante", "sv": "en student", "ordklass": "substantiv", "exempel": "Je suis étudiante." },
+    { "fr": "un garçon", "sv": "en pojke, kille", "ordklass": "substantiv", "genus": "m", "exempel": "Le garçon est canadien." },
+    { "fr": "une fille", "sv": "en flicka, tjej", "ordklass": "substantiv", "genus": "f", "exempel": "La fille est italienne." },
+    { "fr": "là-bas", "sv": "där borta", "ordklass": "adverb", "exempel": "Paul est là-bas." },
+    { "fr": "ici", "sv": "här", "ordklass": "adverb", "exempel": "Nous sommes ici." },
+    { "fr": "c'est", "sv": "det är", "ordklass": "fras", "exempel": "C'est Paul." }
+  ],
+  "grammatik": [
+    {
+      "rubrik": "Verbet être (att vara)",
+      "forklaring": "Être är ett av de viktigaste verben i franska. Det är oregelbundet, vilket betyder att du måste lära dig formerna utantill. I franska ändrar verbet form beroende på vem som gör något, till skillnad från svenskan där det alltid heter \"är\".",
+      "tabell": [
+        ["Person", "Franska", "Svenska"],
+        ["je", "je suis", "jag är"],
+        ["tu", "tu es", "du är"],
+        ["il / elle / on", "il est, elle est, on est", "han/hon/man är"],
+        ["nous", "nous sommes", "vi är"],
+        ["vous", "vous êtes", "ni är / du är (artigt)"],
+        ["ils / elles", "ils sont, elles sont", "de är"]
+      ],
+      "varning": "Ils använder du om en grupp män eller en blandad grupp. Elles använder du bara om en grupp där alla är kvinnor. On betyder \"man\" men används ofta i talspråk för att säga \"vi\"."
+    },
+    {
+      "rubrik": "Maskulint och feminint: adjektiv som ändrar form",
+      "forklaring": "När du beskriver en kvinna lägger du oftast till ett -e på adjektivet. Om ordet redan slutar på -e ändras det inte. Ord som slutar på -ien får -ienne.",
+      "tabell": [
+        ["Regel", "Man", "Kvinna"],
+        ["+ e", "français, suédois, allemand", "française, suédoise, allemande"],
+        ["-ien → -ienne", "italien, canadien", "italienne, canadienne"],
+        ["slutar redan på -e", "belge, suisse", "belge, suisse"]
+      ],
+      "exempel": [
+        { "fr": "Lucas est français.", "sv": "Lucas är fransman." },
+        { "fr": "Emma est suédoise.", "sv": "Emma är svensk." },
+        { "fr": "Paul est belge et Marie est belge.", "sv": "Paul är belgare och Marie är belgiska." }
+      ],
+      "varning": "Nationalitet skrivs med liten bokstav när det är ett adjektiv: je suis suédois. Det skrivs med stor bokstav när det är ett substantiv: un Suédois (en svensk)."
+    }
+  ],
+  "uttal": {
+    "tema": "Hör skillnaden mellan man och kvinna",
+    "forklaring": "Kom ihåg att slutkonsonanter oftast inte hörs. Men när du lägger till -e hörs konsonanten plötsligt. Därför låter français och française olika, fast skillnaden i skrift bara är en bokstav.",
+    "exempel": [
+      { "fr": "français / française", "tips": "\"fransä\" mot \"fransäz\"" },
+      { "fr": "suédois / suédoise", "tips": "\"svedoa\" mot \"svedoaz\"" },
+      { "fr": "allemand / allemande", "tips": "d hörs bara i allemande" },
+      { "fr": "italien / italienne", "tips": "nasalt -ien mot tydligt -enn" },
+      { "fr": "belge / belge", "tips": "låter exakt likadant" }
+    ]
+  },
+  "ovningar": [
+    {
+      "typ": "lucktext",
+      "instruktion": "Fyll i rätt form av être.",
+      "meningar": [
+        { "text": "Je ___ suédoise.", "svar": ["suis"] },
+        { "text": "Tu ___ d'où ?", "svar": ["es"] },
+        { "text": "Lucas ___ français.", "svar": ["est"] },
+        { "text": "Nous ___ étudiants.", "svar": ["sommes"] },
+        { "text": "Vous ___ de Lyon ?", "svar": ["êtes", "etes"] },
+        { "text": "Paul et Giulia ___ à Lyon.", "svar": ["sont"] }
+      ]
+    },
+    {
+      "typ": "flerval",
+      "instruktion": "Välj rätt form av adjektivet.",
+      "fragor": [
+        { "fraga": "Emma est ___.", "alternativ": ["suédois", "suédoise"], "svar": 1 },
+        { "fraga": "Lucas est ___.", "alternativ": ["français", "française"], "svar": 0 },
+        { "fraga": "Giulia est ___.", "alternativ": ["italien", "italienne"], "svar": 1 },
+        { "fraga": "Madame Martin est ___.", "alternativ": ["belge", "belgee"], "svar": 0 },
+        { "fraga": "Anna est ___.", "alternativ": ["allemand", "allemande"], "svar": 1 }
+      ]
+    },
+    {
+      "typ": "para_ihop",
+      "instruktion": "Para ihop personen med rätt verbform.",
+      "par": [
+        { "fr": "je", "sv": "suis" },
+        { "fr": "tu", "sv": "es" },
+        { "fr": "elle", "sv": "est" },
+        { "fr": "nous", "sv": "sommes" },
+        { "fr": "vous", "sv": "êtes" },
+        { "fr": "ils", "sv": "sont" }
+      ]
+    },
+    {
+      "typ": "ordning",
+      "instruktion": "Sätt orden i rätt ordning.",
+      "meningar": [
+        { "ord": ["Tu", "es", "d'où", "?"] },
+        { "ord": ["Je", "suis", "de", "Stockholm", "."] },
+        { "ord": ["Elle", "est", "belge", "."] }
+      ]
+    },
+    {
+      "typ": "oversatt",
+      "instruktion": "Översätt till franska.",
+      "meningar": [
+        { "sv": "Jag är svensk. (du är kvinna)", "svar": ["Je suis suédoise."] },
+        { "sv": "Jag är svensk. (du är man)", "svar": ["Je suis suédois."] },
+        { "sv": "Var kommer du ifrån?", "svar": ["Tu es d'où ?", "D'où es-tu ?"] },
+        { "sv": "Han är kanadensare.", "svar": ["Il est canadien."] },
+        { "sv": "Vi är studenter.", "svar": ["Nous sommes étudiants.", "Nous sommes étudiantes.", "On est étudiants."] }
+      ]
+    },
+    {
+      "typ": "skriv_fritt",
+      "instruktion": "Presentera dig själv och två personer du känner. Säg vad ni heter, vilken nationalitet ni har och var ni kommer ifrån.",
+      "exempelsvar": "Je m'appelle Edvin. Je suis suédois, de Stockholm. Ahmed est étudiant. Il est suédois, de Malmö. Laura est professeure. Elle est espagnole, de Madrid."
+    }
+  ],
+  "kultur": {
+    "rubrik": "Franska talas inte bara i Frankrike",
+    "text": "Över 300 miljoner människor i världen talar franska. Förutom i Frankrike är franska ett officiellt språk i bland annat Belgien, Schweiz, Luxemburg och Kanada (främst i provinsen Québec), och i många länder i Afrika, som Senegal, Elfenbenskusten och Kamerun. Länderna där man talar franska kallas tillsammans la francophonie. Franska i Québec låter ganska annorlunda än franska i Paris, ungefär som skillnaden mellan svenska i Skåne och i Finland."
+  },
+  "kan_du": [
+    "Säga din nationalitet och var du kommer ifrån",
+    "Fråga någon var den kommer ifrån",
+    "Böja être i alla personer",
+    "Välja rätt form av en nationalitet för man och kvinna"
+  ]
+}

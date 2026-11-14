@@ -1,0 +1,200 @@
+{
+  "id": "a1-03",
+  "nummer": 3,
+  "niva": "A1",
+  "titel": "Tu as quel âge ?",
+  "titel_sv": "Hur gammal är du? Siffror 0–20, verbet avoir och att säga nej",
+  "mal": [
+    "Jag kan räkna från 0 till 20.",
+    "Jag kan säga hur gammal jag är och fråga någon annan.",
+    "Jag kan böja verbet avoir (ha) i presens.",
+    "Jag kan säga att något inte stämmer med ne ... pas."
+  ],
+  "dialog": {
+    "situation": "Emma ska skaffa ett lånekort på stadsbiblioteket (la médiathèque) i Lyon. Lucas följer med.",
+    "repliker": [
+      { "talare": "Bibliotekarien", "fr": "Bonjour ! Vous désirez ?", "sv": "God dag! Vad kan jag hjälpa till med?" },
+      { "talare": "Emma", "fr": "Bonjour ! Je voudrais une carte, s'il vous plaît.", "sv": "God dag! Jag skulle vilja ha ett lånekort, tack." },
+      { "talare": "Bibliotekarien", "fr": "Très bien. Votre nom, s'il vous plaît ?", "sv": "Okej. Ert efternamn, tack?" },
+      { "talare": "Emma", "fr": "Lindqvist. L-I-N-D-Q-V-I-S-T.", "sv": "Lindqvist. L-I-N-D-Q-V-I-S-T." },
+      { "talare": "Bibliotekarien", "fr": "Et votre prénom ?", "sv": "Och ert förnamn?" },
+      { "talare": "Emma", "fr": "Emma.", "sv": "Emma." },
+      { "talare": "Bibliotekarien", "fr": "Vous avez quel âge ?", "sv": "Hur gammal är ni?" },
+      { "talare": "Emma", "fr": "J'ai dix-neuf ans.", "sv": "Jag är nitton år." },
+      { "talare": "Bibliotekarien", "fr": "Vous avez un numéro de téléphone français ?", "sv": "Har ni ett franskt telefonnummer?" },
+      { "talare": "Emma", "fr": "Non, je n'ai pas de numéro français. J'ai un numéro suédois.", "sv": "Nej, jag har inget franskt nummer. Jag har ett svenskt nummer." },
+      { "talare": "Bibliotekarien", "fr": "Pas de problème. Voilà votre carte !", "sv": "Inga problem. Här är ert kort!" },
+      { "talare": "Emma", "fr": "Merci beaucoup. Au revoir !", "sv": "Tack så mycket. Hej då!" },
+      { "talare": "Lucas", "fr": "Dix-neuf ans ? Moi, j'ai vingt ans. Je suis vieux !", "sv": "Nitton år? Jag är tjugo. Jag är gammal!" },
+      { "talare": "Emma", "fr": "Non, tu n'es pas vieux !", "sv": "Nej, du är inte gammal!" }
+    ]
+  },
+  "forstaelse": [
+    { "fraga": "Hur gammal är Emma?", "alternativ": ["17", "19", "20"], "svar": 1 },
+    { "fraga": "Vilket telefonnummer har Emma?", "alternativ": ["Ett franskt", "Ett svenskt", "Inget alls"], "svar": 1 },
+    { "fraga": "Vad betyder \"prénom\"?", "alternativ": ["Efternamn", "Förnamn", "Smeknamn"], "svar": 1 }
+  ],
+  "ordforrad": [
+    { "fr": "zéro", "sv": "0", "ordklass": "räkneord" },
+    { "fr": "un, une", "sv": "1", "ordklass": "räkneord" },
+    { "fr": "deux", "sv": "2", "ordklass": "räkneord" },
+    { "fr": "trois", "sv": "3", "ordklass": "räkneord" },
+    { "fr": "quatre", "sv": "4", "ordklass": "räkneord" },
+    { "fr": "cinq", "sv": "5", "ordklass": "räkneord" },
+    { "fr": "six", "sv": "6", "ordklass": "räkneord" },
+    { "fr": "sept", "sv": "7", "ordklass": "räkneord", "not": "p:et hörs inte: \"sett\"." },
+    { "fr": "huit", "sv": "8", "ordklass": "räkneord" },
+    { "fr": "neuf", "sv": "9", "ordklass": "räkneord" },
+    { "fr": "dix", "sv": "10", "ordklass": "räkneord" },
+    { "fr": "onze", "sv": "11", "ordklass": "räkneord" },
+    { "fr": "douze", "sv": "12", "ordklass": "räkneord" },
+    { "fr": "treize", "sv": "13", "ordklass": "räkneord" },
+    { "fr": "quatorze", "sv": "14", "ordklass": "räkneord" },
+    { "fr": "quinze", "sv": "15", "ordklass": "räkneord" },
+    { "fr": "seize", "sv": "16", "ordklass": "räkneord" },
+    { "fr": "dix-sept", "sv": "17", "ordklass": "räkneord" },
+    { "fr": "dix-huit", "sv": "18", "ordklass": "räkneord" },
+    { "fr": "dix-neuf", "sv": "19", "ordklass": "räkneord" },
+    { "fr": "vingt", "sv": "20", "ordklass": "räkneord", "not": "Uttalas \"vän\" med nasalt ljud. g och t hörs inte." },
+    { "fr": "avoir", "sv": "att ha", "ordklass": "verb", "exempel": "J'ai une carte." },
+    { "fr": "un an", "sv": "ett år", "ordklass": "substantiv", "genus": "m", "exempel": "J'ai dix ans." },
+    { "fr": "quel âge ?", "sv": "hur gammal?", "ordklass": "fras", "exempel": "Tu as quel âge ?" },
+    { "fr": "le nom", "sv": "namnet, efternamnet", "ordklass": "substantiv", "genus": "m", "exempel": "Votre nom, s'il vous plaît ?" },
+    { "fr": "le prénom", "sv": "förnamnet", "ordklass": "substantiv", "genus": "m", "exempel": "Mon prénom est Emma." },
+    { "fr": "le numéro de téléphone", "sv": "telefonnumret", "ordklass": "substantiv", "genus": "m", "exempel": "Tu as un numéro de téléphone ?" },
+    { "fr": "une carte", "sv": "ett kort", "ordklass": "substantiv", "genus": "f", "exempel": "Voilà votre carte." },
+    { "fr": "je voudrais", "sv": "jag skulle vilja (ha)", "ordklass": "fras", "exempel": "Je voudrais une carte." },
+    { "fr": "vieux", "sv": "gammal", "ordklass": "adjektiv", "exempel": "Il n'est pas vieux." },
+    { "fr": "merci beaucoup", "sv": "tack så mycket", "ordklass": "fras", "exempel": "Merci beaucoup, monsieur !" },
+    { "fr": "pas de problème", "sv": "inga problem", "ordklass": "fras", "exempel": "Pas de problème !" }
+  ],
+  "grammatik": [
+    {
+      "rubrik": "Verbet avoir (att ha)",
+      "forklaring": "Avoir är det andra superviktiga verbet, tillsammans med être. Det är också oregelbundet. Observera att je blir j' framför en vokal: j'ai, inte je ai. Det kallas elision och händer med många småord.",
+      "tabell": [
+        ["Person", "Franska", "Svenska"],
+        ["je", "j'ai", "jag har"],
+        ["tu", "tu as", "du har"],
+        ["il / elle / on", "il a, elle a, on a", "han/hon/man har"],
+        ["nous", "nous avons", "vi har"],
+        ["vous", "vous avez", "ni har / du har (artigt)"],
+        ["ils / elles", "ils ont, elles ont", "de har"]
+      ],
+      "varning": "Blanda inte ihop ils sont (de är) med ils ont (de har). I sont hörs ett s-ljud, i ont hörs ett z-ljud när det kommer efter ils: \"il-zon\"."
+    },
+    {
+      "rubrik": "Ålder säger man med avoir, inte être",
+      "forklaring": "På svenska säger vi \"jag ÄR nitton år\". På franska säger man \"jag HAR nitton år\". Det här är ett av de vanligaste misstagen för svenskar. Glöm inte heller ordet ans (år) på slutet, det måste alltid vara med.",
+      "exempel": [
+        { "fr": "J'ai dix-neuf ans.", "sv": "Jag är nitton år." },
+        { "fr": "Tu as quel âge ?", "sv": "Hur gammal är du?" },
+        { "fr": "Lucas a vingt ans.", "sv": "Lucas är tjugo år." }
+      ],
+      "varning": "Fel: \"Je suis dix-neuf.\" Fel: \"J'ai dix-neuf.\" Rätt: \"J'ai dix-neuf ans.\""
+    },
+    {
+      "rubrik": "Att säga nej: ne ... pas",
+      "forklaring": "För att säga att något inte stämmer sätter du ne före verbet och pas efter verbet, som en smörgås runt verbet. Ne blir n' framför en vokal. I talspråk försvinner ne ofta helt, men i skrift ska det vara med.",
+      "tabell": [
+        ["Jakande", "Nekande", "Svenska"],
+        ["Je suis vieux.", "Je ne suis pas vieux.", "Jag är inte gammal."],
+        ["Tu es français.", "Tu n'es pas français.", "Du är inte fransman."],
+        ["J'ai un numéro.", "Je n'ai pas de numéro.", "Jag har inget nummer."]
+      ],
+      "varning": "Efter en negation blir un, une och des oftast bara de (eller d' före vokal). Därför heter det \"je n'ai pas de numéro\", inte \"je n'ai pas un numéro\"."
+    }
+  ],
+  "uttal": {
+    "tema": "Det franska r-ljudet",
+    "forklaring": "Det franska r:et uttalas långt bak i halsen, inte med tungspetsen som på rikssvenska. Om du har hört skånska är du nära, det är nästan samma ljud. Försök att säga ett mjukt \"g\" långt bak utan att stänga halsen helt, som när man gurglar lite lätt.",
+    "exempel": [
+      { "fr": "merci", "tips": "r långt bak i halsen" },
+      { "fr": "bonjour", "tips": "r:et hörs i slutet (CaReFuL)" },
+      { "fr": "trois", "tips": "tr- med bakre r" },
+      { "fr": "quatre", "tips": "r:et viskas nästan i slutet" },
+      { "fr": "prénom", "tips": "pr- med bakre r" }
+    ]
+  },
+  "ovningar": [
+    {
+      "typ": "para_ihop",
+      "instruktion": "Para ihop siffran med ordet.",
+      "par": [
+        { "fr": "cinq", "sv": "5" },
+        { "fr": "sept", "sv": "7" },
+        { "fr": "onze", "sv": "11" },
+        { "fr": "quatorze", "sv": "14" },
+        { "fr": "seize", "sv": "16" },
+        { "fr": "vingt", "sv": "20" }
+      ]
+    },
+    {
+      "typ": "oversatt",
+      "instruktion": "Skriv siffran med bokstäver på franska.",
+      "meningar": [
+        { "sv": "3", "svar": ["trois"] },
+        { "sv": "8", "svar": ["huit"] },
+        { "sv": "12", "svar": ["douze"] },
+        { "sv": "15", "svar": ["quinze"] },
+        { "sv": "18", "svar": ["dix-huit", "dix huit"] }
+      ]
+    },
+    {
+      "typ": "lucktext",
+      "instruktion": "Fyll i rätt form av avoir.",
+      "meningar": [
+        { "text": "J'___ dix-neuf ans.", "svar": ["ai"] },
+        { "text": "Tu ___ quel âge ?", "svar": ["as"] },
+        { "text": "Lucas ___ vingt ans.", "svar": ["a"] },
+        { "text": "Nous ___ une carte.", "svar": ["avons"] },
+        { "text": "Vous ___ un numéro de téléphone ?", "svar": ["avez"] },
+        { "text": "Elles ___ seize ans.", "svar": ["ont"] }
+      ]
+    },
+    {
+      "typ": "flerval",
+      "instruktion": "Vilken mening är rätt?",
+      "fragor": [
+        { "fraga": "Jag är tjugo år.", "alternativ": ["Je suis vingt ans.", "J'ai vingt ans.", "J'ai vingt."], "svar": 1 },
+        { "fraga": "Jag är inte svensk.", "alternativ": ["Je ne suis pas suédois.", "Je suis ne pas suédois.", "Je pas suis suédois."], "svar": 0 },
+        { "fraga": "Jag har inget nummer.", "alternativ": ["Je n'ai pas un numéro.", "Je n'ai pas de numéro.", "Je ne ai pas de numéro."], "svar": 1 }
+      ]
+    },
+    {
+      "typ": "omvandla",
+      "instruktion": "Gör meningarna nekande med ne ... pas.",
+      "meningar": [
+        { "fran": "Je suis français.", "svar": ["Je ne suis pas français."] },
+        { "fran": "Elle est belge.", "svar": ["Elle n'est pas belge."] },
+        { "fran": "Nous avons une carte.", "svar": ["Nous n'avons pas de carte."] },
+        { "fran": "J'ai un numéro français.", "svar": ["Je n'ai pas de numéro français."] },
+        { "fran": "Vous êtes étudiants.", "svar": ["Vous n'êtes pas étudiants."] }
+      ]
+    },
+    {
+      "typ": "ordning",
+      "instruktion": "Sätt orden i rätt ordning.",
+      "meningar": [
+        { "ord": ["Tu", "as", "quel", "âge", "?"] },
+        { "ord": ["Je", "n'ai", "pas", "de", "numéro", "."] },
+        { "ord": ["Il", "n'est", "pas", "vieux", "."] }
+      ]
+    },
+    {
+      "typ": "skriv_fritt",
+      "instruktion": "Skriv några meningar om dig själv: vad du heter, hur gammal du är, din nationalitet och en sak du inte är eller inte har.",
+      "exempelsvar": "Je m'appelle Edvin. J'ai vingt ans. Je suis suédois. Je ne suis pas français. Je n'ai pas de numéro de téléphone français."
+    }
+  ],
+  "kultur": {
+    "rubrik": "Telefonnummer läses i par",
+    "text": "Ett franskt mobilnummer har tio siffror och börjar med 06 eller 07, till exempel 06 12 15 18 20. Fransmän läser inte siffrorna en och en som vi ofta gör i Sverige. De läser dem två och två: zéro six, douze, quinze, dix-huit, vingt. Därför behöver du kunna siffrorna upp till 99 för att förstå ett telefonnummer. Siffrorna över 20 kommer i en senare lektion. När man stavar sitt namn, som Emma gör, är det bra att kunna det franska alfabetet. Det övar vi också på senare."
+  },
+  "kan_du": [
+    "Räkna från 0 till 20",
+    "Säga hur gammal du är (med avoir och ans!)",
+    "Böja avoir i alla personer",
+    "Göra en mening nekande med ne ... pas"
+  ]
+}

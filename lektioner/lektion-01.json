@@ -1,0 +1,171 @@
+{
+  "id": "a1-01",
+  "nummer": 1,
+  "niva": "A1",
+  "titel": "Bonjour !",
+  "titel_sv": "Hej! Att hälsa och presentera sig",
+  "mal": [
+    "Jag kan hälsa och säga hej då.",
+    "Jag kan säga vad jag heter och fråga vad någon annan heter.",
+    "Jag kan fråga hur någon mår och svara.",
+    "Jag vet när man säger tu och när man säger vous."
+  ],
+  "dialog": {
+    "situation": "Första dagen på en språkkurs i Lyon. Emma från Sverige träffar Lucas, och sedan läraren Madame Martin.",
+    "repliker": [
+      { "talare": "Lucas", "fr": "Salut ! Je m'appelle Lucas. Et toi, tu t'appelles comment ?", "sv": "Hej! Jag heter Lucas. Och du, vad heter du?" },
+      { "talare": "Emma", "fr": "Salut ! Moi, je m'appelle Emma.", "sv": "Hej! Jag heter Emma." },
+      { "talare": "Lucas", "fr": "Enchanté, Emma ! Ça va ?", "sv": "Trevligt att träffas, Emma! Hur är det?" },
+      { "talare": "Emma", "fr": "Ça va bien, merci. Et toi ?", "sv": "Det är bra, tack. Och med dig?" },
+      { "talare": "Lucas", "fr": "Très bien !", "sv": "Mycket bra!" },
+      { "talare": "Madame Martin", "fr": "Bonjour ! Je suis Madame Martin, la professeure. Comment vous appelez-vous ?", "sv": "God dag! Jag är Madame Martin, läraren. Vad heter ni?" },
+      { "talare": "Emma", "fr": "Bonjour, madame. Je m'appelle Emma Lindqvist.", "sv": "God dag. Jag heter Emma Lindqvist." },
+      { "talare": "Madame Martin", "fr": "Enchantée. Comment allez-vous ?", "sv": "Trevligt att träffas. Hur mår ni?" },
+      { "talare": "Emma", "fr": "Je vais bien, merci. Et vous ?", "sv": "Jag mår bra, tack. Och ni?" },
+      { "talare": "Madame Martin", "fr": "Très bien, merci. Bienvenue !", "sv": "Mycket bra, tack. Välkommen!" },
+      { "talare": "Lucas", "fr": "Au revoir, Emma ! À demain !", "sv": "Hej då, Emma! Vi ses i morgon!" },
+      { "talare": "Emma", "fr": "Salut, Lucas ! À demain !", "sv": "Hej då, Lucas! Vi ses i morgon!" }
+    ]
+  },
+  "forstaelse": [
+    { "fraga": "Var utspelar sig dialogen?", "alternativ": ["I Paris", "På en språkkurs i Lyon", "På ett kafé"], "svar": 1 },
+    { "fraga": "Varför säger Emma vous till Madame Martin men tu till Lucas?", "alternativ": ["Madame Martin är läraren och en vuxen hon inte känner", "Lucas är äldre än Emma", "Det finns ingen skillnad"], "svar": 0 },
+    { "fraga": "Vad betyder \"À demain\"?", "alternativ": ["God natt", "Välkommen", "Vi ses i morgon"], "svar": 2 }
+  ],
+  "ordforrad": [
+    { "fr": "bonjour", "sv": "hej, god dag", "ordklass": "hälsning", "exempel": "Bonjour, madame !" },
+    { "fr": "salut", "sv": "hej (och hej då), vardagligt", "ordklass": "hälsning", "exempel": "Salut, Lucas !" },
+    { "fr": "bonsoir", "sv": "god kväll", "ordklass": "hälsning", "exempel": "Bonsoir, monsieur." },
+    { "fr": "au revoir", "sv": "hej då, adjö", "ordklass": "hälsning", "exempel": "Au revoir et merci !" },
+    { "fr": "à demain", "sv": "vi ses i morgon", "ordklass": "fras", "exempel": "Salut, à demain !" },
+    { "fr": "merci", "sv": "tack", "ordklass": "fras", "exempel": "Merci beaucoup !" },
+    { "fr": "s'il te plaît / s'il vous plaît", "sv": "tack (när man ber om något), snälla", "ordklass": "fras", "exempel": "Un café, s'il vous plaît." },
+    { "fr": "oui", "sv": "ja", "ordklass": "ord", "exempel": "Oui, ça va." },
+    { "fr": "non", "sv": "nej", "ordklass": "ord", "exempel": "Non, merci." },
+    { "fr": "ça va ?", "sv": "hur är det?", "ordklass": "fras", "exempel": "Salut ! Ça va ?" },
+    { "fr": "bien", "sv": "bra", "ordklass": "adverb", "exempel": "Ça va bien." },
+    { "fr": "très bien", "sv": "mycket bra", "ordklass": "fras", "exempel": "Très bien, merci !" },
+    { "fr": "enchanté / enchantée", "sv": "trevligt att träffas", "ordklass": "fras", "exempel": "Enchantée, Lucas !", "not": "Skrivs med -e om den som talar är kvinna. Uttalet är detsamma." },
+    { "fr": "je m'appelle", "sv": "jag heter", "ordklass": "fras", "exempel": "Je m'appelle Emma." },
+    { "fr": "comment", "sv": "hur", "ordklass": "frågeord", "exempel": "Tu t'appelles comment ?" },
+    { "fr": "et toi ? / et vous ?", "sv": "och du? / och ni?", "ordklass": "fras", "exempel": "Ça va bien. Et toi ?" },
+    { "fr": "madame", "sv": "frun, damen (artigt tilltal till kvinna)", "ordklass": "substantiv", "genus": "f", "exempel": "Bonjour, madame." },
+    { "fr": "monsieur", "sv": "herrn (artigt tilltal till man)", "ordklass": "substantiv", "genus": "m", "exempel": "Merci, monsieur." },
+    { "fr": "bienvenue", "sv": "välkommen", "ordklass": "fras", "exempel": "Bienvenue à Lyon !" }
+  ],
+  "grammatik": [
+    {
+      "rubrik": "Tu eller vous?",
+      "forklaring": "Franskan har två ord för \"du\". Tu använder du till kompisar, familj, barn och jämnåriga. Vous använder du till vuxna du inte känner, till exempel en lärare, en servitör eller någon i en butik. Vous betyder också \"ni\" när du pratar med flera personer. Är du osäker, välj vous. Det är aldrig fel att vara artig.",
+      "tabell": [
+        ["", "Till en kompis (tu)", "Artigt eller till flera (vous)"],
+        ["Hur mår du?", "Ça va ?", "Comment allez-vous ?"],
+        ["Vad heter du?", "Tu t'appelles comment ?", "Comment vous appelez-vous ?"],
+        ["Och du?", "Et toi ?", "Et vous ?"],
+        ["Tack (när man ber om något)", "S'il te plaît", "S'il vous plaît"]
+      ]
+    },
+    {
+      "rubrik": "Att säga vad man heter",
+      "forklaring": "Je m'appelle betyder ordagrant \"jag kallar mig\". Lär dig det som en färdig fras just nu. Verbet förklaras mer i en senare lektion. Du kan också säga je suis + namn (jag är ...), som Madame Martin gör.",
+      "exempel": [
+        { "fr": "Je m'appelle Emma.", "sv": "Jag heter Emma." },
+        { "fr": "Tu t'appelles comment ?", "sv": "Vad heter du?" },
+        { "fr": "Il s'appelle Lucas.", "sv": "Han heter Lucas." },
+        { "fr": "Je suis Madame Martin.", "sv": "Jag är Madame Martin." }
+      ],
+      "varning": "Moi och toi betonar personen: \"Moi, je m'appelle Emma\" betyder ungefär \"Själv heter jag Emma\". Man kan inte säga bara \"Moi m'appelle\"."
+    }
+  ],
+  "uttal": {
+    "tema": "Bokstäver i slutet som inte hörs",
+    "forklaring": "I franska uttalas sista konsonanten oftast inte. Salut låter som \"saly\", vous som \"vo\" och comment som \"komman\". Ett bra minnesknep är ordet CaReFuL: c, r, f och l i slutet brukar höras, som i avec, bonjour, neuf och il. Det finns undantag, men regeln stämmer för det mesta.",
+    "exempel": [
+      { "fr": "salut", "tips": "t:et hörs inte" },
+      { "fr": "comment", "tips": "-nt hörs inte" },
+      { "fr": "très", "tips": "s:et hörs inte" },
+      { "fr": "s'il vous plaît", "tips": "varken s i vous eller t i plaît hörs" },
+      { "fr": "bonjour", "tips": "r:et hörs (CaReFuL)" },
+      { "fr": "il", "tips": "l:et hörs (CaReFuL)" }
+    ]
+  },
+  "ovningar": [
+    {
+      "typ": "para_ihop",
+      "instruktion": "Para ihop franskan med svenskan.",
+      "par": [
+        { "fr": "bonjour", "sv": "god dag" },
+        { "fr": "au revoir", "sv": "hej då" },
+        { "fr": "merci", "sv": "tack" },
+        { "fr": "à demain", "sv": "vi ses i morgon" },
+        { "fr": "enchanté", "sv": "trevligt att träffas" },
+        { "fr": "bonsoir", "sv": "god kväll" }
+      ]
+    },
+    {
+      "typ": "flerval",
+      "instruktion": "Tu eller vous? Välj det som passar.",
+      "fragor": [
+        { "fraga": "Du pratar med din bästa kompis.", "alternativ": ["tu", "vous"], "svar": 0 },
+        { "fraga": "Du frågar en äldre man om vägen.", "alternativ": ["tu", "vous"], "svar": 1 },
+        { "fraga": "Du pratar med två kompisar samtidigt.", "alternativ": ["tu", "vous"], "svar": 1 },
+        { "fraga": "Du pratar med din lillebror.", "alternativ": ["tu", "vous"], "svar": 0 },
+        { "fraga": "Du beställer i en bageriaffär.", "alternativ": ["tu", "vous"], "svar": 1 }
+      ]
+    },
+    {
+      "typ": "flerval",
+      "instruktion": "Vad svarar du?",
+      "fragor": [
+        { "fraga": "Ça va ?", "alternativ": ["Je m'appelle Emma.", "Ça va bien, merci.", "Au revoir !"], "svar": 1 },
+        { "fraga": "Tu t'appelles comment ?", "alternativ": ["Je m'appelle Erik.", "Très bien !", "À demain !"], "svar": 0 },
+        { "fraga": "Comment allez-vous ?", "alternativ": ["Salut !", "Je vais bien, merci. Et vous ?", "Bienvenue !"], "svar": 1 }
+      ]
+    },
+    {
+      "typ": "lucktext",
+      "instruktion": "Fyll i det ord som saknas.",
+      "meningar": [
+        { "text": "Salut ! Je m'___ Lucas.", "svar": ["appelle"], "ledtrad": "jag heter" },
+        { "text": "Ça va bien, ___. Et toi ?", "svar": ["merci"], "ledtrad": "tack" },
+        { "text": "Bonjour, ___. Comment allez-vous ?", "svar": ["madame", "monsieur"], "ledtrad": "artigt tilltal" },
+        { "text": "Au revoir ! À ___ !", "svar": ["demain"], "ledtrad": "i morgon" },
+        { "text": "Un café, s'il ___ plaît.", "svar": ["vous", "te"], "ledtrad": "tu eller vous" }
+      ]
+    },
+    {
+      "typ": "ordning",
+      "instruktion": "Sätt orden i rätt ordning.",
+      "meningar": [
+        { "ord": ["Je", "m'appelle", "Emma", "."] },
+        { "ord": ["Tu", "t'appelles", "comment", "?"] },
+        { "ord": ["Je", "vais", "bien", ",", "merci", "."] }
+      ]
+    },
+    {
+      "typ": "oversatt",
+      "instruktion": "Översätt till franska.",
+      "meningar": [
+        { "sv": "Hej! Jag heter Emma.", "svar": ["Salut ! Je m'appelle Emma.", "Bonjour ! Je m'appelle Emma."] },
+        { "sv": "Hur är det? (till en kompis)", "svar": ["Ça va ?"] },
+        { "sv": "Tack, och du?", "svar": ["Merci, et toi ?"] },
+        { "sv": "Hej då, vi ses i morgon!", "svar": ["Au revoir, à demain !", "Salut, à demain !"] }
+      ]
+    },
+    {
+      "typ": "skriv_fritt",
+      "instruktion": "Skriv en kort dialog (4 till 6 repliker) där du träffar en ny person på en fest. Hälsa, säg vad du heter, fråga hur personen mår och säg hej då.",
+      "exempelsvar": "A : Salut ! Je m'appelle Erik. Et toi ?\nB : Salut ! Moi, je m'appelle Chloé.\nA : Enchanté ! Ça va ?\nB : Ça va bien, merci. Et toi ?\nA : Très bien ! Salut, à demain !"
+    }
+  ],
+  "kultur": {
+    "rubrik": "Bonjour öppnar alla dörrar",
+    "text": "I Frankrike är det viktigt att säga bonjour när du kommer in i en butik, ett bageri eller ett väntrum. Att gå fram och direkt be om något utan att hälsa uppfattas som otrevligt. Mellan vänner hälsar man ofta med la bise, små kindpussar. Hur många pussar varierar mellan olika delar av Frankrike, så gör som den andra personen. I mer formella sammanhang tar man i hand."
+  },
+  "kan_du": [
+    "Hälsa på en kompis och på en vuxen du inte känner",
+    "Säga vad du heter och fråga vad någon heter",
+    "Fråga hur någon mår och svara",
+    "Säga hej då på två olika sätt"
+  ]
+}

@@ -1,0 +1,175 @@
+{
+  "id": "a1-05",
+  "nummer": 5,
+  "niva": "A1",
+  "titel": "Au café",
+  "titel_sv": "På kaféet: beställa och verb som slutar på -er",
+  "mal": [
+    "Jag kan beställa något att äta och dricka på ett kafé.",
+    "Jag kan be om notan och förstå priset.",
+    "Jag kan böja vanliga verb som slutar på -er (parler, aimer) i presens.",
+    "Jag kan säga vad jag gillar och inte gillar."
+  ],
+  "dialog": {
+    "situation": "Emma och Lucas går till ett kafé efter lektionen. Servitören kommer fram till bordet.",
+    "repliker": [
+      { "talare": "Servitören", "fr": "Bonjour ! Vous désirez ?", "sv": "Hej! Vad får det lov att vara?" },
+      { "talare": "Emma", "fr": "Bonjour ! Je voudrais un café, s'il vous plaît.", "sv": "Hej! Jag skulle vilja ha en kaffe, tack." },
+      { "talare": "Lucas", "fr": "Et pour moi, un chocolat chaud et un croissant.", "sv": "Och till mig en varm choklad och en croissant." },
+      { "talare": "Servitören", "fr": "Et pour vous, madame, quelque chose à manger ?", "sv": "Och till er, något att äta?" },
+      { "talare": "Emma", "fr": "Oui, un pain au chocolat, s'il vous plaît.", "sv": "Ja, en chokladcroissant, tack." },
+      { "talare": "Servitören", "fr": "Très bien, merci.", "sv": "Okej, tack." },
+      { "talare": "Lucas", "fr": "Tu aimes le café français ?", "sv": "Gillar du franskt kaffe?" },
+      { "talare": "Emma", "fr": "Oui, j'adore ! En Suède, nous aimons beaucoup le café aussi.", "sv": "Ja, jag älskar det! I Sverige gillar vi också kaffe väldigt mycket." },
+      { "talare": "Lucas", "fr": "Tu parles bien français, tu sais !", "sv": "Du pratar bra franska, vet du!" },
+      { "talare": "Emma", "fr": "Merci, mais je parle seulement un peu.", "sv": "Tack, men jag pratar bara lite." },
+      { "talare": "Lucas", "fr": "L'addition, s'il vous plaît !", "sv": "Notan, tack!" },
+      { "talare": "Servitören", "fr": "Ça fait neuf euros, s'il vous plaît.", "sv": "Det blir nio euro, tack." },
+      { "talare": "Lucas", "fr": "Je t'invite, Emma.", "sv": "Jag bjuder, Emma." },
+      { "talare": "Emma", "fr": "Merci, c'est gentil !", "sv": "Tack, vad snällt!" }
+    ]
+  },
+  "forstaelse": [
+    { "fraga": "Vad beställer Emma att dricka?", "alternativ": ["Te", "Kaffe", "Varm choklad"], "svar": 1 },
+    { "fraga": "Hur mycket kostar det?", "alternativ": ["7 euro", "9 euro", "19 euro"], "svar": 1 },
+    { "fraga": "Vem betalar?", "alternativ": ["Emma", "Lucas", "De delar"], "svar": 1 }
+  ],
+  "ordforrad": [
+    { "fr": "un café", "sv": "en kaffe (en espresso), ett kafé", "ordklass": "substantiv", "genus": "m", "exempel": "Un café, s'il vous plaît." },
+    { "fr": "un thé", "sv": "ett te", "ordklass": "substantiv", "genus": "m", "exempel": "Je voudrais un thé." },
+    { "fr": "un chocolat chaud", "sv": "en varm choklad", "ordklass": "substantiv", "genus": "m", "exempel": "Un chocolat chaud pour moi." },
+    { "fr": "un jus d'orange", "sv": "en apelsinjuice", "ordklass": "substantiv", "genus": "m", "exempel": "Tu aimes le jus d'orange ?" },
+    { "fr": "une carafe d'eau", "sv": "en karaff vatten (gratis kranvatten)", "ordklass": "substantiv", "genus": "f", "exempel": "Une carafe d'eau, s'il vous plaît." },
+    { "fr": "un croissant", "sv": "en croissant", "ordklass": "substantiv", "genus": "m", "exempel": "Un croissant et un café." },
+    { "fr": "un pain au chocolat", "sv": "en chokladcroissant", "ordklass": "substantiv", "genus": "m", "exempel": "J'adore les pains au chocolat." },
+    { "fr": "un sandwich", "sv": "en smörgås (baguette med fyllning)", "ordklass": "substantiv", "genus": "m", "exempel": "Je voudrais un sandwich au fromage." },
+    { "fr": "Vous désirez ?", "sv": "Vad får det lov att vara?", "ordklass": "fras", "exempel": "Bonjour, vous désirez ?" },
+    { "fr": "pour moi", "sv": "till mig", "ordklass": "fras", "exempel": "Un thé pour moi." },
+    { "fr": "quelque chose à manger", "sv": "något att äta", "ordklass": "fras", "exempel": "Tu veux quelque chose à manger ?" },
+    { "fr": "l'addition", "sv": "notan", "ordklass": "substantiv", "genus": "f", "exempel": "L'addition, s'il vous plaît !" },
+    { "fr": "ça fait ...", "sv": "det blir ... (om pris)", "ordklass": "fras", "exempel": "Ça fait cinq euros." },
+    { "fr": "un euro", "sv": "en euro", "ordklass": "substantiv", "genus": "m", "exempel": "Ça fait neuf euros." },
+    { "fr": "parler", "sv": "att prata, tala", "ordklass": "verb", "exempel": "Je parle suédois." },
+    { "fr": "aimer", "sv": "att tycka om, gilla, älska", "ordklass": "verb", "exempel": "J'aime le café." },
+    { "fr": "adorer", "sv": "att älska (en sak)", "ordklass": "verb", "exempel": "J'adore les croissants !" },
+    { "fr": "manger", "sv": "att äta", "ordklass": "verb", "exempel": "Nous mangeons un croissant.", "not": "Nous-formen skrivs mangeons, med ett extra e, för att g:et ska låta mjukt." },
+    { "fr": "beaucoup", "sv": "mycket", "ordklass": "adverb", "exempel": "J'aime beaucoup le thé." },
+    { "fr": "un peu", "sv": "lite", "ordklass": "fras", "exempel": "Je parle un peu français." },
+    { "fr": "seulement", "sv": "bara, endast", "ordklass": "adverb", "exempel": "Seulement un café, merci." },
+    { "fr": "je t'invite", "sv": "jag bjuder (dig)", "ordklass": "fras", "exempel": "C'est mon anniversaire, je t'invite !" },
+    { "fr": "c'est gentil", "sv": "vad snällt", "ordklass": "fras", "exempel": "Merci, c'est gentil !" }
+  ],
+  "grammatik": [
+    {
+      "rubrik": "Verb som slutar på -er",
+      "forklaring": "Nu kommer de goda nyheterna: de allra flesta franska verb slutar på -er och böjs på exakt samma sätt. Ta bort -er så har du stammen (parl-), och lägg sedan till ändelserna. Lär dig ett, så kan du hundratals.",
+      "tabell": [
+        ["Person", "Ändelse", "parler (prata)", "aimer (gilla)"],
+        ["je", "-e", "je parle", "j'aime"],
+        ["tu", "-es", "tu parles", "tu aimes"],
+        ["il / elle / on", "-e", "il parle", "elle aime"],
+        ["nous", "-ons", "nous parlons", "nous aimons"],
+        ["vous", "-ez", "vous parlez", "vous aimez"],
+        ["ils / elles", "-ent", "ils parlent", "elles aiment"]
+      ],
+      "varning": "Je parle, tu parles, il parle och ils parlent uttalas exakt likadant! Ändelserna -e, -es och -ent hörs inte. Bara nous (-ons) och vous (-ez) låter annorlunda. Och kom ihåg: je blir j' framför vokal, som i j'aime och j'adore."
+    },
+    {
+      "rubrik": "Je voudrais: det artiga sättet att beställa",
+      "forklaring": "Je voudrais betyder \"jag skulle vilja ha\" och är det naturliga sättet att beställa på kafé, i butik eller i en biljettlucka. Använd det som en färdig fras. Att säga je veux (jag vill ha) låter ganska burdust, ungefär som \"jag vill ha en kaffe\" på svenska.",
+      "exempel": [
+        { "fr": "Je voudrais un thé, s'il vous plaît.", "sv": "Jag skulle vilja ha ett te, tack." },
+        { "fr": "Je voudrais un croissant et un jus d'orange.", "sv": "Jag skulle vilja ha en croissant och en apelsinjuice." }
+      ]
+    },
+    {
+      "rubrik": "J'aime LE café, men je voudrais UN café",
+      "forklaring": "När du säger vad du gillar i allmänhet använder du bestämd artikel (le, la, les), även när svenskan inte har det. När du beställer en sak använder du obestämd artikel (un, une).",
+      "exempel": [
+        { "fr": "J'aime le café.", "sv": "Jag gillar kaffe. (i allmänhet)" },
+        { "fr": "Je voudrais un café.", "sv": "Jag skulle vilja ha en kaffe. (en kopp, nu)" },
+        { "fr": "Je n'aime pas le thé.", "sv": "Jag gillar inte te." },
+        { "fr": "J'adore les croissants.", "sv": "Jag älskar croissanter." }
+      ],
+      "varning": "Fel: \"J'aime café.\" Det måste alltid finnas en artikel framför substantivet. Och observera att efter aimer behåller man le/la/les även i nekande form: je n'aime pas le thé (inte \"de thé\")."
+    }
+  ],
+  "uttal": {
+    "tema": "Nasalvokaler",
+    "forklaring": "Franskan har vokaler som uttalas genom näsan. När du ser en vokal följd av n eller m i slutet av ett ord eller före en konsonant, säger du vokalen medan luften går ut genom näsan, och du uttalar inte n:et. Håll för näsan och säg \"an\": om det låter konstigt gör du rätt!",
+    "exempel": [
+      { "fr": "croissant", "tips": "-ant: nasalt a, inget n eller t" },
+      { "fr": "pain", "tips": "-ain: nasalt ä" },
+      { "fr": "bonjour", "tips": "bon-: nasalt å" },
+      { "fr": "un", "tips": "nasalt ö-ljud, men många säger samma som pain" },
+      { "fr": "comment", "tips": "-ent: samma nasala a som i croissant" }
+    ]
+  },
+  "ovningar": [
+    {
+      "typ": "lucktext",
+      "instruktion": "Böj verbet inom parentes.",
+      "meningar": [
+        { "text": "Je ___ suédois. (parler)", "svar": ["parle"] },
+        { "text": "Tu ___ le café ? (aimer)", "svar": ["aimes"] },
+        { "text": "Elle ___ un croissant. (manger)", "svar": ["mange"] },
+        { "text": "Nous ___ français. (parler)", "svar": ["parlons"] },
+        { "text": "Vous ___ le thé ? (aimer)", "svar": ["aimez"] },
+        { "text": "Ils ___ les pains au chocolat. (adorer)", "svar": ["adorent"] }
+      ]
+    },
+    {
+      "typ": "flerval",
+      "instruktion": "Le/la/les eller un/une?",
+      "fragor": [
+        { "fraga": "J'aime ___ café.", "alternativ": ["le", "un"], "svar": 0 },
+        { "fraga": "Je voudrais ___ thé, s'il vous plaît.", "alternativ": ["le", "un"], "svar": 1 },
+        { "fraga": "Tu aimes ___ croissants ?", "alternativ": ["les", "des"], "svar": 0 },
+        { "fraga": "Pour moi, ___ chocolat chaud.", "alternativ": ["le", "un"], "svar": 1 }
+      ]
+    },
+    {
+      "typ": "flerval",
+      "instruktion": "Vad säger du?",
+      "fragor": [
+        { "fraga": "Du vill betala.", "alternativ": ["L'addition, s'il vous plaît !", "Vous désirez ?", "Je t'invite."], "svar": 0 },
+        { "fraga": "Du vill beställa ett te.", "alternativ": ["J'aime le thé.", "Je voudrais un thé, s'il vous plaît.", "Ça fait un thé."], "svar": 1 },
+        { "fraga": "Din kompis bjuder dig.", "alternativ": ["Pas de problème.", "Merci, c'est gentil !", "Ça fait neuf euros."], "svar": 1 }
+      ]
+    },
+    {
+      "typ": "ordning",
+      "instruktion": "Sätt orden i rätt ordning.",
+      "meningar": [
+        { "ord": ["Je", "voudrais", "un", "café", ",", "s'il", "vous", "plaît", "."] },
+        { "ord": ["Nous", "aimons", "beaucoup", "le", "café", "."] },
+        { "ord": ["Je", "n'aime", "pas", "le", "thé", "."] }
+      ]
+    },
+    {
+      "typ": "oversatt",
+      "instruktion": "Översätt till franska.",
+      "meningar": [
+        { "sv": "Jag skulle vilja ha en croissant, tack.", "svar": ["Je voudrais un croissant, s'il vous plaît.", "Je voudrais un croissant, s'il te plaît."] },
+        { "sv": "Jag pratar lite franska.", "svar": ["Je parle un peu français.", "Je parle un peu le français.", "Je parle un peu de français."] },
+        { "sv": "Gillar du te?", "svar": ["Tu aimes le thé ?", "Aimes-tu le thé ?", "Vous aimez le thé ?"] },
+        { "sv": "Notan, tack!", "svar": ["L'addition, s'il vous plaît !"] }
+      ]
+    },
+    {
+      "typ": "skriv_fritt",
+      "instruktion": "Skriv en dialog på ett kafé mellan dig och en servitör. Beställ något att dricka och något att äta, och be om notan. Lägg gärna till en replik om vad du gillar.",
+      "exempelsvar": "Serveur : Bonjour ! Vous désirez ?\nMoi : Bonjour ! Je voudrais un thé et un croissant, s'il vous plaît.\nServeur : Très bien.\nMoi : J'adore les croissants français !\nMoi : L'addition, s'il vous plaît.\nServeur : Ça fait six euros.\nMoi : Merci, au revoir !"
+    }
+  ],
+  "kultur": {
+    "rubrik": "Att gå på café i Frankrike",
+    "text": "Om du beställer un café i Frankrike får du en liten espresso. Vill du ha en stor kopp med mjölk beställer du un café crème eller un grand crème. Vatten är gratis: be om une carafe d'eau så får du kranvatten. Servitören kommer inte med notan förrän du ber om den, eftersom det anses oartigt att skynda på gästerna. Dricks ingår redan i priset enligt lag (service compris), men många lämnar ändå lite växel om servicen var bra."
+  },
+  "kan_du": [
+    "Beställa mat och dryck artigt med je voudrais",
+    "Be om notan och förstå priset upp till 20 euro",
+    "Böja -er-verb i presens",
+    "Säga vad du gillar och inte gillar med rätt artikel"
+  ]
+}

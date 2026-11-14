@@ -1,0 +1,148 @@
+<!doctype html>
+<html lang="sv"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Riviera – Mon Français</title>
+<link rel="preconnect" href="https://fonts.googleapis.com"><link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Fredoka:wght@400;600&family=Pacifico&display=swap" rel="stylesheet">
+<style>
+*{box-sizing:border-box;margin:0;padding:0}
+html,body{min-height:100%}
+body{font-size:15px;line-height:1.45}
+button,input{font:inherit;color:inherit}
+button{cursor:pointer}
+a{color:inherit;text-decoration:none}
+i{font-style:normal}
+.app{min-height:100vh;display:flex;flex-direction:column}
+.top{display:flex;align-items:center;gap:24px;padding:16px 32px}
+.logo{display:flex;align-items:center;gap:10px;font-weight:700;font-size:20px}
+.nav{display:flex;gap:6px;flex:1}
+.nav a{display:flex;align-items:center;gap:6px;padding:8px 14px}
+.streak{font-size:14px;white-space:nowrap}
+.views{display:grid;grid-template-columns:1fr 1fr 1.25fr;gap:24px;padding:24px 32px 40px;flex:1;align-items:start}
+.panel{padding:22px;display:flex;flex-direction:column;gap:14px;min-width:0}
+.panel-head{display:flex;justify-content:space-between;align-items:baseline;gap:10px}
+.panel-head h2{font-size:20px}
+.count{font-size:13px;opacity:.75;white-space:nowrap}
+.add{display:flex;flex-direction:column;gap:8px}
+.add input,.answer{padding:10px 12px;width:100%}
+.btn{padding:10px 16px;border:0;font-weight:600}
+.wide{width:100%}
+.wordlist{list-style:none;display:flex;flex-direction:column}
+.wordlist li{display:grid;grid-template-columns:1fr 1fr auto;gap:8px;align-items:center;padding:9px 4px}
+.del{background:none;border:0;font-size:18px;width:28px;height:28px;line-height:1;opacity:.55}
+.progress{height:8px;overflow:hidden}
+.bar{height:100%}
+.card{text-align:center;padding:30px 16px;display:flex;flex-direction:column;gap:6px}
+.fr-word{font-size:34px;font-weight:700}
+.hint{opacity:.7}
+.feedback{padding:10px 12px;font-weight:600}
+.dialog{display:flex;flex-direction:column;gap:8px}
+.line{padding:8px 12px;max-width:90%}
+.line b{display:block;font-size:12px;opacity:.7}
+.line.b{align-self:flex-end}
+.grammar{padding:14px}
+.grammar h3{font-size:14px;margin-bottom:8px}
+.grammar table{width:100%;border-collapse:collapse;font-size:14px}
+.grammar td{padding:4px 0}
+.grammar td:first-child{font-weight:700;width:50%}
+.exercise p{margin-bottom:8px;font-weight:600}
+.choices{display:flex;gap:8px;flex-wrap:wrap}
+.chip{padding:8px 16px;border:0}
+@media (max-width:760px){
+  .top{padding:12px 16px;gap:10px;flex-wrap:wrap}
+  .logo{font-size:17px}
+  .streak{margin-left:auto;font-size:12px}
+  .nav{order:3;width:100%;flex:none;position:fixed;bottom:0;left:0;right:0;z-index:10;justify-content:space-around;padding:6px 8px calc(6px + env(safe-area-inset-bottom))}
+  .nav a{flex-direction:column;gap:2px;font-size:11px;padding:6px 10px}
+  .nav a i{font-size:18px}
+  .views{grid-template-columns:1fr;padding:12px 16px 90px;gap:16px}
+  .panel{padding:16px}
+  .fr-word{font-size:30px}
+}
+
+/* ---- Riviera ---- */
+
+body{background:#fdf6e3;color:#0d3b66;font-family:Fredoka,sans-serif}
+.top{background:repeating-linear-gradient(90deg,#fff 0 24px,#1e88c9 24px 48px);padding:0}
+.top>*{background:#fff}
+.logo{padding:12px 20px;border-radius:0 0 20px 0}
+.logo-mark{display:none}.logo-text{font-family:Pacifico;font-weight:400;color:#1e88c9;font-size:24px}
+.nav{flex:none;padding:8px;border-radius:0 0 20px 20px;margin:0 auto}
+.nav a{border-radius:99px}.nav a.active{background:#ffcb47;color:#0d3b66}
+.streak{padding:12px 20px;border-radius:0 0 0 20px}
+.panel{background:#fff;border-radius:24px;border-bottom:8px solid #1e88c9}
+.panel.quiz{border-color:#ffcb47}.panel.lesson{border-color:#f25f5c}
+.panel-head h2{font-weight:600}
+.add input,.answer{background:#fdf6e3;border:2px solid #f4e3b5;border-radius:12px}
+.btn.primary{background:#1e88c9;color:#fff;border-radius:12px}
+.wordlist li{border-bottom:2px dashed #e6eef5}.wordlist b{color:#1e88c9}
+.progress{background:#e6f2fa;border-radius:99px;height:12px}.bar{background:linear-gradient(90deg,#1e88c9,#4fc3f7);border-radius:99px}
+.card{background:linear-gradient(#bfe6ff,#fff 70%,#fdf6e3);border-radius:20px}.fr-word{color:#0d3b66}
+.feedback.ok{background:#e3f6ec;color:#1b7d4f;border-radius:12px}
+.line{background:#e6f2fa;border-radius:16px}.line.b{background:#ffefc2}
+.grammar{background:#fff5f5;border:2px solid #f25f5c;border-radius:16px}.grammar h3{color:#f25f5c}
+.chip{background:#fdf6e3;border-radius:12px}.chip.right{background:#1e88c9;color:#fff}
+@media (max-width:760px){.top{background:repeating-linear-gradient(90deg,#fff 0 16px,#1e88c9 16px 32px)}.nav{background:#fff;border-radius:0;margin:0;box-shadow:0 -4px 0 #1e88c9}.streak{border-radius:0 0 0 16px}}
+</style></head>
+<body>
+<div class="app">
+  <header class="top">
+    <div class="logo"><span class="logo-mark">Fr</span><span class="logo-text">Mon Français</span></div>
+    <nav class="nav">
+      <a class="active" href="#"><i>📖</i><span>Ordlista</span></a>
+      <a href="#"><i>✏️</i><span>Förhör</span></a>
+      <a href="#"><i>🎓</i><span>Lektioner</span></a>
+    </nav>
+    <div class="streak">🔥 5 dagar i rad</div>
+  </header>
+
+  <main class="views">
+    <section class="panel words">
+      <div class="panel-head"><h2>Mina ord</h2><span class="count">20 ord</span></div>
+      <form class="add" onsubmit="return false">
+        <input placeholder="Franska (t.ex. le pain)">
+        <input placeholder="Svenska (t.ex. brödet)">
+        <button class="btn primary">Lägg till</button>
+      </form>
+      <ul class="wordlist">
+        <li><b>bonjour</b><span>hej / god dag</span><button class="del" title="Ta bort">×</button></li>
+        <li><b>merci</b><span>tack</span><button class="del">×</button></li>
+        <li><b>le chat</b><span>katten</span><button class="del">×</button></li>
+        <li><b>la maison</b><span>huset</span><button class="del">×</button></li>
+        <li><b>manger</b><span>att äta</span><button class="del">×</button></li>
+        <li><b>l'eau</b><span>vattnet</span><button class="del">×</button></li>
+      </ul>
+    </section>
+
+    <section class="panel quiz">
+      <div class="panel-head"><h2>Förhör</h2><span class="count">7 / 20</span></div>
+      <div class="progress"><div class="bar" style="width:35%"></div></div>
+      <div class="card">
+        <small class="hint">Vad betyder</small>
+        <div class="fr-word">la pomme</div>
+        <small class="hint">på svenska?</small>
+      </div>
+      <input class="answer" value="äpplet">
+      <button class="btn primary wide">Kontrollera</button>
+      <div class="feedback ok">✓ Rätt! <em>la pomme</em> = äpplet</div>
+    </section>
+
+    <section class="panel lesson">
+      <div class="panel-head"><h2>Leçon 3 · Se présenter</h2><span class="count">Nivå A1</span></div>
+      <div class="dialog">
+        <p class="line a"><b>Léa</b> Bonjour ! Je m'appelle Léa. Et toi ?</p>
+        <p class="line b"><b>Edvin</b> Salut ! Moi, c'est Edvin. Enchanté.</p>
+        <p class="line a"><b>Léa</b> Tu viens d'où ?</p>
+        <p class="line b"><b>Edvin</b> Je viens de Suède.</p>
+      </div>
+      <div class="grammar">
+        <h3>Grammatik: verbet <em>être</em> (att vara)</h3>
+        <table><tr><td>je suis</td><td>jag är</td></tr><tr><td>tu es</td><td>du är</td></tr><tr><td>il / elle est</td><td>han / hon är</td></tr></table>
+      </div>
+      <div class="exercise">
+        <p>Fyll i: Je ___ suédois.</p>
+        <div class="choices"><button class="chip right">suis</button><button class="chip">es</button><button class="chip">est</button></div>
+      </div>
+    </section>
+  </main>
+</div>
+</body></html>

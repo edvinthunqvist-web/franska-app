@@ -1,0 +1,182 @@
+{
+  "id": "a1-04",
+  "nummer": 4,
+  "niva": "A1",
+  "titel": "Ma famille",
+  "titel_sv": "Min familj: artiklar, plural och min/din/hans",
+  "mal": [
+    "Jag kan presentera min familj.",
+    "Jag kan fråga om någons familj.",
+    "Jag vet skillnaden mellan un/une och le/la/les.",
+    "Jag kan använda mon, ma, mes (min, mitt, mina) och ton, ta, tes."
+  ],
+  "dialog": {
+    "situation": "Emma och Lucas sitter på ett kafé. Emma visar bilder på sin familj i mobilen.",
+    "repliker": [
+      { "talare": "Lucas", "fr": "C'est qui, sur la photo ?", "sv": "Vem är det på bilden?" },
+      { "talare": "Emma", "fr": "C'est ma famille. Voilà mon père, Anders, et ma mère, Karin.", "sv": "Det är min familj. Här är min pappa, Anders, och min mamma, Karin." },
+      { "talare": "Lucas", "fr": "Et le garçon, c'est ton frère ?", "sv": "Och killen, är det din bror?" },
+      { "talare": "Emma", "fr": "Oui, c'est mon frère, Erik. Il a seize ans.", "sv": "Ja, det är min bror, Erik. Han är sexton år." },
+      { "talare": "Lucas", "fr": "Tu as une sœur aussi ?", "sv": "Har du en syster också?" },
+      { "talare": "Emma", "fr": "Non, je n'ai pas de sœur. Mais j'ai un chat ! Regarde, c'est Mimmi.", "sv": "Nej, jag har ingen syster. Men jag har en katt! Titta, det är Mimmi." },
+      { "talare": "Lucas", "fr": "Oh, il est mignon, ton chat !", "sv": "Åh, vad söt din katt är!" },
+      { "talare": "Emma", "fr": "Et toi, tu as des frères et sœurs ?", "sv": "Och du, har du syskon?" },
+      { "talare": "Lucas", "fr": "Oui, j'ai deux sœurs, Chloé et Inès.", "sv": "Ja, jag har två systrar, Chloé och Inès." },
+      { "talare": "Emma", "fr": "Elles ont quel âge, tes sœurs ?", "sv": "Hur gamla är dina systrar?" },
+      { "talare": "Lucas", "fr": "Chloé a douze ans et Inès a dix-huit ans.", "sv": "Chloé är tolv och Inès är arton." },
+      { "talare": "Emma", "fr": "Et tes parents sont de Lyon ?", "sv": "Och dina föräldrar, kommer de från Lyon?" },
+      { "talare": "Lucas", "fr": "Mon père, oui. Ma mère est de Marseille.", "sv": "Min pappa, ja. Min mamma kommer från Marseille." }
+    ]
+  },
+  "forstaelse": [
+    { "fraga": "Hur gammal är Emmas bror?", "alternativ": ["12", "16", "18"], "svar": 1 },
+    { "fraga": "Hur många syskon har Lucas?", "alternativ": ["Inga", "En syster", "Två systrar"], "svar": 2 },
+    { "fraga": "Varifrån kommer Lucas mamma?", "alternativ": ["Lyon", "Marseille", "Paris"], "svar": 1 }
+  ],
+  "ordforrad": [
+    { "fr": "la famille", "sv": "familjen", "ordklass": "substantiv", "genus": "f", "exempel": "C'est ma famille." },
+    { "fr": "le père", "sv": "pappan, fadern", "ordklass": "substantiv", "genus": "m", "exempel": "Mon père s'appelle Anders." },
+    { "fr": "la mère", "sv": "mamman, modern", "ordklass": "substantiv", "genus": "f", "exempel": "Ma mère est suédoise." },
+    { "fr": "les parents", "sv": "föräldrarna", "ordklass": "substantiv", "genus": "m", "plural": true, "exempel": "Mes parents sont à Stockholm." },
+    { "fr": "le frère", "sv": "brodern", "ordklass": "substantiv", "genus": "m", "exempel": "J'ai un frère." },
+    { "fr": "la sœur", "sv": "systern", "ordklass": "substantiv", "genus": "f", "exempel": "Elle a deux sœurs." },
+    { "fr": "les frères et sœurs", "sv": "syskon", "ordklass": "fras", "exempel": "Tu as des frères et sœurs ?", "not": "Franskan har inget eget ord för syskon i vardagsspråk." },
+    { "fr": "le grand-père", "sv": "farfar, morfar", "ordklass": "substantiv", "genus": "m", "exempel": "Mon grand-père est de Marseille." },
+    { "fr": "la grand-mère", "sv": "farmor, mormor", "ordklass": "substantiv", "genus": "f", "exempel": "Ma grand-mère est de Nice." },
+    { "fr": "les grands-parents", "sv": "far- och morföräldrarna", "ordklass": "substantiv", "genus": "m", "plural": true, "exempel": "Mes grands-parents sont gentils." },
+    { "fr": "l'enfant", "sv": "barnet", "ordklass": "substantiv", "genus": "m/f", "exempel": "Ils ont trois enfants." },
+    { "fr": "le chat", "sv": "katten", "ordklass": "substantiv", "genus": "m", "exempel": "J'ai un chat." },
+    { "fr": "le chien", "sv": "hunden", "ordklass": "substantiv", "genus": "m", "exempel": "Le chien s'appelle Max." },
+    { "fr": "la photo", "sv": "fotot, bilden", "ordklass": "substantiv", "genus": "f", "exempel": "C'est qui, sur la photo ?" },
+    { "fr": "mignon / mignonne", "sv": "söt, gullig", "ordklass": "adjektiv", "exempel": "Ton chat est mignon." },
+    { "fr": "voilà", "sv": "här är, där är, varsågod", "ordklass": "ord", "exempel": "Voilà mon frère." },
+    { "fr": "c'est qui ?", "sv": "vem är det?", "ordklass": "fras", "exempel": "C'est qui, le garçon ?" },
+    { "fr": "aussi", "sv": "också", "ordklass": "adverb", "exempel": "J'ai un chien aussi." },
+    { "fr": "mais", "sv": "men", "ordklass": "konjunktion", "exempel": "Je n'ai pas de sœur, mais j'ai un frère." },
+    { "fr": "regarde !", "sv": "titta!", "ordklass": "fras", "exempel": "Regarde, c'est mon chat !" }
+  ],
+  "grammatik": [
+    {
+      "rubrik": "En eller den: obestämd och bestämd artikel",
+      "forklaring": "Alla franska substantiv är antingen maskulina eller feminina. Det finns ingen enkel regel för vilket ord som är vad, så lär dig alltid ordet tillsammans med sin artikel: le chat, la photo. Precis som på svenska finns det obestämd form (en katt) och bestämd form (katten). Skillnaden är att franskan sätter artikeln framför ordet i stället för i slutet.",
+      "tabell": [
+        ["", "Maskulint", "Feminint", "Plural"],
+        ["Obestämd (en, ett, några)", "un chat", "une photo", "des chats"],
+        ["Bestämd (-en, -et, -na)", "le chat", "la photo", "les chats"],
+        ["Bestämd före vokal eller stumt h", "l'enfant", "l'amie", "les enfants"]
+      ],
+      "varning": "Le och la blir l' framför vokal: l'enfant, inte le enfant. Det är samma sak som j'ai i lektion 3."
+    },
+    {
+      "rubrik": "Plural: s:et syns men hörs inte",
+      "forklaring": "Oftast bildar du plural genom att lägga till -s: un frère, deux frères. Men eftersom slutkonsonanter inte uttalas låter frère och frères exakt likadant. Det är artikeln som avslöjar om det är plural: le frère (\"lö\") mot les frères (\"le\").",
+      "exempel": [
+        { "fr": "une sœur → deux sœurs", "sv": "en syster → två systrar" },
+        { "fr": "le chat → les chats", "sv": "katten → katterna" },
+        { "fr": "un enfant → des enfants", "sv": "ett barn → några barn" }
+      ]
+    },
+    {
+      "rubrik": "Min, din, hans och hennes",
+      "forklaring": "På franska beror ordet för \"min\" på om saken eller personen du pratar om är maskulin, feminin eller i plural. Det spelar ingen roll om du själv är man eller kvinna.",
+      "tabell": [
+        ["", "Maskulint", "Feminint", "Plural"],
+        ["min, mitt, mina", "mon père", "ma mère", "mes parents"],
+        ["din, ditt, dina", "ton frère", "ta sœur", "tes sœurs"],
+        ["hans, hennes, sin", "son chat", "sa photo", "ses enfants"]
+      ],
+      "varning": "Son père kan betyda både \"hans pappa\" och \"hennes pappa\". Det är pappan som styr formen, inte ägaren. Och framför ett feminint ord som börjar på vokal använder man mon i stället för ma, för att det ska låta bättre: mon amie (min väninna)."
+    }
+  ],
+  "uttal": {
+    "tema": "le eller les?",
+    "forklaring": "Eftersom plural-s:et inte hörs är det viktigt att höra skillnaden mellan le och les, och mellan mon/ma och mes. E:et i le är kort och slappt, ungefär som ö i svenska \"göra\" fast kortare. Les, mes, tes och ses har ett tydligt slutet é-ljud, som e i svenska \"le\".",
+    "exempel": [
+      { "fr": "le frère / les frères", "tips": "\"lö frär\" mot \"le frär\"" },
+      { "fr": "le chat / les chats", "tips": "\"lö scha\" mot \"le scha\"" },
+      { "fr": "ma sœur / mes sœurs", "tips": "\"ma\" mot \"me\"" },
+      { "fr": "les enfants", "tips": "s:et i les binds ihop med enfants och låter som z: \"le-zanfan\". Det kallas liaison." }
+    ]
+  },
+  "ovningar": [
+    {
+      "typ": "flerval",
+      "instruktion": "Välj rätt artikel: le, la, l' eller les.",
+      "fragor": [
+        { "fraga": "___ père", "alternativ": ["le", "la", "l'", "les"], "svar": 0 },
+        { "fraga": "___ photo", "alternativ": ["le", "la", "l'", "les"], "svar": 1 },
+        { "fraga": "___ enfant", "alternativ": ["le", "la", "l'", "les"], "svar": 2 },
+        { "fraga": "___ parents", "alternativ": ["le", "la", "l'", "les"], "svar": 3 },
+        { "fraga": "___ famille", "alternativ": ["le", "la", "l'", "les"], "svar": 1 },
+        { "fraga": "___ chien", "alternativ": ["le", "la", "l'", "les"], "svar": 0 }
+      ]
+    },
+    {
+      "typ": "lucktext",
+      "instruktion": "Fyll i mon, ma eller mes.",
+      "meningar": [
+        { "text": "___ père s'appelle Anders.", "svar": ["Mon", "mon"] },
+        { "text": "___ mère est suédoise.", "svar": ["Ma", "ma"] },
+        { "text": "___ parents sont à Stockholm.", "svar": ["Mes", "mes"] },
+        { "text": "Voilà ___ frère, Erik.", "svar": ["mon"] },
+        { "text": "Voilà ___ grands-parents.", "svar": ["mes"] }
+      ]
+    },
+    {
+      "typ": "lucktext",
+      "instruktion": "Fyll i ton, ta eller tes.",
+      "meningar": [
+        { "text": "C'est ___ chat ?", "svar": ["ton"] },
+        { "text": "Elle a quel âge, ___ sœur ?", "svar": ["ta"] },
+        { "text": "___ parents sont de Lyon ?", "svar": ["Tes", "tes"] }
+      ]
+    },
+    {
+      "typ": "para_ihop",
+      "instruktion": "Para ihop franskan med svenskan.",
+      "par": [
+        { "fr": "le père", "sv": "pappan" },
+        { "fr": "la sœur", "sv": "systern" },
+        { "fr": "les parents", "sv": "föräldrarna" },
+        { "fr": "la grand-mère", "sv": "mormor/farmor" },
+        { "fr": "le chien", "sv": "hunden" },
+        { "fr": "les frères et sœurs", "sv": "syskon" }
+      ]
+    },
+    {
+      "typ": "omvandla",
+      "instruktion": "Gör om till plural.",
+      "meningar": [
+        { "fran": "le chat", "svar": ["les chats"] },
+        { "fran": "une sœur", "svar": ["des sœurs", "des soeurs"] },
+        { "fran": "mon frère", "svar": ["mes frères", "mes freres"] },
+        { "fran": "l'enfant", "svar": ["les enfants"] }
+      ]
+    },
+    {
+      "typ": "oversatt",
+      "instruktion": "Översätt till franska.",
+      "meningar": [
+        { "sv": "Det är min familj.", "svar": ["C'est ma famille."] },
+        { "sv": "Har du syskon?", "svar": ["Tu as des frères et sœurs ?", "As-tu des frères et sœurs ?", "Tu as des frères et soeurs ?"] },
+        { "sv": "Jag har en bror och två systrar.", "svar": ["J'ai un frère et deux sœurs.", "J'ai un frère et deux soeurs."] },
+        { "sv": "Hennes katt är söt.", "svar": ["Son chat est mignon."] }
+      ]
+    },
+    {
+      "typ": "skriv_fritt",
+      "instruktion": "Beskriv din familj (eller en påhittad familj). Säg vad familjemedlemmarna heter, hur gamla de är och var de kommer ifrån. Har du ett husdjur?",
+      "exempelsvar": "Voilà ma famille. Mon père s'appelle Johan. Il est de Göteborg. Ma mère s'appelle Lena. J'ai une sœur, Sara. Elle a quinze ans. Nous avons un chien, Bamse. Il est très mignon !"
+    }
+  ],
+  "kultur": {
+    "rubrik": "Papa, maman, papi och mamie",
+    "text": "Precis som vi säger pappa och mamma i stället för far och mor, säger franska barn och vuxna papa och maman i vardagen. Mor- och farföräldrar kallas ofta papi och mamie. Franskan skiljer inte på farmor och mormor som svenskan gör: båda heter grand-mère. Vill du vara tydlig säger du ma grand-mère du côté de mon père (min farmor, ordagrant min mormor/farmor på min pappas sida)."
+  },
+  "kan_du": [
+    "Presentera dina familjemedlemmar",
+    "Fråga någon om syskon och föräldrar",
+    "Välja le, la, l' eller les",
+    "Välja mon, ma eller mes (och ton, ta, tes)"
+  ]
+}
